@@ -9,7 +9,8 @@ import Foundation
 
 class NetworkManager {
     static let shared = NetworkManager()
-    var token: String?
+    var sixDigitCode: String?
+    var jwtToken: String?
     private init() {}
 
     func signUp(name: String, username: String, email: String, password: String, birthDate: String, profileId: Int, completion: @escaping (Result<User, Error>) -> Void) {
@@ -31,6 +32,7 @@ class NetworkManager {
             } else if let data = data {
                 do {
                     let response = try JSONDecoder().decode(Response.self, from: data)
+                    self.jwtToken = response.data.jwtToken
                     completion(.success(response.data))
                 } catch {
                     completion(.failure(error))
@@ -44,9 +46,10 @@ class NetworkManager {
         let url = URL(string: "https://a210-189-147-92-102.ngrok-free.app/sign_up/verify_identity")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.addValue("Bearer \(String(describing: self.token))", forHTTPHeaderField: "Authorization")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token" )
         let body = ["code": code]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
