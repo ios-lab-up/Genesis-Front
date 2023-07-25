@@ -56,8 +56,8 @@ class NetworkManager {
             
             if let data = data {
                 let decoder = JSONDecoder()
-                if let user = try? decoder.decode(User.self, from: data) {
-                    completion(.success(user))
+                if let response = try? decoder.decode(Response.self, from: data) {
+                    completion(.success(response.data))
                 } else {
                     let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Failed to decode response"])
                     completion(.failure(error))
@@ -74,7 +74,26 @@ struct User: Codable {
     let name: String
     let username: String
     let email: String
-    // Add any other properties that your server returns for a user
+    let birthDate: String
+    let cedula: String?
+    let creationDate: String
+    let jwtToken: String
+    let lastUpdate: String
+    let passwordHash: String
+    let profileId: Int
+    let status: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, username, email
+        case birthDate = "birth_date"
+        case cedula = "cedula"
+        case creationDate = "creation_date"
+        case jwtToken = "jwt_token"
+        case lastUpdate = "last_update"
+        case passwordHash = "password_hash"
+        case profileId = "profile_id"
+        case status
+    }
 }
 
 struct Response: Codable {

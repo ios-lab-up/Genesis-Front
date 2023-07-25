@@ -16,7 +16,8 @@ struct SignUpView: View {
     @State private var password = ""
     @State private var birthDate = ""
     @State private var profileId = 1
-    @State private var isSignUpSuccessful = true
+    @State private var isSignUpSuccessful = false
+    
 
     var body: some View {
         NavigationView {
