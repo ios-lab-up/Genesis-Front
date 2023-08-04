@@ -91,8 +91,46 @@ class NetworkManager {
         }
         task.resume()
     }
+    
+    func login(username: String, password: String) {
+            let url = URL(string: "https://f909-189-147-103-182.ngrok-free.app/sign_in")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
-}
+            let body = [
+                "username": username,
+                "password": password
+            ]
+
+            do {
+                request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
+            } catch {
+                print("Failed to serialize data: \(error)")
+                return
+            }
+
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    print("Failed to complete request: \(error)")
+                    return
+                }
+
+                if let data = data {
+                    do {
+                        let result = try JSONSerialization.jsonObject(with: data, options: [])
+                        print("Received data: \(result)")
+                    } catch {
+                        print("Failed to parse response: \(error)")
+                    }
+                }
+            }
+
+            task.resume()
+        }
+    }
+
+
 
 struct User: Codable {
     let id: Int

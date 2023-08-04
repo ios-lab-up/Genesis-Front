@@ -19,6 +19,7 @@
 		481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDCE2A6F70AB006D4D80 /* NetworkManager.swift */; };
 		481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
+		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		481BDDCE2A6F70AB006D4D80 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyIdentityView.swift; sourceTree = "<group>"; };
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
+		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */,
 				480A30172A7C79A80087FABD /* ImageClassificationView.swift */,
 				480A30192A7C7ACD0087FABD /* ImagePicker.swift */,
+				48A8764C2A7CBB51008F0B62 /* LoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
 				481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */,
 				480A301A2A7C7ACD0087FABD /* ImagePicker.swift in Sources */,
+				48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */,
 				481BDDC42A6E0E65006D4D80 /* GenesisAnalysisClassifier.mlmodel in Sources */,
 				481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */,
 			);
