@@ -19,6 +19,14 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                NavigationLink(destination: ImageClassificationView()) {
+                    Text("Image Classification")
+                        .font(.title)
+                        .padding()
+                        .background(Color.green)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
             }
         }
     }

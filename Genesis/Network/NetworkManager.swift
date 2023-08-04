@@ -14,7 +14,7 @@ class NetworkManager {
     private init() {}
 
     func signUp(name: String, username: String, email: String, password: String, birthDate: String, profileId: Int, completion: @escaping (Result<User, Error>) -> Void) {
-        guard let url = URL(string: "https://b22b-189-147-118-9.ngrok-free.app/sign_up") else {
+        guard let url = URL(string: "https://f909-189-147-103-182.ngrok-free.app/sign_up") else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
@@ -43,7 +43,7 @@ class NetworkManager {
     }
     
     func verifyIdentity(code: String, completion: @escaping (Result<User, Error>) -> Void) {
-        let url = URL(string: "https://b22b-189-147-118-9.ngrok-free.app/sign_up/verify_identity")!
+        let url = URL(string: "https://f909-189-147-103-182.ngrok-free.app/sign_up/verify_identity")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -72,7 +72,7 @@ class NetworkManager {
     }
     
     func resendVerificationCode(completion: @escaping (Result<Bool, Error>) -> Void) {
-        guard let url = URL(string: "https://b22b-189-147-118-9.ngrok-free.app/sign_up/resend_verification_code") else {
+        guard let url = URL(string: "https://f909-189-147-103-182.ngrok-free.app/sign_up/resend_verification_code") else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }

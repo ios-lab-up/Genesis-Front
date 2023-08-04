@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A30172A7C79A80087FABD /* ImageClassificationView.swift */; };
+		480A301A2A7C7ACD0087FABD /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A30192A7C7ACD0087FABD /* ImagePicker.swift */; };
 		481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */; };
 		481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDB72A6E02D3006D4D80 /* ContentView.swift */; };
 		481BDDBA2A6E02D4006D4D80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481BDDB92A6E02D4006D4D80 /* Assets.xcassets */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		480A30172A7C79A80087FABD /* ImageClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassificationView.swift; sourceTree = "<group>"; };
+		480A30192A7C7ACD0087FABD /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		481BDDB22A6E02D3006D4D80 /* Genesis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genesis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenesisApp.swift; sourceTree = "<group>"; };
 		481BDDB72A6E02D3006D4D80 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -107,6 +111,8 @@
 			children = (
 				481BDDCC2A6F6F44006D4D80 /* SignUp.swift */,
 				481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */,
+				480A30172A7C79A80087FABD /* ImageClassificationView.swift */,
+				480A30192A7C7ACD0087FABD /* ImagePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -183,8 +189,10 @@
 			files = (
 				481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */,
 				481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */,
+				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
 				481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */,
+				480A301A2A7C7ACD0087FABD /* ImagePicker.swift in Sources */,
 				481BDDC42A6E0E65006D4D80 /* GenesisAnalysisClassifier.mlmodel in Sources */,
 				481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */,
 			);
