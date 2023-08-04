@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A30172A7C79A80087FABD /* ImageClassificationView.swift */; };
 		480A301A2A7C7ACD0087FABD /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A30192A7C7ACD0087FABD /* ImagePicker.swift */; };
+		480A301E2A7CB28C0087FABD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A301D2A7CB28C0087FABD /* Extensions.swift */; };
 		481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */; };
 		481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDB72A6E02D3006D4D80 /* ContentView.swift */; };
 		481BDDBA2A6E02D4006D4D80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481BDDB92A6E02D4006D4D80 /* Assets.xcassets */; };
@@ -17,11 +18,13 @@
 		481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDCC2A6F6F44006D4D80 /* SignUp.swift */; };
 		481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDCE2A6F70AB006D4D80 /* NetworkManager.swift */; };
 		481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */; };
+		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		480A30172A7C79A80087FABD /* ImageClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassificationView.swift; sourceTree = "<group>"; };
 		480A30192A7C7ACD0087FABD /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		480A301D2A7CB28C0087FABD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		481BDDB22A6E02D3006D4D80 /* Genesis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genesis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenesisApp.swift; sourceTree = "<group>"; };
 		481BDDB72A6E02D3006D4D80 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -31,6 +34,7 @@
 		481BDDCC2A6F6F44006D4D80 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		481BDDCE2A6F70AB006D4D80 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyIdentityView.swift; sourceTree = "<group>"; };
+		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,10 +72,12 @@
 				481BDDC62A6F6EA5006D4D80 /* Models */,
 				481BDDC52A6F6E6D006D4D80 /* Assets */,
 				481BDDC32A6E0E65006D4D80 /* GenesisAnalysisClassifier.mlmodel */,
+				48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */,
 				481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */,
 				481BDDB72A6E02D3006D4D80 /* ContentView.swift */,
 				481BDDB92A6E02D4006D4D80 /* Assets.xcassets */,
 				481BDDBB2A6E02D4006D4D80 /* Preview Content */,
+				480A301D2A7CB28C0087FABD /* Extensions.swift */,
 			);
 			path = Genesis;
 			sourceTree = "<group>";
@@ -188,6 +194,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */,
+				48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */,
+				480A301E2A7CB28C0087FABD /* Extensions.swift in Sources */,
 				481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */,
 				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,

@@ -1,11 +1,16 @@
-//
-//  ContentView.swift
-//  Genesis
-//
-//  Created by Luis Cedillo M on 23/07/23.
-//
-
 import SwiftUI
+
+struct ImageClassificationViewControllerRepresentable: UIViewControllerRepresentable {
+    typealias UIViewControllerType = ViewController
+
+    func makeUIViewController(context: Context) -> ViewController {
+        return ViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: ViewController, context: Context) {
+        // update your view controller here
+    }
+}
 
 struct ContentView: View {
     var body: some View {
@@ -19,7 +24,7 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
-                NavigationLink(destination: ImageClassificationView()) {
+                NavigationLink(destination: ImageClassificationViewControllerRepresentable()) {
                     Text("Image Classification")
                         .font(.title)
                         .padding()
@@ -29,11 +34,5 @@ struct ContentView: View {
                 }
             }
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
