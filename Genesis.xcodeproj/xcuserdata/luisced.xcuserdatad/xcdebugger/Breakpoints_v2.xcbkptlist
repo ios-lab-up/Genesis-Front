@@ -3,4 +3,54 @@
    uuid = "A33155ED-0F7B-4D94-B688-C31FFF59EE3C"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1142DD92-A1D4-4086-9BF9-C2C8C7C0EACE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Genesis/Views/DashboardView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "1142DD92-A1D4-4086-9BF9-C2C8C7C0EACE - a48dab688cbdd96f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.tabItem&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in Genesis.DashboardView.body.getter : some"
+                  moduleName = "Genesis"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luisced/Code/Genesis-Front/Genesis/Views/DashboardView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "616">
+               </Location>
+               <Location
+                  uuid = "1142DD92-A1D4-4086-9BF9-C2C8C7C0EACE - 5d620fd643276643"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.Image, SwiftUI.Text)&gt; in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.tabItem&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.View&gt;(() -&gt; &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in Genesis.DashboardView.body.getter : some"
+                  moduleName = "Genesis"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/luisced/Code/Genesis-Front/Genesis/Views/DashboardView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "27"
+                  endingLineNumber = "27"
+                  offsetFromSymbolStart = "112">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

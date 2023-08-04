@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct VerifyIdentityView: View {
+    @State private var isAuthenticated = false
     @State private var verificationCode = Array(repeating: "", count: 6)
     @Environment(\.presentationMode) var presentationMode
 
