@@ -1,89 +1,36 @@
+import SwiftUI
 import CoreML
-import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+struct CameraView: View {
+    @State private var showImagePicker = false
+    @State private var showResultView = false
+    @State private var resultText = ""
 
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "photo")
-        imageView.contentMode = .scaleAspectFit
-        return imageView
-    }()
+    var body: some View {
+        NavigationView {
+            VStack {
+                Button(action: {
+                    showImagePicker = true
+                }) {
+                    Text("Select Image")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 25)
+                        .background(Color.blue)
+                        .cornerRadius(100)
+                }
+                .sheet(isPresented: $showImagePicker) {
+                    ImagePicker(analyzeImage: analyzeImage)
+                }
 
-    private let label: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        label.text = "Select Image"
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private let selectImageButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Select Image", for: .normal)
-        button.backgroundColor = .systemBlue
-        button.addTarget(self, action: #selector(didTapSelectImage), for: .touchUpInside)
-        return button
-    }()
-    
-    private let clearImageButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Clear Image", for: .normal)
-        button.backgroundColor = .systemRed
-        button.addTarget(self, action: #selector(didTapClearImage), for: .touchUpInside)
-        return button
-    }()
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.addSubview(label)
-        view.addSubview(imageView)
-        view.addSubview(selectImageButton)
-        view.addSubview(clearImageButton)
-    }
-
-    @objc func didTapSelectImage() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-    
-    @objc func didTapClearImage() {
-        imageView.image = UIImage(systemName: "photo")
-        label.text = "Select Image"
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        imageView.frame = CGRect(
-            x: 20,
-            y: view.safeAreaInsets.top,
-            width: view.frame.size.width-40,
-            height: view.frame.size.width-40)
-        label.frame = CGRect(
-            x: 20,
-            y: view.safeAreaInsets.top+(view.frame.size.width-40)+10,
-            width: view.frame.size.width-40,
-            height: 100
-        )
-        selectImageButton.frame = CGRect(
-            x: 20,
-            y: label.frame.origin.y + label.frame.size.height + 10,
-            width: view.frame.size.width-40,
-            height: 50
-        )
-        clearImageButton.frame = CGRect(
-            x: 20,
-            y: selectImageButton.frame.origin.y + selectImageButton.frame.size.height + 10,
-            width: view.frame.size.width-40,
-            height: 50
-        )
+                NavigationLink("", destination: ResultView(resultText: resultText), isActive: $showResultView)
+            }
+        }
     }
 
     private func analyzeImage(image: UIImage?) {
-        guard let buffer = image?.resize(size: CGSize(width: 224, height: 224))?
-                .getCVPixelBuffer() else {
+        guard let buffer = image?.resize(size: CGSize(width: 224, height: 224))?.getCVPixelBuffer() else {
             return
         }
 
@@ -96,30 +43,52 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let text = output.sceneLabel
             if let probability = output.sceneLabelProbs[text] {
                 let percentage = Int(probability * 100)
-                label.text = "\(text) (\(percentage)%)"
-            } else {
-                label.text = text
+                resultText = "\(text) (\(percentage)%)"
+                showResultView = true
             }
-        }
-        catch {
+        } catch {
             print(error.localizedDescription)
         }
     }
+}
 
+struct ResultView: View {
+    let resultText: String
 
-    // Image Picker
+    var body: some View {
+        Text(resultText)
+            .padding()
+    }
+}
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // cancelled
-        picker.dismiss(animated: true, completion: nil)
+struct ImagePicker: UIViewControllerRepresentable {
+    let analyzeImage: (UIImage?) -> Void
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        return picker
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
-        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
-            return
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        var parent: ImagePicker
+
+        init(_ parent: ImagePicker) {
+            self.parent = parent
         }
-        imageView.image = image
-        analyzeImage(image: image)
+
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let image = info[.originalImage] as? UIImage {
+                parent.analyzeImage(image)
+            }
+            picker.dismiss(animated: true)
+        }
     }
 }

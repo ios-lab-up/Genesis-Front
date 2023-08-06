@@ -1,12 +1,14 @@
 import SwiftUI
+import CoreML
 
-struct CameraView: View {
+/*struct CameraView: View {
     @StateObject private var model = DataModel()
+    @State private var showResultView = false
+    @State private var analysisResult: String = ""
 
     private static let barHeightFactor = 0.15
 
     var body: some View {
-
         NavigationStack {
             GeometryReader { geometry in
                 ViewfinderView(image: $model.viewfinderImage)
@@ -87,23 +89,60 @@ struct CameraView: View {
                         }
                     }
                     
-                    Button(action: {model.camera.takePhoto()}) {
-                               Text("Take photo")
-                                   .font(.headline)
-                                   .foregroundColor(.white)
-                                   .frame(maxWidth: .infinity)
-                                   .padding(.vertical, 25)
-                                   .background(Color("Primary"))
-                                   .cornerRadius(100)
-                           }
+                    Button(action: {
+                        if let uiImage = model.viewfinderImage.uiImage {
+                                               analyzeImage(image: uiImage)
+                                           }
+                                  model.camera.takePhoto()
+                              }) {
+                                  Text("Take photo")
+                                      .font(.headline)
+                                      .foregroundColor(.white)
+                                      .frame(maxWidth: .infinity)
+                                      .padding(.vertical, 25)
+                                      .background(Color("Primary"))
+                                      .cornerRadius(100)
+                              }
+                              .background(NavigationLink("", destination: ResultView(result: $analysisResult), isActive: $showResultView))
+                          }
+                      }
+                      .buttonStyle(.plain)
+                      .labelStyle(.iconOnly)
+                  }
 
-                    
-                }
-                .padding()
-                .padding(.bottom, 50)
-            }
-        }
-        .buttonStyle(.plain)
-        .labelStyle(.iconOnly)
-    }
-}
+                   func analyzeImage(image: UIImage) {
+                      guard let buffer = image.resize(size: CGSize(width: 224, height: 224))?.getCVPixelBuffer() else {
+                          return
+                      }
+
+                      do {
+                          let config = MLModelConfiguration()
+                          let model = try GoogLeNetPlaces(configuration: config)
+                          let input = GoogLeNetPlacesInput(sceneImage: buffer)
+
+                          let output = try model.prediction(input: input)
+                          let text = output.sceneLabel
+                          if let probability = output.sceneLabelProbs[text] {
+                              let percentage = Int(probability * 100)
+                              analysisResult = "\(text) (\(percentage)%)"
+                          } else {
+                              analysisResult = text
+                          }
+                          showResultView = true
+                      }
+                      catch {
+                          print(error.localizedDescription)
+                      }
+                  }
+              }
+
+              struct ResultView: View {
+                  @Binding var result: String
+
+                  var body: some View {
+                      Text(result)
+                          .font(.largeTitle)
+                          .padding()
+                  }
+              }
+*/

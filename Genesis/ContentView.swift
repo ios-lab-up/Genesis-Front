@@ -1,16 +1,6 @@
 import SwiftUI
 
-struct ImageClassificationViewControllerRepresentable: UIViewControllerRepresentable {
-    typealias UIViewControllerType = ViewController
 
-    func makeUIViewController(context: Context) -> ViewController {
-        return ViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: ViewController, context: Context) {
-        // update your view controller here
-    }
-}
 
 /*struct ContentView: View {
     var body: some View {
