@@ -12,7 +12,7 @@ struct PhotoCollectionView: View {
         
     private static let itemSpacing = 12.0
     private static let itemCornerRadius = 15.0
-    private static let itemSize = CGSize(width: 90, height: 90)
+    private static let itemSize = CGSize(width: 120, height: 120)
     
     private var imageSize: CGSize {
         return CGSize(width: Self.itemSize.width * min(displayScale, 2), height: Self.itemSize.height * min(displayScale, 2))

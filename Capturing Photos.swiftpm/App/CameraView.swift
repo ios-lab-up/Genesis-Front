@@ -62,6 +62,7 @@ struct CameraView: View {
                         .cornerRadius(20)
                     
                     Text("Make sure the image is clear and close")
+                        .foregroundStyle(.black)
                 }
 
                 RoundedRectangle(cornerRadius: 20)
@@ -69,7 +70,7 @@ struct CameraView: View {
                     .foregroundColor(.white)
                     .cornerRadius(20)
 
-                HStack(spacing: 60) {
+                HStack(spacing: 10) {
                     NavigationLink {
                         PhotoCollectionView(photoCollection: model.photoCollection)
                             .onAppear {
@@ -85,24 +86,21 @@ struct CameraView: View {
                             ThumbnailView(image: model.thumbnailImage)
                         }
                     }
+                    
+                    Button(action: {model.camera.takePhoto()}) {
+                               Text("Take photo")
+                                   .font(.headline)
+                                   .foregroundColor(.white)
+                                   .frame(maxWidth: .infinity)
+                                   .padding(.vertical, 25)
+                                   .background(Color("Primary"))
+                                   .cornerRadius(100)
+                           }
 
-                    Button {
-                        model.camera.takePhoto()
-                    } label: {
-                        Label {
-                            Text("Take Photo")
-                        } icon: {
-                            ZStack {
-                                Circle()
-                                    .strokeBorder(Color("Primary"), lineWidth: 3)
-                                    .frame(width: 62, height: 62)
-                                Circle()
-                                    .fill(Color("Primary"))
-                                    .frame(width: 50, height: 50)
-                            }
-                        }
-                    }
+                    
                 }
+                .padding()
+                .padding(.bottom, 50)
             }
         }
         .buttonStyle(.plain)
