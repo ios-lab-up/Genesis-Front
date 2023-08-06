@@ -12,7 +12,7 @@ struct ImageClassificationViewControllerRepresentable: UIViewControllerRepresent
     }
 }
 
-struct ContentView: View {
+/*struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
@@ -43,5 +43,11 @@ struct ContentView: View {
                                 }
             }
         }
+    }
+}*/
+
+struct ContentView: View {
+    var body: some View {
+        signIn()
     }
 }

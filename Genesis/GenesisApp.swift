@@ -11,16 +11,16 @@ import SwiftUI
 @main
 struct GenesisApp: App {
     init() {
-        UINavigationBar.applyCustomAppearance()
+        // UINavigationBar.applyCustomAppearance()
     }
     var body: some Scene {
         WindowGroup {
-            CameraView()
+            ContentView()
         }
     }
 }
 
-fileprivate extension UINavigationBar {
+/*fileprivate extension UINavigationBar {
     
     static func applyCustomAppearance() {
         let appearance = UINavigationBarAppearance()
@@ -29,4 +29,4 @@ fileprivate extension UINavigationBar {
         UINavigationBar.appearance().compactAppearance = appearance
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
     }
-}
+}*/
