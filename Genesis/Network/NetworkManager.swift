@@ -9,7 +9,7 @@ import Foundation
 
 // Create a struct to hold all the API endpoints
 struct APIEndpoints {
-    static let baseURL = "https://f909-189-147-103-182.ngrok-free.app/"
+    static let baseURL = "https://f909-189-147-103-182.ngrok-free.app"
     static let signUp = "/sign_up"
     static let verifyIdentity = "/sign_up/verify_identity"
     static let resendVerificationCode = "/sign_up/resend_verification_code"
@@ -22,26 +22,26 @@ class NetworkManager {
     var jwtToken: String?
     var isAuthenticated: Bool?
     private init() {}
-    
+
     func signUp(name: String, username: String, email: String, password: String, birthDate: String, profileId: Int, completion: @escaping (Result<User, Error>) -> Void) {
         guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.signUp) else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let body: [String: Any] = ["name": name, "username": username, "email": email, "password": password, "birth_date": birthDate, "profile_id": profileId]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-        
+
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(error))
             } else if let data = data {
                 do {
-                    let response = try JSONDecoder().decode(Response.self, from: data)
+                    let response = try JSONDecoder().decode(Response<User>.self, from: data)
                     self.jwtToken = response.data.jwtToken
                     completion(.success(response.data))
                 } catch {
@@ -51,40 +51,37 @@ class NetworkManager {
         }
         task.resume()
     }
-    
+
     func verifyIdentity(code: String, completion: @escaping (Result<User, Error>) -> Void) {
-        let url = URL(string: APIEndpoints.baseURL + APIEndpoints.verifyIdentity)!
+        guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.verifyIdentity) else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token" )
-        let body = ["code": code]
+
+        let body: [String: Any] = ["code": code]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-        
+
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            
+
             if let data = data {
-                let decoder = JSONDecoder()
-                if let response = try? decoder.decode(Response.self, from: data) {
-                    DispatchQueue.main.async {
-                        if response.success {
-                            self.isAuthenticated = true
-                        } else {
-                            self.isAuthenticated = false
-                        }
-                    }
+                do {
+                    let response = try JSONDecoder().decode(Response<User>.self, from: data)
+                    self.isAuthenticated = response.success
                     completion(.success(response.data))
-                } else {
-                    let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Failed to decode response"])
+                } catch {
                     completion(.failure(error))
                 }
             }
         }
-        
         task.resume()
     }
 
@@ -93,12 +90,11 @@ class NetworkManager {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
         }
-        
+
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token" )
-        
-        
+
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(error))
@@ -108,36 +104,35 @@ class NetworkManager {
         }
         task.resume()
     }
-    
+
     func login(username: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
         let url = URL(string: APIEndpoints.baseURL + APIEndpoints.signIn)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let body = [
             "username": username,
             "password": password
         ]
-        
+
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
         } catch {
             print("Failed to serialize data: \(error)")
             return
         }
-        
+
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 print("Failed to complete request: \(error)")
                 completion(.failure(error))
                 return
             }
-            
+
             if let data = data {
                 do {
-                    let decoder = JSONDecoder()
-                    if let response = try? decoder.decode(Response.self, from: data) {
+                    if let response = try? JSONDecoder().decode(Response<User>.self, from: data) {
                         self.jwtToken = response.data.jwtToken
                         completion(.success(response.data))
                     } else {
@@ -147,11 +142,9 @@ class NetworkManager {
                 }
             }
         }
-        
         task.resume()
     }
 }
-
 
 struct User: Codable {
     let id: Int
@@ -161,7 +154,7 @@ struct User: Codable {
     let birthDate: String
     let cedula: String?
     let creationDate: String
-    let jwtToken: String
+    let jwtToken: String?
     let lastUpdate: String
     let passwordHash: String
     let profileId: Int
@@ -180,8 +173,8 @@ struct User: Codable {
     }
 }
 
-struct Response: Codable {
-    let data: User
+struct Response<T: Codable>: Codable {
+    let data: T
     let message: String
     let status: Int
     let success: Bool
