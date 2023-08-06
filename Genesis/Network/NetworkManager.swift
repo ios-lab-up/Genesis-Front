@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // Create a struct to hold all the API endpoints
 struct APIEndpoints {
@@ -14,6 +15,10 @@ struct APIEndpoints {
     static let verifyIdentity = "/sign_up/verify_identity"
     static let resendVerificationCode = "/sign_up/resend_verification_code"
     static let signIn = "/sign_in"
+    static let uploadImage = "/upload_image"
+    static func visualizeDoctorPatientFile(userId: Int, imageId: Int) -> String {
+            return "/visualize_doctor_patient/\(userId)/\(imageId)"
+        }
 }
 
 class NetworkManager {
@@ -184,6 +189,104 @@ class NetworkManager {
 
     
     
+    
+}
+
+extension NetworkManager {
+    func uploadImage(parameters: [[String: Any]], completion: @escaping (Result<ImageUploadResponse, Error>) -> Void) {
+        guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.uploadImage) else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+
+        let boundary = "Boundary-\(UUID().uuidString)"
+        var body = Data()
+        
+        for param in parameters {
+            guard param["disabled"] == nil else { continue }
+            if let paramName = param["key"] as? String,
+               let paramType = param["type"] as? String {
+                body.append("--\(boundary)\r\n".data(using: .utf8)!)
+                body.append("Content-Disposition:form-data; name=\"\(paramName)\"".data(using: .utf8)!)
+                if paramType == "text",
+                   let paramValue = param["value"] as? String {
+                    body.append("\r\n\r\n\(paramValue)\r\n".data(using: .utf8)!)
+                } else if paramType == "file",
+                          let paramSrc = param["src"] as? String,
+                          let fileData = try? Data(contentsOf: URL(fileURLWithPath: paramSrc)) {
+                    body.append("; filename=\"\(paramSrc)\"\r\nContent-Type: \"content-type header\"\r\n\r\n".data(using: .utf8)!)
+                    body.append(fileData)
+                    body.append("\r\n".data(using: .utf8)!)
+                }
+            }
+        }
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token")
+        
+        request.httpBody = body
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+            } else if let data = data {
+                do {
+                    let response = try JSONDecoder().decode(Response<ImageUploadResponse>.self, from: data)
+                    completion(.success(response.data))
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+        task.resume()
+    }
+}
+
+extension NetworkManager {
+    
+    func visualizeDoctorPatientFile(userId: Int, imageId: Int, completion: @escaping (Result<UIImage?, Error>) -> Void) {
+        guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.visualizeDoctorPatientFile(userId: userId, imageId: imageId)) else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+
+        var request = URLRequest(url: url, timeoutInterval: Double.infinity)
+        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token")
+        request.httpMethod = "GET"
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let data = data {
+                do {
+                    let decodedResponse = try JSONDecoder().decode(Response<ImageDataResponse>.self, from: data)
+                    
+                    guard let base64String = decodedResponse.data.data else {
+                        completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No base64 data found"])))
+                        return
+                    }
+                    
+                    // Convert base64 string to UIImage
+                    if let imageData = Data(base64Encoded: base64String) {
+                        let image = UIImage(data: imageData)
+                        completion(.success(image))
+                    } else {
+                        completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert base64 string to UIImage"])))
+                    }
+                    
+                } catch {
+                    completion(.failure(error))
+                }
+            }
+        }
+        task.resume()
+    }
 }
 
 struct User: Codable {
@@ -218,4 +321,34 @@ struct Response<T: Codable>: Codable {
     let message: String
     let status: Int
     let success: Bool
+}
+
+struct ImageDataResponse: Codable {
+    let data: String?
+    let message: String
+    let status: Int
+    let success: Bool
+}
+
+
+struct ImageUploadResponse: Codable {
+    let creationDate: String
+    let element: String
+    let id: Int
+    let imageId: Int
+    let lastUpdate: String
+    let precision: Double
+    let status: Bool
+    let userId: Int
+
+    enum CodingKeys: String, CodingKey {
+        case creationDate = "creation_date"
+        case element
+        case id
+        case imageId = "image_id"
+        case lastUpdate = "last_update"
+        case precision
+        case status
+        case userId = "user_id"
+    }
 }
