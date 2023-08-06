@@ -23,7 +23,8 @@ class NetworkManager {
     var isAuthenticated: Bool?
     private init() {}
 
-    func signUp(name: String, username: String, email: String, password: String, birthDate: String, profileId: Int, completion: @escaping (Result<User, Error>) -> Void) {
+    func signUp(name: String, username: String, email: String, password: String, birthDate: String, profileId: Int, cedula: String? = nil, completion: @escaping (Result<User, Error>) -> Void) {
+ 
         guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.signUp) else {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
             return
@@ -33,7 +34,10 @@ class NetworkManager {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
-        let body: [String: Any] = ["name": name, "username": username, "email": email, "password": password, "birth_date": birthDate, "profile_id": profileId]
+        var body: [String: Any] = ["name": name, "username": username, "email": email, "password": password, "birth_date": birthDate, "profile_id": profileId]
+            if let cedulaValue = cedula {
+                body["cedula"] = cedulaValue
+            }
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
 
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -144,6 +148,42 @@ class NetworkManager {
         }
         task.resume()
     }
+    
+    func getUserData(completion: @escaping (Result<User, Error>) -> Void) {
+        guard let url = URL(string: APIEndpoints.baseURL + "/get_user_data") else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    if let response = try? decoder.decode(Response<User>.self, from: data) {
+                        completion(.success(response.data))
+                    } else {
+                        let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Failed to decode response"])
+                        completion(.failure(error))
+                    }
+                }
+            }
+        }
+        
+        task.resume()
+    }
+
+    
+    
 }
 
 struct User: Codable {

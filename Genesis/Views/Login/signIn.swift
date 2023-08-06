@@ -62,7 +62,7 @@ struct signIn: View {
                         .font(.system(size: 14, weight: .medium))
                   
                     
-                    NavigationLink("Enroll now", destination: oneTimeCode())
+                    NavigationLink("Enroll now", destination: enroll())
                         .foregroundColor(Color("Primary"))
                         .font(.system(size: 14, weight: .medium))
                 }
@@ -85,6 +85,15 @@ struct signIn: View {
             switch result {
             case .success(_):
                 self.isAuthenticated = true
+                // Call getUserData after verification is successful
+                NetworkManager.shared.getUserData { getUserResult in
+                    switch getUserResult {
+                    case .success(let fetchedUser):
+                        print("Fetched user data: \(fetchedUser)")
+                    case .failure(let fetchError):
+                        print("Failed to fetch user data: \(fetchError)")
+                    }
+                }
             case .failure(_):
                 self.showError = true
             }
