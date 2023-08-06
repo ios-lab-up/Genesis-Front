@@ -24,7 +24,7 @@ struct CameraView: View {
                     ImagePicker(analyzeImage: analyzeImage)
                 }
 
-                NavigationLink("", destination: ResultView(resultText: resultText), isActive: $showResultView)
+                NavigationLink("", destination: resultsView(resultText: resultText), isActive: $showResultView)
             }
         }
     }
@@ -44,7 +44,7 @@ struct CameraView: View {
             if let probability = output.sceneLabelProbs[text] {
                 let percentage = Int(probability * 100)
                 resultText = "\(text) (\(percentage)%)"
-                showResultView = true
+                showResultView = true // Esto activará la navegación a la nueva vista
             }
         } catch {
             print(error.localizedDescription)
