@@ -12,7 +12,6 @@
 		480A301E2A7CB28C0087FABD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A301D2A7CB28C0087FABD /* Extensions.swift */; };
 		481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */; };
 		481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDB72A6E02D3006D4D80 /* ContentView.swift */; };
-		481BDDBA2A6E02D4006D4D80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481BDDB92A6E02D4006D4D80 /* Assets.xcassets */; };
 		481BDDBD2A6E02D4006D4D80 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481BDDBC2A6E02D4006D4D80 /* Preview Assets.xcassets */; };
 		481BDDC42A6E0E65006D4D80 /* GenesisAnalysisClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDC32A6E0E65006D4D80 /* GenesisAnalysisClassifier.mlmodel */; };
 		481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDCC2A6F6F44006D4D80 /* SignUp.swift */; };
@@ -21,6 +20,21 @@
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
 		48A8764F2A7CBDA2008F0B62 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764E2A7CBDA2008F0B62 /* DashboardView.swift */; };
+		7A8BE8E62A7F435600BAE75B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E52A7F435600BAE75B /* Assets.xcassets */; };
+		7A8BE8F52A7F437F00BAE75B /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E72A7F437E00BAE75B /* PhotoCollectionView.swift */; };
+		7A8BE8F62A7F437F00BAE75B /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E82A7F437E00BAE75B /* PhotoLibrary.swift */; };
+		7A8BE8F72A7F437F00BAE75B /* CachedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E92A7F437E00BAE75B /* CachedImageManager.swift */; };
+		7A8BE8F82A7F437F00BAE75B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8EA2A7F437E00BAE75B /* Camera.swift */; };
+		7A8BE8F92A7F437F00BAE75B /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8EB2A7F437E00BAE75B /* DataModel.swift */; };
+		7A8BE8FA2A7F437F00BAE75B /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8EC2A7F437E00BAE75B /* ThumbnailView.swift */; };
+		7A8BE8FB2A7F437F00BAE75B /* PhotoCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8ED2A7F437E00BAE75B /* PhotoCollection.swift */; };
+		7A8BE8FC2A7F437F00BAE75B /* PhotoAssetCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8EE2A7F437E00BAE75B /* PhotoAssetCollection.swift */; };
+		7A8BE8FD2A7F437F00BAE75B /* PhotoAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8EF2A7F437E00BAE75B /* PhotoAsset.swift */; };
+		7A8BE8FE2A7F437F00BAE75B /* CameraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8F02A7F437E00BAE75B /* CameraApp.swift */; };
+		7A8BE8FF2A7F437F00BAE75B /* PhotoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8F12A7F437E00BAE75B /* PhotoItemView.swift */; };
+		7A8BE9002A7F437F00BAE75B /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8F22A7F437E00BAE75B /* PhotoView.swift */; };
+		7A8BE9012A7F437F00BAE75B /* ViewfinderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8F32A7F437E00BAE75B /* ViewfinderView.swift */; };
+		7A8BE9022A7F437F00BAE75B /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8F42A7F437E00BAE75B /* CameraView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +44,6 @@
 		481BDDB22A6E02D3006D4D80 /* Genesis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genesis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenesisApp.swift; sourceTree = "<group>"; };
 		481BDDB72A6E02D3006D4D80 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		481BDDB92A6E02D4006D4D80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		481BDDBC2A6E02D4006D4D80 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		481BDDC32A6E0E65006D4D80 /* GenesisAnalysisClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GenesisAnalysisClassifier.mlmodel; sourceTree = "<group>"; };
 		481BDDCC2A6F6F44006D4D80 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
@@ -39,6 +52,21 @@
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		48A8764E2A7CBDA2008F0B62 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		7A8BE8E52A7F435600BAE75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Capturing Photos.swiftpm/App/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
+		7A8BE8E72A7F437E00BAE75B /* PhotoCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoCollectionView.swift; path = "Capturing Photos.swiftpm/App/PhotoCollectionView.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8E82A7F437E00BAE75B /* PhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoLibrary.swift; path = "Capturing Photos.swiftpm/App/PhotoLibrary.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8E92A7F437E00BAE75B /* CachedImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CachedImageManager.swift; path = "Capturing Photos.swiftpm/App/CachedImageManager.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8EA2A7F437E00BAE75B /* Camera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Camera.swift; path = "Capturing Photos.swiftpm/App/Camera.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8EB2A7F437E00BAE75B /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataModel.swift; path = "Capturing Photos.swiftpm/App/DataModel.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8EC2A7F437E00BAE75B /* ThumbnailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThumbnailView.swift; path = "Capturing Photos.swiftpm/App/ThumbnailView.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8ED2A7F437E00BAE75B /* PhotoCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoCollection.swift; path = "Capturing Photos.swiftpm/App/PhotoCollection.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8EE2A7F437E00BAE75B /* PhotoAssetCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoAssetCollection.swift; path = "Capturing Photos.swiftpm/App/PhotoAssetCollection.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8EF2A7F437E00BAE75B /* PhotoAsset.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoAsset.swift; path = "Capturing Photos.swiftpm/App/PhotoAsset.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8F02A7F437E00BAE75B /* CameraApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraApp.swift; path = "Capturing Photos.swiftpm/App/CameraApp.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8F12A7F437E00BAE75B /* PhotoItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoItemView.swift; path = "Capturing Photos.swiftpm/App/PhotoItemView.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8F22A7F437E00BAE75B /* PhotoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoView.swift; path = "Capturing Photos.swiftpm/App/PhotoView.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8F32A7F437E00BAE75B /* ViewfinderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewfinderView.swift; path = "Capturing Photos.swiftpm/App/ViewfinderView.swift"; sourceTree = SOURCE_ROOT; };
+		7A8BE8F42A7F437E00BAE75B /* CameraView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraView.swift; path = "Capturing Photos.swiftpm/App/CameraView.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +99,7 @@
 		481BDDB42A6E02D3006D4D80 /* Genesis */ = {
 			isa = PBXGroup;
 			children = (
+				7A8BE8E42A7F433900BAE75B /* Photos */,
 				481BDDC92A6F6EBA006D4D80 /* Views */,
 				481BDDC82A6F6EB3006D4D80 /* Network */,
 				481BDDC62A6F6EA5006D4D80 /* Models */,
@@ -79,7 +108,7 @@
 				48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */,
 				481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */,
 				481BDDB72A6E02D3006D4D80 /* ContentView.swift */,
-				481BDDB92A6E02D4006D4D80 /* Assets.xcassets */,
+				7A8BE8E52A7F435600BAE75B /* Assets.xcassets */,
 				481BDDBB2A6E02D4006D4D80 /* Preview Content */,
 				480A301D2A7CB28C0087FABD /* Extensions.swift */,
 			);
@@ -127,6 +156,27 @@
 				48A8764E2A7CBDA2008F0B62 /* DashboardView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		7A8BE8E42A7F433900BAE75B /* Photos */ = {
+			isa = PBXGroup;
+			children = (
+				7A8BE8E92A7F437E00BAE75B /* CachedImageManager.swift */,
+				7A8BE8EA2A7F437E00BAE75B /* Camera.swift */,
+				7A8BE8F02A7F437E00BAE75B /* CameraApp.swift */,
+				7A8BE8F42A7F437E00BAE75B /* CameraView.swift */,
+				7A8BE8EB2A7F437E00BAE75B /* DataModel.swift */,
+				7A8BE8EF2A7F437E00BAE75B /* PhotoAsset.swift */,
+				7A8BE8EE2A7F437E00BAE75B /* PhotoAssetCollection.swift */,
+				7A8BE8ED2A7F437E00BAE75B /* PhotoCollection.swift */,
+				7A8BE8E72A7F437E00BAE75B /* PhotoCollectionView.swift */,
+				7A8BE8F12A7F437E00BAE75B /* PhotoItemView.swift */,
+				7A8BE8E82A7F437E00BAE75B /* PhotoLibrary.swift */,
+				7A8BE8F22A7F437E00BAE75B /* PhotoView.swift */,
+				7A8BE8EC2A7F437E00BAE75B /* ThumbnailView.swift */,
+				7A8BE8F32A7F437E00BAE75B /* ViewfinderView.swift */,
+			);
+			path = Photos;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -188,7 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				481BDDBD2A6E02D4006D4D80 /* Preview Assets.xcassets in Resources */,
-				481BDDBA2A6E02D4006D4D80 /* Assets.xcassets in Resources */,
+				7A8BE8E62A7F435600BAE75B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,17 +249,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A8BE8FF2A7F437F00BAE75B /* PhotoItemView.swift in Sources */,
+				7A8BE8FD2A7F437F00BAE75B /* PhotoAsset.swift in Sources */,
+				7A8BE8FB2A7F437F00BAE75B /* PhotoCollection.swift in Sources */,
+				7A8BE9012A7F437F00BAE75B /* ViewfinderView.swift in Sources */,
+				7A8BE8F82A7F437F00BAE75B /* Camera.swift in Sources */,
 				481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */,
 				48A8764F2A7CBDA2008F0B62 /* DashboardView.swift in Sources */,
+				7A8BE8FA2A7F437F00BAE75B /* ThumbnailView.swift in Sources */,
 				48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */,
 				480A301E2A7CB28C0087FABD /* Extensions.swift in Sources */,
+				7A8BE8F62A7F437F00BAE75B /* PhotoLibrary.swift in Sources */,
 				481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */,
 				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
+				7A8BE8F72A7F437F00BAE75B /* CachedImageManager.swift in Sources */,
+				7A8BE8FE2A7F437F00BAE75B /* CameraApp.swift in Sources */,
+				7A8BE9022A7F437F00BAE75B /* CameraView.swift in Sources */,
+				7A8BE8FC2A7F437F00BAE75B /* PhotoAssetCollection.swift in Sources */,
+				7A8BE9002A7F437F00BAE75B /* PhotoView.swift in Sources */,
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
 				481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */,
 				480A301A2A7C7ACD0087FABD /* ImagePicker.swift in Sources */,
 				48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */,
 				481BDDC42A6E0E65006D4D80 /* GenesisAnalysisClassifier.mlmodel in Sources */,
+				7A8BE8F92A7F437F00BAE75B /* DataModel.swift in Sources */,
+				7A8BE8F52A7F437F00BAE75B /* PhotoCollectionView.swift in Sources */,
 				481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
