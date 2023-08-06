@@ -79,6 +79,7 @@ struct oneTimeCode: View {
                 
             case .failure(let error):
                 print("Failed to verify user: \(error)")
+                self.presentationMode.wrappedValue.dismiss()
             }
         }
     }

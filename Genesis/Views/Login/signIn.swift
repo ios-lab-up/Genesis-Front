@@ -9,8 +9,10 @@ import SwiftUI
 
 
 struct signIn: View {
-    @State private var email: String = ""
+    @State private var username: String = ""
     @State private var password: String = ""
+    @State private var showError = false
+    @State private var isAuthenticated: Bool = false
     var body: some View {
         NavigationView {
             VStack{
@@ -19,11 +21,11 @@ struct signIn: View {
                     .font(.title)
                     .bold()
                 
-                CustomTextField(text: $email, label: "Email", placeholder: "", sfSymbol: "envelope.fill")
+                CustomTextField(text: $username, label: "Username", placeholder: "", sfSymbol: "person.fill")
                 CustomSecureTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.slash.fill")
                 
                 Button(action: {
-                    
+                    login()
                        }) {
                            Text("Sign In")
                                .font(.headline)
@@ -70,10 +72,23 @@ struct signIn: View {
                     
             }
             .padding(16)
+            .fullScreenCover(isPresented: $isAuthenticated, content: {HomeView()})
+            
             .ignoresSafeArea(.keyboard)
         
         }
         
+    }
+    
+    func login() {
+        NetworkManager.shared.login(username: username, password: password) { result in
+            switch result {
+            case .success(_):
+                self.isAuthenticated = true
+            case .failure(_):
+                self.showError = true
+            }
+        }
     }
 }
 

@@ -16,6 +16,7 @@ struct CustomTextField: View {
                 .padding(.leading, 10)
                 .padding(.trailing, 40)
                 .cornerRadius(8)
+                .textInputAutocapitalization(.never)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(isFocused ? Color("Primary") : Color.clear, lineWidth: 2)

@@ -10,13 +10,19 @@ import SwiftUI
 struct HomeView: View {
     var body: some View {
         TabView {
-            EmptyView()
+            DashboardView()
                 .tabItem {
-                    Label("Menu", systemImage: "list.dash")
+                    Label("", systemImage: "house")
                 }
-            EmptyView()
+                
+            CameraView()
                 .tabItem {
-                    Label("Order", systemImage: "square.and.pencil")
+                    Label("", systemImage: "camera")
+                }
+            
+            CameraView()
+                .tabItem {
+                    Label("", systemImage: "camera")
                 }
         }
     }
