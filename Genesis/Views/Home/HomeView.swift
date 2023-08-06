@@ -22,7 +22,7 @@ struct HomeView: View {
             
             CameraView()
                 .tabItem {
-                    Label("", systemImage: "camera")
+                    Label("", systemImage: "heart.text.square.fill")
                 }
         }
     }

@@ -32,8 +32,52 @@ struct DashboardView: View {
                     }
                     .padding()
                 }
-                
                 .frame(height: 200)
+                .padding(.bottom, 30)
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Records")
+                            .font(.title)
+                        Spacer()
+                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                            Text("View all")
+                        })
+                    }
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 10) {
+                            ForEach(0..<10) { index in
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 25.0)
+                                        .fill(Color.blue)
+                                        .frame(width: 150, height: 180)
+                                    VStack(alignment: .leading){
+                                        HStack{
+                                            Spacer()
+                                            
+                                            ZStack{
+                                                Circle()
+                                                    .frame(width: 60, height: 60)
+                                                
+                                                Text("\(index)")
+                                                    .foregroundColor(.white)
+                                            }
+                                        }
+                                        
+                                        
+                                        Text("Lorem ipsum")
+                                        
+                                        Text("2023-07-12")
+                                    }
+                                    .padding()
+                                }
+                            }
+                        }
+                        
+                    }
+                    
+                }
+
             }
             .padding()
             

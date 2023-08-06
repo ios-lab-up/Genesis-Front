@@ -16,6 +16,8 @@ struct register: View {
     @State private var password2: String = ""
     @State private var profileId = 1
     @State private var isSignUpSuccessful = false
+    @State private var alertMessage = ""
+    @State private var showAlert = false
     var body: some View {
         VStack{
          
@@ -28,7 +30,12 @@ struct register: View {
             Spacer()
             
             Button(action: {
-               signUp()
+                if name.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty {
+                    alertMessage = "Please fill all the fields"
+                    showAlert = true
+                } else {
+                    signUp()
+                }
                    }) {
                        Text("Register")
                            .font(.headline)
@@ -44,6 +51,9 @@ struct register: View {
         }
         .ignoresSafeArea(.keyboard)
         .navigationTitle("Create Account")
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Register error"), message: Text(alertMessage), dismissButton: .default(Text("Close")))
+        }
         .navigationBarTitleDisplayMode(.large)
         .padding()
         .fullScreenCover(isPresented: $isSignUpSuccessful, content: {oneTimeCode()})
@@ -56,13 +66,15 @@ struct register: View {
         dateFormatter.dateFormat = "yyyy-MM-dd" 
         let birthdayString = dateFormatter.string(from: birthday)
 
-        NetworkManager.shared.signUp(name: name, username: username, email: email, password: password, birthDate: birthdayString, profileId: profileId) { result in
+        NetworkManager.shared.signUp(name: name, username: username.lowercased(), email: email.lowercased(), password: password, birthDate: birthdayString.lowercased(), profileId: profileId) { result in
             switch result {
             case .success(let user):
                 print("Signed up user: \(user)")
                 self.isSignUpSuccessful = true
             case .failure(let error):
                 print("Failed to sign up user: \(error)")
+                alertMessage = "An error occurred while signup user"
+                showAlert = true
             }
         }
     }
