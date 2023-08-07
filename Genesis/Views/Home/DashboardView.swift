@@ -49,7 +49,7 @@ struct DashboardView: View {
                             ForEach(0..<10) { index in
                                 ZStack {
                                     RoundedRectangle(cornerRadius: 25.0)
-                                        .fill(Color.blue)
+                                        .fill(Color("primaryShadow"))
                                         .frame(width: 150, height: 180)
                                     VStack(alignment: .leading){
                                         HStack{
@@ -58,16 +58,22 @@ struct DashboardView: View {
                                             ZStack{
                                                 Circle()
                                                     .frame(width: 60, height: 60)
+                                                    .foregroundStyle(Color("circlePurple"))
                                                 
                                                 Text("\(index)")
                                                     .foregroundColor(.white)
+                                                
+                                                
                                             }
                                         }
                                         
                                         
-                                        Text("Lorem ipsum")
+                                        Text("Record \(index)")
+                                            .bold()
+                                            .padding(.top, 10)
                                         
                                         Text("2023-07-12")
+                                            .font(.footnote)
                                     }
                                     .padding()
                                 }
@@ -77,6 +83,8 @@ struct DashboardView: View {
                     }
                     
                 }
+                
+                Spacer()
 
             }
             .padding()
