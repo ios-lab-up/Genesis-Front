@@ -10,7 +10,7 @@ import UIKit
 
 // Create a struct to hold all the API endpoints
 struct APIEndpoints {
-    static let baseURL = "https://f909-189-147-103-182.ngrok-free.app"
+    static let baseURL = "https://api.luishomeserver.com"
     static let signUp = "/sign_up"
     static let verifyIdentity = "/sign_up/verify_identity"
     static let resendVerificationCode = "/sign_up/resend_verification_code"
