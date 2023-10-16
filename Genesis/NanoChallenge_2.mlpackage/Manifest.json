@@ -1,0 +1,24 @@
+{
+    "fileFormatVersion": "1.0.0",
+    "itemInfoEntries": {
+        "09E44115-464B-4298-AD49-986C5564324B": {
+            "author": "com.apple.CoreML",
+            "description": "External Metadata Overlay",
+            "name": "Metadata.json",
+            "path": "com.apple.CoreML/Metadata.json"
+        },
+        "CE7EC156-B28D-4AC5-B60F-660AB9F4652D": {
+            "author": "com.apple.CoreML",
+            "description": "External FeatureDescription Overlay",
+            "name": "FeatureDescriptions.json",
+            "path": "com.apple.CoreML/FeatureDescriptions.json"
+        },
+        "F212C860-731C-49B8-976E-4F2C59F5A753": {
+            "author": "com.apple.CoreML",
+            "description": "CoreML Model Specification",
+            "name": "NanoChallenge_2.mlmodel",
+            "path": "com.apple.CoreML/NanoChallenge_2.mlmodel"
+        }
+    },
+    "rootModelIdentifier": "F212C860-731C-49B8-976E-4F2C59F5A753"
+}

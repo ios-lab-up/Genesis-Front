@@ -15,17 +15,17 @@ struct HomeView: View {
         TabView {
             DashboardView()
                 .tabItem {
-                    Label("", systemImage: "house")
+                    Label("Home", systemImage: "house")
                 }
                 
-            CameraView()
+            Photo()
                 .tabItem {
-                    Label("", systemImage: "camera")
+                    Label("Analize", systemImage: "camera")
                 }
             
-            CameraView()
+            DashboardView()
                 .tabItem {
-                    Label("", systemImage: "heart.text.square.fill")
+                    Label("My Badge", systemImage: "heart.text.square.fill")
                 }
         }
     }

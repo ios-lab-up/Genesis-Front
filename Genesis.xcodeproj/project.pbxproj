@@ -17,21 +17,24 @@
 		166481FA2A7F929C0093032A /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166481F92A7F929C0093032A /* String+.swift */; };
 		166481FD2A7FEE2D0093032A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166481FC2A7FEE2D0093032A /* HomeView.swift */; };
 		166481FF2A7FEF080093032A /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166481FE2A7FEF080093032A /* DashboardView.swift */; };
-		166482012A7FFBE30093032A /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166482002A7FFBE30093032A /* SwiftUIView.swift */; };
 		166482032A8036A90093032A /* resultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166482022A8036A90093032A /* resultsView.swift */; };
-		166482052A803BDD0093032A /* NanoChallenge_2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 166482042A803BDD0093032A /* NanoChallenge_2.mlmodel */; };
+		16F2BC742AD7372C00CE4BC5 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC732AD7372C00CE4BC5 /* ViewModel.swift */; };
+		16F2BC762AD7384E00CE4BC5 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC752AD7384E00CE4BC5 /* Picker.swift */; };
+		16F2BC782AD738EE00CE4BC5 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC772AD738EE00CE4BC5 /* Photo.swift */; };
+		16F2BC7B2AD740E000CE4BC5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC7A2AD740E000CE4BC5 /* ImagePicker.swift */; };
+		16F2BC7D2AD740FF00CE4BC5 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC7C2AD740FF00CE4BC5 /* ZoomableScrollView.swift */; };
+		16F2BC802AD7415A00CE4BC5 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC7F2AD7415A00CE4BC5 /* FileManager+Extension.swift */; };
+		16F2BC812AD7453700CE4BC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E52A7F435600BAE75B /* Assets.xcassets */; };
+		16F2BC822AD7453E00CE4BC5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481BDDBC2A6E02D4006D4D80 /* Preview Assets.xcassets */; };
+		16F2BC842AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC832AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage */; };
 		480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A30172A7C79A80087FABD /* ImageClassificationView.swift */; };
-		480A301A2A7C7ACD0087FABD /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A30192A7C7ACD0087FABD /* ImagePicker.swift */; };
-		480A301E2A7CB28C0087FABD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A301D2A7CB28C0087FABD /* Extensions.swift */; };
 		481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */; };
 		481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDB72A6E02D3006D4D80 /* ContentView.swift */; };
-		481BDDBD2A6E02D4006D4D80 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481BDDBC2A6E02D4006D4D80 /* Preview Assets.xcassets */; };
 		481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDCC2A6F6F44006D4D80 /* SignUp.swift */; };
 		481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDCE2A6F70AB006D4D80 /* NetworkManager.swift */; };
 		481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
-		7A8BE8E62A7F435600BAE75B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E52A7F435600BAE75B /* Assets.xcassets */; };
 		7A8BE8F52A7F437F00BAE75B /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E72A7F437E00BAE75B /* PhotoCollectionView.swift */; };
 		7A8BE8F62A7F437F00BAE75B /* PhotoLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E82A7F437E00BAE75B /* PhotoLibrary.swift */; };
 		7A8BE8F72A7F437F00BAE75B /* CachedImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E92A7F437E00BAE75B /* CachedImageManager.swift */; };
@@ -58,12 +61,15 @@
 		166481F92A7F929C0093032A /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		166481FC2A7FEE2D0093032A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		166481FE2A7FEF080093032A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		166482002A7FFBE30093032A /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		166482022A8036A90093032A /* resultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = resultsView.swift; sourceTree = "<group>"; };
-		166482042A803BDD0093032A /* NanoChallenge_2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = NanoChallenge_2.mlmodel; sourceTree = "<group>"; };
+		16F2BC732AD7372C00CE4BC5 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		16F2BC752AD7384E00CE4BC5 /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
+		16F2BC772AD738EE00CE4BC5 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		16F2BC7A2AD740E000CE4BC5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		16F2BC7C2AD740FF00CE4BC5 /* ZoomableScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomableScrollView.swift; sourceTree = "<group>"; };
+		16F2BC7F2AD7415A00CE4BC5 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
+		16F2BC832AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = NanoChallenge_2.mlpackage; sourceTree = "<group>"; };
 		480A30172A7C79A80087FABD /* ImageClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassificationView.swift; sourceTree = "<group>"; };
-		480A30192A7C7ACD0087FABD /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		480A301D2A7CB28C0087FABD /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		481BDDB22A6E02D3006D4D80 /* Genesis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genesis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenesisApp.swift; sourceTree = "<group>"; };
 		481BDDB72A6E02D3006D4D80 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -135,9 +141,33 @@
 			children = (
 				166481FC2A7FEE2D0093032A /* HomeView.swift */,
 				166481FE2A7FEF080093032A /* DashboardView.swift */,
-				166482002A7FFBE30093032A /* SwiftUIView.swift */,
+				16F2BC772AD738EE00CE4BC5 /* Photo.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		16F2BC6E2AD7363300CE4BC5 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		16F2BC792AD740A800CE4BC5 /* UIViewRepresentable */ = {
+			isa = PBXGroup;
+			children = (
+				16F2BC7A2AD740E000CE4BC5 /* ImagePicker.swift */,
+				16F2BC7C2AD740FF00CE4BC5 /* ZoomableScrollView.swift */,
+			);
+			path = UIViewRepresentable;
+			sourceTree = "<group>";
+		};
+		16F2BC7E2AD7411100CE4BC5 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				16F2BC7F2AD7415A00CE4BC5 /* FileManager+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		481BDDA92A6E02D3006D4D80 = {
@@ -159,18 +189,19 @@
 		481BDDB42A6E02D3006D4D80 /* Genesis */ = {
 			isa = PBXGroup;
 			children = (
+				16F2BC7E2AD7411100CE4BC5 /* Extension */,
+				16F2BC792AD740A800CE4BC5 /* UIViewRepresentable */,
 				7A8BE8E42A7F433900BAE75B /* Photos */,
 				481BDDC92A6F6EBA006D4D80 /* Views */,
 				481BDDC82A6F6EB3006D4D80 /* Network */,
 				481BDDC62A6F6EA5006D4D80 /* Models */,
 				481BDDC52A6F6E6D006D4D80 /* Assets */,
 				48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */,
-				166482042A803BDD0093032A /* NanoChallenge_2.mlmodel */,
+				16F2BC832AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage */,
 				481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */,
 				481BDDB72A6E02D3006D4D80 /* ContentView.swift */,
 				7A8BE8E52A7F435600BAE75B /* Assets.xcassets */,
 				481BDDBB2A6E02D4006D4D80 /* Preview Content */,
-				480A301D2A7CB28C0087FABD /* Extensions.swift */,
 			);
 			path = Genesis;
 			sourceTree = "<group>";
@@ -193,6 +224,8 @@
 		481BDDC62A6F6EA5006D4D80 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				16F2BC732AD7372C00CE4BC5 /* ViewModel.swift */,
+				16F2BC752AD7384E00CE4BC5 /* Picker.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -208,6 +241,7 @@
 		481BDDC92A6F6EBA006D4D80 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				16F2BC6E2AD7363300CE4BC5 /* Camera */,
 				166481FB2A7FE5680093032A /* Home */,
 				166481E62A7F6F170093032A /* Login */,
 				481BDDCC2A6F6F44006D4D80 /* SignUp.swift */,
@@ -215,7 +249,6 @@
 				480A30172A7C79A80087FABD /* ImageClassificationView.swift */,
 				166482022A8036A90093032A /* resultsView.swift */,
 				166481E92A7F72310093032A /* customTextfield.swift */,
-				480A30192A7C7ACD0087FABD /* ImagePicker.swift */,
 				48A8764C2A7CBB51008F0B62 /* LoginView.swift */,
 			);
 			path = Views;
@@ -299,8 +332,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				481BDDBD2A6E02D4006D4D80 /* Preview Assets.xcassets in Resources */,
-				7A8BE8E62A7F435600BAE75B /* Assets.xcassets in Resources */,
+				16F2BC822AD7453E00CE4BC5 /* Preview Assets.xcassets in Resources */,
+				16F2BC812AD7453700CE4BC5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,21 +350,24 @@
 				7A8BE8FD2A7F437F00BAE75B /* PhotoAsset.swift in Sources */,
 				7A8BE8FB2A7F437F00BAE75B /* PhotoCollection.swift in Sources */,
 				166481FD2A7FEE2D0093032A /* HomeView.swift in Sources */,
+				16F2BC782AD738EE00CE4BC5 /* Photo.swift in Sources */,
 				7A8BE9012A7F437F00BAE75B /* ViewfinderView.swift in Sources */,
-				166482052A803BDD0093032A /* NanoChallenge_2.mlmodel in Sources */,
 				166481F52A7F92020093032A /* OneTimeCodeBoxes.swift in Sources */,
 				166481FA2A7F929C0093032A /* String+.swift in Sources */,
 				7A8BE8F82A7F437F00BAE75B /* Camera.swift in Sources */,
+				16F2BC842AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage in Sources */,
+				16F2BC762AD7384E00CE4BC5 /* Picker.swift in Sources */,
 				481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */,
 				166481F02A7F8FB10093032A /* enroll.swift in Sources */,
 				7A8BE8FA2A7F437F00BAE75B /* ThumbnailView.swift in Sources */,
+				16F2BC7D2AD740FF00CE4BC5 /* ZoomableScrollView.swift in Sources */,
 				48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */,
-				480A301E2A7CB28C0087FABD /* Extensions.swift in Sources */,
 				7A8BE8F62A7F437F00BAE75B /* PhotoLibrary.swift in Sources */,
 				166481FF2A7FEF080093032A /* DashboardView.swift in Sources */,
 				481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */,
 				166481F32A7F91CB0093032A /* OneTimeCodeInput.swift in Sources */,
 				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
+				16F2BC742AD7372C00CE4BC5 /* ViewModel.swift in Sources */,
 				7A8BE8F72A7F437F00BAE75B /* CachedImageManager.swift in Sources */,
 				7A8BE9022A7F437F00BAE75B /* CameraView.swift in Sources */,
 				7A8BE8FC2A7F437F00BAE75B /* PhotoAssetCollection.swift in Sources */,
@@ -339,12 +375,12 @@
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
 				481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */,
 				166481F72A7F923A0093032A /* oneTimeCode.swift in Sources */,
-				480A301A2A7C7ACD0087FABD /* ImagePicker.swift in Sources */,
 				48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */,
-				166482012A7FFBE30093032A /* SwiftUIView.swift in Sources */,
 				7A8BE8F92A7F437F00BAE75B /* DataModel.swift in Sources */,
+				16F2BC802AD7415A00CE4BC5 /* FileManager+Extension.swift in Sources */,
 				7A8BE8F52A7F437F00BAE75B /* PhotoCollectionView.swift in Sources */,
 				166482032A8036A90093032A /* resultsView.swift in Sources */,
+				16F2BC7B2AD740E000CE4BC5 /* ImagePicker.swift in Sources */,
 				166481EE2A7F8C8F0093032A /* register.swift in Sources */,
 				481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */,
 			);
@@ -478,7 +514,7 @@
 				DEVELOPMENT_TEAM = 9BY9RQP8PP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Analizar fotos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -510,7 +546,7 @@
 				DEVELOPMENT_TEAM = 9BY9RQP8PP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Analizar fotos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

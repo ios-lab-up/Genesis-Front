@@ -1,0 +1,9 @@
+{
+  "MLModelVersionStringKey" : "1.0",
+  "MLModelDescriptionKey" : "Model from Nano challenge",
+  "MLModelCreatorDefinedKey" : {
+    "com.apple.createml.version" : "16.6.0"
+  },
+  "MLModelAuthorKey" : "Co-ML",
+  "MLModelLicenseKey" : "--"
+}
