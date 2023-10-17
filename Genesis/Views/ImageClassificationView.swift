@@ -6,7 +6,13 @@ func analyzeImage(image: UIImage) {
     
     guard let resizedImage = image.resize(to: CGSize(width: 224, height: 224)),
           let buffer = resizedImage.toCVPixelBuffer() else {
-        
+        print("Failed to prepare image for analysis.")
+        return
+    }
+    
+    // Convert UIImage to Data
+    guard let imageData = resizedImage.jpegData(compressionQuality: 0.7) else { // or use resizedImage.pngData() if PNG format is needed
+        print("Failed to convert image to data.")
         return
     }
     
@@ -19,25 +25,28 @@ func analyzeImage(image: UIImage) {
         
         let top3Predictions = Array(output.classLabelProbs.sorted(by: { $0.value > $1.value }).prefix(3))
         
-        let firstPredictionLabel = top3Predictions[0].key
-        let firstPredictionPercentage = Int(top3Predictions[0].value * 100)
+        // Print top 3 predictions for debugging purposes
+        for (index, prediction) in top3Predictions.enumerated() {
+            let label = prediction.key
+            let percentage = Int(prediction.value * 100)
+            print("\(index + 1). \(label): \(percentage)%")
+        }
         
-        let secondPredictionLabel = top3Predictions[1].key
-        let secondPredictionPercentage = Int(top3Predictions[1].value * 100)
-        
-        let thirdPredictionLabel = top3Predictions[2].key
-        let thirdPredictionPercentage = Int(top3Predictions[2].value * 100)
-        
-        print("1. \(firstPredictionLabel): \(firstPredictionPercentage)%")
-        print("2. \(secondPredictionLabel): \(secondPredictionPercentage)%")
-        print("3. \(thirdPredictionLabel): \(thirdPredictionPercentage)%")
-        
-        
+        // Call the uploadDiagnosticImage function
+        uploadDiagnosticImage(imageData: imageData, top3Predictions: top3Predictions) { result in
+            switch result {
+            case .success(let response):
+                print("Success: \(response)")
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
         
     } catch {
         print(error.localizedDescription)
     }
 }
+
 
 extension UIImage {
     func resize(to size: CGSize) -> UIImage? {
@@ -81,3 +90,45 @@ extension UIImage {
         return pixelBuffer
     }
 }
+
+struct Prediction: Codable {
+    let sickness: String
+    let precision: Double
+}
+
+
+func uploadDiagnosticImage(imageData: Data, top3Predictions: [(key: String, value: Double)], completion: @escaping (Result<Response<ImageData>, Error>) -> Void) {
+    // Ensure there are at least three predictions
+    guard top3Predictions.count >= 3 else {
+        completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Not enough predictions"])))
+        return
+    }
+
+    // Create Prediction instances
+    let firstPrediction = Prediction(sickness: top3Predictions[0].key, precision: top3Predictions[0].value)
+    let secondPrediction = Prediction(sickness: top3Predictions[1].key, precision: top3Predictions[1].value)
+    let thirdPrediction = Prediction(sickness: top3Predictions[2].key, precision: top3Predictions[2].value)
+
+    let predictions = [firstPrediction, secondPrediction, thirdPrediction]
+
+    // Convert predictions to JSON string
+    var diagnostic: String?
+    do {
+        let jsonData = try JSONEncoder().encode(predictions)
+        diagnostic = String(data: jsonData, encoding: .utf8)
+    } catch {
+        print("Error encoding JSON: \(error)")
+        completion(.failure(error))
+        return
+    }
+
+    // Ensure diagnostic data is not nil
+    guard let diagnosticData = diagnostic else {
+        completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Diagnostic data is missing"])))
+        return
+    }
+
+    // Call the upload function
+    NetworkManager.shared.uploadImage(imageData: imageData, diagnostic: diagnosticData, completion: completion)
+}
+

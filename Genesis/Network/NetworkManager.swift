@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import Alamofire
+
 
 // Create a struct to hold all the API endpoints
 struct APIEndpoints {
@@ -188,133 +190,82 @@ class NetworkManager {
     }
 
     
-    
-    
-}
-
-extension NetworkManager {
-    func uploadImage(parameters: [[String: Any]], completion: @escaping (Result<ImageUploadResponse, Error>) -> Void) {
-        guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.uploadImage) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
+    func uploadImage(imageData: Data, diagnostic: String, completion: @escaping (Result<Response<ImageData>, Error>) -> Void) {
+        // Check if jwtToken is not nil, otherwise return an error
+        guard let token = self.jwtToken else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "JWT token is missing"])))
             return
         }
-
-        let boundary = "Boundary-\(UUID().uuidString)"
-        var body = Data()
         
-        for param in parameters {
-            guard param["disabled"] == nil else { continue }
-            if let paramName = param["key"] as? String,
-               let paramType = param["type"] as? String {
-                body.append("--\(boundary)\r\n".data(using: .utf8)!)
-                body.append("Content-Disposition:form-data; name=\"\(paramName)\"".data(using: .utf8)!)
-                if paramType == "text",
-                   let paramValue = param["value"] as? String {
-                    body.append("\r\n\r\n\(paramValue)\r\n".data(using: .utf8)!)
-                } else if paramType == "file",
-                          let paramSrc = param["src"] as? String,
-                          let fileData = try? Data(contentsOf: URL(fileURLWithPath: paramSrc)) {
-                    body.append("; filename=\"\(paramSrc)\"\r\nContent-Type: \"content-type header\"\r\n\r\n".data(using: .utf8)!)
-                    body.append(fileData)
-                    body.append("\r\n".data(using: .utf8)!)
+        let headers: HTTPHeaders = [
+            "x-access-token": token,
+            "Content-type": "multipart/form-data"
+        ]
+        
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/jpg") // image data
+            multipartFormData.append(diagnostic.data(using: .utf8)!, withName: "diagnostic") // diagnostic data
+        }, to: APIEndpoints.baseURL + APIEndpoints.uploadImage, method: .post, headers: headers).responseData { response in
+            switch response.result {
+            case .success(let data):
+                // Here, 'data' is the raw Data returned from the server
+                if let string = String(data: data, encoding: .utf8) {
+                    print("Received response:\n \(string)")
                 }
-            }
-        }
-        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token")
-        
-        request.httpBody = body
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-            } else if let data = data {
+
+                // Now, we'll decode the data and pass along the result
                 do {
-                    let response = try JSONDecoder().decode(Response<ImageUploadResponse>.self, from: data)
-                    completion(.success(response.data))
+                    let decoded = try JSONDecoder().decode(Response<ImageData>.self, from: data)
+                    completion(.success(decoded))
                 } catch {
                     completion(.failure(error))
                 }
-            }
-        }
-        task.resume()
-    }
-}
-
-extension NetworkManager {
-    
-    func visualizeDoctorPatientFile(userId: Int, imageId: Int, completion: @escaping (Result<UIImage?, Error>) -> Void) {
-        guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.visualizeDoctorPatientFile(userId: userId, imageId: imageId)) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
-            return
-        }
-
-        var request = URLRequest(url: url, timeoutInterval: Double.infinity)
-        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token")
-        request.httpMethod = "GET"
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
+                
+            case .failure(let error):
+                print("Error: \(error)")
                 completion(.failure(error))
-                return
-            }
-            
-            if let data = data {
-                do {
-                    let decodedResponse = try JSONDecoder().decode(Response<ImageDataResponse>.self, from: data)
-                    
-                    guard let base64String = decodedResponse.data.data else {
-                        completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "No base64 data found"])))
-                        return
-                    }
-                    
-                    // Convert base64 string to UIImage
-                    if let imageData = Data(base64Encoded: base64String) {
-                        let image = UIImage(data: imageData)
-                        completion(.success(image))
-                    } else {
-                        completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to convert base64 string to UIImage"])))
-                    }
-                    
-                } catch {
-                    completion(.failure(error))
-                }
             }
         }
-        task.resume()
     }
+
+
+    
 }
 
-struct User: Codable {
-    let id: Int
-    let name: String
-    let username: String
-    let email: String
-    let birthDate: String
-    let cedula: String?
-    let creationDate: String
-    let jwtToken: String?
-    let lastUpdate: String
-    let passwordHash: String
-    let profileId: Int
-    let status: Bool
 
-    enum CodingKeys: String, CodingKey {
-        case id, name, username, email
-        case birthDate = "birth_date"
-        case cedula = "cedula"
-        case creationDate = "creation_date"
-        case jwtToken = "jwt_token"
-        case lastUpdate = "last_update"
-        case passwordHash = "password_hash"
-        case profileId = "profile_id"
-        case status
+   
+    
+    struct User: Codable {
+        let id: Int
+        let name: String
+        let username: String
+        let email: String
+        let birthDate: String
+        let cedula: String?
+        let creationDate: String
+        let jwtToken: String?
+        let lastUpdate: String
+        let passwordHash: String
+        let profileId: Int
+        let status: Bool
+        
+        enum CodingKeys: String, CodingKey {
+            case id, name, username, email
+            case birthDate = "birth_date"
+            case cedula = "cedula"
+            case creationDate = "creation_date"
+            case jwtToken = "jwt_token"
+            case lastUpdate = "last_update"
+            case passwordHash = "password_hash"
+            case profileId = "profile_id"
+            case status
+        }
     }
-}
+    
+    
+    
+
 
 struct Response<T: Codable>: Codable {
     let data: T
@@ -323,32 +274,22 @@ struct Response<T: Codable>: Codable {
     let success: Bool
 }
 
-struct ImageDataResponse: Codable {
-    let data: String?
-    let message: String
-    let status: Int
-    let success: Bool
-}
 
-
-struct ImageUploadResponse: Codable {
+struct ImageData: Codable {
     let creationDate: String
-    let element: String
     let id: Int
     let imageId: Int
     let lastUpdate: String
-    let precision: Double
     let status: Bool
     let userId: Int
 
     enum CodingKeys: String, CodingKey {
         case creationDate = "creation_date"
-        case element
         case id
         case imageId = "image_id"
         case lastUpdate = "last_update"
-        case precision
         case status
         case userId = "user_id"
     }
 }
+
