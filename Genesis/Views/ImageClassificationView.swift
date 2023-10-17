@@ -94,7 +94,7 @@ extension UIImage {
 struct Prediction: Codable {
     let sickness: String
     let precision: Double
-}
+} 
 
 
 func uploadDiagnosticImage(imageData: Data, top3Predictions: [(key: String, value: Double)], completion: @escaping (Result<Response<ImageData>, Error>) -> Void) {
