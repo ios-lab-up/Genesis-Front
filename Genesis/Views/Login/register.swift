@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct register: View {
     @State private var email: String = ""
     @State private var password: String = ""
@@ -19,45 +21,46 @@ struct register: View {
     @State private var alertMessage = ""
     @State private var showAlert = false
     var body: some View {
-        VStack{
-         
-            CustomTextField(text: $name, label: "Name", placeholder: "", sfSymbol: "person.text.rectangle.fill")
-            CustomTextField(text: $username, label: "Username", placeholder: "", sfSymbol: "person.fill")
-            CustomTextField(text: $email, label: "Email", placeholder: "", sfSymbol: "envelope.fill")
-            CustomDatePicker(date: $birthday, label: "Birthday", sfSymbol: "birthday.cake.fill")
-            CustomSecureTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.slash.fill")
-            
-            Spacer()
-            
-            Button(action: {
-                if name.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty {
-                    alertMessage = "Please fill all the fields"
-                    showAlert = true
-                } else {
-                    signUp()
+        ScrollView{
+            VStack{
+                
+                CustomTextField(text: $name, label: "Name", placeholder: "", sfSymbol: "person.text.rectangle.fill")
+                CustomTextField(text: $username, label: "Username", placeholder: "", sfSymbol: "person.fill")
+                CustomTextField(text: $email, label: "Email", placeholder: "", sfSymbol: "envelope.fill")
+                CustomDatePicker(date: $birthday, label: "Birthday", sfSymbol: "birthday.cake.fill")
+                CustomSecureTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.slash.fill")
+                
+                Spacer()
+                
+                Button(action: {
+                    if name.isEmpty || username.isEmpty || email.isEmpty || password.isEmpty {
+                        alertMessage = "Please fill all the fields"
+                        showAlert = true
+                    } else {
+                        signUp()
+                    }
+                }) {
+                    Text("Register")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 25)
+                        .background(Color("Primary"))
+                        .cornerRadius(100)
                 }
-                   }) {
-                       Text("Register")
-                           .font(.headline)
-                           .foregroundColor(.white)
-                           .frame(maxWidth: .infinity)
-                           .padding(.vertical, 25)
-                           .background(Color("Primary"))
-                           .cornerRadius(100)
-                   }
-                   .padding(.top, 30)
-            
-            
-        }
-        .ignoresSafeArea(.keyboard)
-        .navigationTitle("Create Account")
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Register error"), message: Text(alertMessage), dismissButton: .default(Text("Close")))
-        }
-        .navigationBarTitleDisplayMode(.large)
-        .padding()
-        .fullScreenCover(isPresented: $isSignUpSuccessful, content: {oneTimeCode()})
-        }
+                .padding(.top, 30)
+                
+                
+            }
+            .ignoresSafeArea(.keyboard)
+            .navigationTitle("Create Account")
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Register error"), message: Text(alertMessage), dismissButton: .default(Text("Close")))
+            }
+            .navigationBarTitleDisplayMode(.large)
+            .padding()
+            .fullScreenCover(isPresented: $isSignUpSuccessful, content: {oneTimeCode()})
+        }}
     
     
     
