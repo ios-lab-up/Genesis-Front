@@ -65,6 +65,7 @@ struct oneTimeCode: View {
               
           }
           .padding(.vertical)
+          .fullScreenCover(isPresented: $isSignUpSuccessful, content: {HomeView()})
           
           
       }
@@ -75,7 +76,8 @@ struct oneTimeCode: View {
             switch result {
             case .success(let user):
                 print("Verified user: \(user)")
-            self.presentationMode.wrappedValue.dismiss()
+                self.isSignUpSuccessful = true
+            //self.presentationMode.wrappedValue.dismiss()
                 
             case .failure(let error):
                 print("Failed to verify user: \(error)")
@@ -89,6 +91,7 @@ struct oneTimeCode: View {
             switch result {
             case .success:
                 print("Verification code resent successfully.")
+                
             case .failure(let error):
                 print("Failed to resend verification code: \(error)")
             }
