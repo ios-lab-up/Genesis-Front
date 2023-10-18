@@ -6,266 +6,9 @@
 //
 
 import Foundation
-import UIKit
 import Alamofire
 
 
-// Create a struct to hold all the API endpoints
-struct APIEndpoints {
-    static let baseURL = "https://api.luishomeserver.com"
-    static let signUp = "/sign_up"
-    static let verifyIdentity = "/sign_up/verify_identity"
-    static let resendVerificationCode = "/sign_up/resend_verification_code"
-    static let signIn = "/sign_in"
-    static let uploadImage = "/upload_image"
-    static func visualizeDoctorPatientFile(userId: Int, imageId: Int) -> String {
-            return "/visualize_doctor_patient/\(userId)/\(imageId)"
-        }
-}
-
-class NetworkManager {
-    static let shared = NetworkManager()
-    var sixDigitCode: String?
-    var jwtToken: String?
-    var isAuthenticated: Bool?
-    private init() {}
-
-    func signUp(name: String, username: String, email: String, password: String, birthDate: String, profileId: Int, cedula: String? = nil, completion: @escaping (Result<User, Error>) -> Void) {
- 
-        guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.signUp) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        var body: [String: Any] = ["name": name, "username": username, "email": email, "password": password, "birth_date": birthDate, "profile_id": profileId]
-            if let cedulaValue = cedula {
-                body["cedula"] = cedulaValue
-            }
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-            } else if let data = data {
-                do {
-                    let response = try JSONDecoder().decode(Response<User>.self, from: data)
-                    self.jwtToken = response.data.jwtToken
-                    completion(.success(response.data))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-        }
-        task.resume()
-    }
-
-    func verifyIdentity(code: String, completion: @escaping (Result<User, Error>) -> Void) {
-        guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.verifyIdentity) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token" )
-
-        let body: [String: Any] = ["code": code]
-        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-
-            if let data = data {
-                do {
-                    let response = try JSONDecoder().decode(Response<User>.self, from: data)
-                    self.isAuthenticated = response.success
-                    completion(.success(response.data))
-                } catch {
-                    completion(.failure(error))
-                }
-            }
-        }
-        task.resume()
-    }
-
-    func resendVerificationCode(completion: @escaping (Result<Bool, Error>) -> Void) {
-        guard let url = URL(string: APIEndpoints.baseURL + APIEndpoints.resendVerificationCode) else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
-            return
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token" )
-
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-            } else {
-                completion(.success(true))
-            }
-        }
-        task.resume()
-    }
-
-    func login(username: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
-        let url = URL(string: APIEndpoints.baseURL + APIEndpoints.signIn)!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        let body = [
-            "username": username,
-            "password": password
-        ]
-
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
-        } catch {
-            print("Failed to serialize data: \(error)")
-            return
-        }
-
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("Failed to complete request: \(error)")
-                completion(.failure(error))
-                return
-            }
-
-            if let data = data {
-                do {
-                    if let response = try? JSONDecoder().decode(Response<User>.self, from: data) {
-                        self.jwtToken = response.data.jwtToken
-                        completion(.success(response.data))
-                    } else {
-                        let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Failed to decode response"])
-                        completion(.failure(error))
-                    }
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    func getUserData(completion: @escaping (Result<User, Error>) -> Void) {
-        guard let url = URL(string: APIEndpoints.baseURL + "/get_user_data") else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid URL"])))
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(self.jwtToken ?? "", forHTTPHeaderField: "x-access-token")
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    if let response = try? decoder.decode(Response<User>.self, from: data) {
-                        completion(.success(response.data))
-                    } else {
-                        let error = NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey : "Failed to decode response"])
-                        completion(.failure(error))
-                    }
-                }
-            }
-        }
-        
-        task.resume()
-    }
-
-    
-    func uploadImage(imageData: Data, diagnostic: String, completion: @escaping (Result<Response<ImageData>, Error>) -> Void) {
-        // Check if jwtToken is not nil, otherwise return an error
-        guard let token = self.jwtToken else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "JWT token is missing"])))
-            return
-        }
-        
-        let headers: HTTPHeaders = [
-            "x-access-token": token,
-            "Content-type": "multipart/form-data"
-        ]
-        
-        
-        AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/jpg") // image data
-            multipartFormData.append(diagnostic.data(using: .utf8)!, withName: "diagnostic") // diagnostic data
-        }, to: APIEndpoints.baseURL + APIEndpoints.uploadImage, method: .post, headers: headers).responseData { response in
-            switch response.result {
-            case .success(let data):
-                // Here, 'data' is the raw Data returned from the server
-                if let string = String(data: data, encoding: .utf8) {
-                    print("Received response:\n \(string)")
-                }
-
-                // Now, we'll decode the data and pass along the result
-                do {
-                    let decoded = try JSONDecoder().decode(Response<ImageData>.self, from: data)
-                    completion(.success(decoded))
-                } catch {
-                    completion(.failure(error))
-                }
-                
-            case .failure(let error):
-                print("Error: \(error)")
-                completion(.failure(error))
-            }
-        }
-    }
-
-    
-
-    
-}
-
-
-   
-    
-    struct User: Codable {
-        let id: Int
-        let name: String
-        let username: String
-        let email: String
-        let birthDate: String
-        let cedula: String?
-        let creationDate: String
-        let jwtToken: String?
-        let lastUpdate: String
-        let passwordHash: String
-        let profileId: Int
-        let status: Bool
-        
-        enum CodingKeys: String, CodingKey {
-            case id, name, username, email
-            case birthDate = "birth_date"
-            case cedula = "cedula"
-            case creationDate = "creation_date"
-            case jwtToken = "jwt_token"
-            case lastUpdate = "last_update"
-            case passwordHash = "password_hash"
-            case profileId = "profile_id"
-            case status
-        }
-    }
-    
-    
-    
 
 
 struct Response<T: Codable>: Codable {
@@ -273,8 +16,49 @@ struct Response<T: Codable>: Codable {
     let message: String
     let status: Int
     let success: Bool
+    // Consider adding an error or additional message field for server errors.
 }
 
+struct APIResponse<T: Decodable>: Decodable {
+    let success: Bool
+    let status: Int?
+    let message: String?
+    let error: String?
+    let data: T? // This remains generic and can be 'Bool', 'User', or any other Decodable type
+}
+
+// ErrorResponse is used to represent error messages from the server.
+struct ErrorResponse: Decodable {
+    let error: String?
+    let message: String
+    let status: Int
+    let success: Bool
+}
+
+
+struct User: Codable {
+    let id: Int
+    let name: String
+    let username: String
+    let email: String
+    let birthDate: String
+    let cedula: String?
+    let creationDate: String
+    let jwtToken: String?  // Renamed for clarity and consistency.
+    let lastUpdate: String
+    // Removed `passwordHash` if it's not used client-side.
+    let profileId: Int
+    let isActive: Bool  // Renamed to reflect its meaning more clearly, assuming it means whether the user's account is active.
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, username, email, cedula, isActive = "status"
+        case birthDate = "birth_date"
+        case creationDate = "creation_date"
+        case jwtToken = "jwt_token"
+        case lastUpdate = "last_update"
+        case profileId = "profile_id"
+    }
+}
 
 struct ImageData: Codable {
     let creationDate: String
@@ -293,4 +77,76 @@ struct ImageData: Codable {
         case userId = "user_id"
     }
 }
+
+
+
+/// `APIEndpoints` provides full URL strings for network requests to the various endpoints of the Genesis API.
+/// This struct constructs URLs by appending specific path components to the base URL.
+struct APIEndpoints {
+    /// The base URL for the Luis Home Server API.
+    static let baseURL = "https://api.luishomeserver.com"
+
+    /// URL for the 'sign up' endpoint.
+    /// This endpoint is used for registering new users.
+    static var signUp: String { baseURL + "/sign_up" }
+    
+    /// URL for the 'verify identity' endpoint within the 'sign up' process.
+    /// This endpoint is used for verifying the identity of users during registration, likely with some form of token or code.
+    static var verifyIdentity: String { baseURL + "/sign_up/verify_identity" }
+    
+    /// URL for the 'resend verification code' endpoint.
+    /// This endpoint is used to resend a new verification code to users if needed during the sign-up process.
+    static var resendVerificationCode: String { baseURL + "/sign_up/resend_verification_code" }
+    
+    /// URL for the 'sign in' endpoint.
+    /// This endpoint is used for user login, likely requiring a username and password.
+    static var signIn: String { baseURL + "/sign_in" }
+    
+    /// URL for the 'upload image' endpoint.
+    /// This endpoint is used for uploading images, likely requiring the image data and possibly some form of user authentication.
+    static var uploadImage: String { baseURL + "/upload_image" }
+    
+    /// URL for the 'get user images data' endpoint.
+    /// This endpoint is used to retrieve the images data for the user, likely requiring some form of user authentication.
+    static var getImages: String { baseURL + "/get_user_images_data" }
+    
+    static var getUserData: String { baseURL + "/get_user_data"}
+}
+
+/// `NetworkManager` handles all network calls to the Genesis API.
+/// It includes functions for signing up, verifying identity, resending verification codes, logging in, getting user data, and uploading images.
+class NetworkManager {
+    
+    // MARK: - Properties
+    
+    /// Shared instance for the network manager, used for singleton setup.
+    static let shared = NetworkManager()
+    
+    /// A six-digit code which might be used for certain authentication processes.
+    var sixDigitCode: String?
+    
+    /// The JWT token used for authenticated requests.
+    var jwtToken: String?
+    
+    /// A flag indicating whether the user is authenticated.
+    var isAuthenticated: Bool?
+    
+    // Private initializer for singleton.
+    private init() {}
+    
+    // MARK: - Network Operations
+    
+    // ... [Your existing methods here]
+    
+    // Add your methods like `signUp`, `verifyIdentity`, `resendVerificationCode`, `login`, `getUserData`, and `uploadImage` here,
+    // replacing string concatenations for URLs with references to your `APIEndpoints` properties.
+    // Example:
+    // URL(string: APIEndpoints.baseURL + "/sign_up") becomes URL(string: APIEndpoints.signUp)
+
+    // ...
+}
+
+
+
+
 

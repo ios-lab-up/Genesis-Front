@@ -35,6 +35,9 @@
 		481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */; };
 		483A4A6C2ADF051A005A3B4C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 483A4A6B2ADF051A005A3B4C /* Alamofire */; };
 		48626CC12ADF367A00CCE82B /* ViewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC02ADF367A00CCE82B /* ViewImage.swift */; };
+		48626CC32ADF5DA700CCE82B /* NetworkManager+UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC22ADF5DA700CCE82B /* NetworkManager+UserAuth.swift */; };
+		48626CC72ADF64D900CCE82B /* NetworkManager+UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */; };
+		48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
 		7A8BE8F52A7F437F00BAE75B /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E72A7F437E00BAE75B /* PhotoCollectionView.swift */; };
@@ -80,6 +83,9 @@
 		481BDDCE2A6F70AB006D4D80 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyIdentityView.swift; sourceTree = "<group>"; };
 		48626CC02ADF367A00CCE82B /* ViewImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImage.swift; sourceTree = "<group>"; };
+		48626CC22ADF5DA700CCE82B /* NetworkManager+UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UserAuth.swift"; sourceTree = "<group>"; };
+		48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UserData.swift"; sourceTree = "<group>"; };
+		48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+MedicalHistory.swift"; sourceTree = "<group>"; };
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7A8BE8E52A7F435600BAE75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Capturing Photos.swiftpm/App/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
@@ -238,6 +244,9 @@
 			isa = PBXGroup;
 			children = (
 				481BDDCE2A6F70AB006D4D80 /* NetworkManager.swift */,
+				48626CC22ADF5DA700CCE82B /* NetworkManager+UserAuth.swift */,
+				48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */,
+				48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -372,9 +381,11 @@
 				16F2BC782AD738EE00CE4BC5 /* Photo.swift in Sources */,
 				7A8BE9012A7F437F00BAE75B /* ViewfinderView.swift in Sources */,
 				166481F52A7F92020093032A /* OneTimeCodeBoxes.swift in Sources */,
+				48626CC72ADF64D900CCE82B /* NetworkManager+UserData.swift in Sources */,
 				166481FA2A7F929C0093032A /* String+.swift in Sources */,
 				7A8BE8F82A7F437F00BAE75B /* Camera.swift in Sources */,
 				16F2BC842AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage in Sources */,
+				48626CC32ADF5DA700CCE82B /* NetworkManager+UserAuth.swift in Sources */,
 				16F2BC762AD7384E00CE4BC5 /* Picker.swift in Sources */,
 				481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */,
 				166481F02A7F8FB10093032A /* enroll.swift in Sources */,
@@ -388,6 +399,7 @@
 				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
 				16F2BC742AD7372C00CE4BC5 /* ViewModel.swift in Sources */,
 				7A8BE8F72A7F437F00BAE75B /* CachedImageManager.swift in Sources */,
+				48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */,
 				7A8BE9022A7F437F00BAE75B /* CameraView.swift in Sources */,
 				7A8BE8FC2A7F437F00BAE75B /* PhotoAssetCollection.swift in Sources */,
 				7A8BE9002A7F437F00BAE75B /* PhotoView.swift in Sources */,
