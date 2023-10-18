@@ -38,6 +38,7 @@
 		48626CC32ADF5DA700CCE82B /* NetworkManager+UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC22ADF5DA700CCE82B /* NetworkManager+UserAuth.swift */; };
 		48626CC72ADF64D900CCE82B /* NetworkManager+UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */; };
 		48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */; };
+		48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
 		7A8BE8F52A7F437F00BAE75B /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E72A7F437E00BAE75B /* PhotoCollectionView.swift */; };
@@ -86,6 +87,7 @@
 		48626CC22ADF5DA700CCE82B /* NetworkManager+UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UserAuth.swift"; sourceTree = "<group>"; };
 		48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UserData.swift"; sourceTree = "<group>"; };
 		48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+MedicalHistory.swift"; sourceTree = "<group>"; };
+		48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistoryForm.swift; sourceTree = "<group>"; };
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7A8BE8E52A7F435600BAE75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Capturing Photos.swiftpm/App/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
@@ -272,6 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				48626CC02ADF367A00CCE82B /* ViewImage.swift */,
+				48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */,
 			);
 			path = MedicalHistory;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				7A8BE8FC2A7F437F00BAE75B /* PhotoAssetCollection.swift in Sources */,
 				7A8BE9002A7F437F00BAE75B /* PhotoView.swift in Sources */,
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
+				48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */,
 				481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */,
 				166481F72A7F923A0093032A /* oneTimeCode.swift in Sources */,
 				48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */,

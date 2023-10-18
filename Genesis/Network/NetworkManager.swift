@@ -115,7 +115,7 @@ struct APIEndpoints {
 
 /// `NetworkManager` handles all network calls to the Genesis API.
 /// It includes functions for signing up, verifying identity, resending verification codes, logging in, getting user data, and uploading images.
-class NetworkManager {
+class NetworkManager:ObservableObject {
     
     // MARK: - Properties
     
@@ -129,7 +129,8 @@ class NetworkManager {
     var jwtToken: String?
     
     /// A flag indicating whether the user is authenticated.
-    var isAuthenticated: Bool?
+    @Published var isAuthenticated: Bool?
+    
     
     // Private initializer for singleton.
     private init() {}

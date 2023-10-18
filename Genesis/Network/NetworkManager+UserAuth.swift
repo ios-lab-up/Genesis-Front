@@ -11,6 +11,8 @@ import Alamofire
 
 extension NetworkManager {
     
+    
+    
     func signUp(name: String, username: String, email: String, password: String, birthDate: String, profileId: Int, cedula: String? = nil, completion: @escaping (Result<User, Error>) -> Void) {
         
         /**
@@ -210,6 +212,7 @@ extension NetworkManager {
     
     func login(username: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
         
+        
         let parameters: [String: Any] = [
             "username": username,
             "password": password
@@ -226,6 +229,7 @@ extension NetworkManager {
                     if decodedResponse.success, let userData = decodedResponse.data {
                         self.jwtToken = userData.jwtToken
                         completion(.success(userData))
+                        
                     } else {
                         let errorMessage = decodedResponse.message ?? "An unknown error occurred"
                         completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: errorMessage])))

@@ -14,6 +14,7 @@ struct GenesisApp: App {
         // UINavigationBar.applyCustomAppearance()
     }
     var body: some Scene {
+        
         WindowGroup {
             ContentView()
                 .environmentObject(ViewModel())
