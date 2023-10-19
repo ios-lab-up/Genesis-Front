@@ -20,6 +20,7 @@ struct register: View {
     @State private var isSignUpSuccessful = false
     @State private var alertMessage = ""
     @State private var showAlert = false
+    @State private var isPrivate = true
     var body: some View {
         ScrollView{
             VStack{
@@ -28,7 +29,22 @@ struct register: View {
                 CustomTextField(text: $username, label: "Username", placeholder: "", sfSymbol: "person.fill")
                 CustomTextField(text: $email, label: "Email", placeholder: "", sfSymbol: "envelope.fill")
                 CustomDatePicker(date: $birthday, label: "Birthday", sfSymbol: "birthday.cake.fill")
-                CustomSecureTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.slash.fill")
+                ZStack{
+                    if isPrivate{
+                        CustomSecureTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.slash.fill")
+                    }
+                    else
+                    {
+                        CustomTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.fill")
+                    }
+                    HStack{
+                        Spacer()
+                        Spacer()
+                        Button("     "){
+                            isPrivate.toggle()
+                        }
+                    }
+                }
                 
                 Spacer()
                 
