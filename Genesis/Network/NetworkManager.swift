@@ -165,6 +165,22 @@ extension NetworkManager {
     func deleteToken() {
         keychain.delete("com.Genesis.jwtToken")
     }
+    
+    func validateJwtToken(completion: @escaping (Bool, Error?) -> Void) {
+            getUserData { result in
+                switch result {
+                case .success:
+                    print(result)
+                    // If we successfully retrieve user data, the token is valid.
+                    completion(true, nil)
+                case .failure(let error):
+                    // If there's an error (likely 401 Unauthorized), the token is invalid or expired.
+                    completion(false, error)
+                    print("nel")
+                }
+            }
+        
+        }
 }
 
 
