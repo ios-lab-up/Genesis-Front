@@ -12,20 +12,18 @@ extension NetworkManager {
     
     func getUserData(completion: @escaping (Result<User, Error>) -> Void) {
         
-        /**
-        Retrieves the current user's data.
+        // Check if the token exists
+        guard let token = retrieveToken() else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
+            return
+        }
 
-        This function sends a GET request to the "/get_user_data" endpoint. If the request is successful, it decodes the response into a `User` object. In case of failure, it returns an error.
-
-        - Parameters:
-           - completion: A closure that gets called when the request is complete, returning a `Result` with a `User` upon success or an `Error` upon failure.
-
-        - Returns: Void
-        */
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "x-access-token": self.jwtToken ?? ""
+            "x-access-token": token // Here we're using the non-optional token
         ]
+        
+        print(token)
 
         AF.request(APIEndpoints.getUserData, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
@@ -38,6 +36,7 @@ extension NetworkManager {
                 }
             }
     }
+
         
         
     }
