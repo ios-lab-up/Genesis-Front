@@ -53,6 +53,7 @@ struct CustomSecureTextField: View {
     var placeholder: String
     var sfSymbol: String
     @FocusState private var isFocused: Bool
+    
 
     var body: some View {
         ZStack(alignment: .leading) {
@@ -72,9 +73,9 @@ struct CustomSecureTextField: View {
                     HStack {
                         Spacer()
                         Image(systemName: sfSymbol)
-                            .foregroundColor(isFocused ? Color("Primary") : Color("textSecondary"))
-                            .padding(.trailing)
-                            .font(.title3)
+                                .foregroundColor(isFocused ? Color("Primary") : Color("textSecondary"))
+                                .padding(.trailing)
+                                .font(.title3)
                     }
                 )
                 .background(RoundedRectangle(cornerRadius: 8).foregroundColor(Color("Secondary")))

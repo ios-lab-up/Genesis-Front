@@ -13,6 +13,8 @@ struct signIn: View {
     @State private var password: String = ""
     @State private var showError = false
     @State private var isAuthenticated: Bool = false
+    @State private var isPrivate = true
+    @State private var isShown: Bool = false
     var body: some View {
         NavigationView {
             VStack{
@@ -22,7 +24,22 @@ struct signIn: View {
                     .bold()
                 
                 CustomTextField(text: $username, label: "Username", placeholder: "", sfSymbol: "person.fill")
-                CustomSecureTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.slash.fill")
+                ZStack{
+                    if isPrivate{
+                        CustomSecureTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.slash.fill")
+                    }
+                    else
+                    {
+                        CustomTextField(text: $password, label: "Password", placeholder: "", sfSymbol: "eye.fill")
+                    }
+                    HStack{
+                        Spacer()
+                        Spacer()
+                        Button("     "){
+                            isPrivate.toggle()
+                        }
+                    }
+                }
                 
                 Button(action: {
                     login()
@@ -99,6 +116,10 @@ struct signIn: View {
             }
         }
     }
+    func showPassword() {
+        
+    }
+    
 }
 
 
