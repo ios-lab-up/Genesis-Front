@@ -39,6 +39,7 @@
 		48626CC72ADF64D900CCE82B /* NetworkManager+UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */; };
 		48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */; };
 		48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */; };
+		48626CCF2AE0A3F100CCE82B /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48626CCE2AE0A3F100CCE82B /* KeychainSwift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
 		7A8BE8F52A7F437F00BAE75B /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E72A7F437E00BAE75B /* PhotoCollectionView.swift */; };
@@ -111,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				48626CCF2AE0A3F100CCE82B /* KeychainSwift in Frameworks */,
 				483A4A6C2ADF051A005A3B4C /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,6 +319,7 @@
 			name = Genesis;
 			packageProductDependencies = (
 				483A4A6B2ADF051A005A3B4C /* Alamofire */,
+				48626CCE2AE0A3F100CCE82B /* KeychainSwift */,
 			);
 			productName = Genesis;
 			productReference = 481BDDB22A6E02D3006D4D80 /* Genesis.app */;
@@ -348,6 +351,7 @@
 			mainGroup = 481BDDA92A6E02D3006D4D80;
 			packageReferences = (
 				483A4A6A2ADF051A005A3B4C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				48626CCD2AE0A3F100CCE82B /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
 			productRefGroup = 481BDDB32A6E02D3006D4D80 /* Products */;
 			projectDirPath = "";
@@ -635,6 +639,14 @@
 				minimumVersion = 5.8.0;
 			};
 		};
+		48626CCD2AE0A3F100CCE82B /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 20.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -642,6 +654,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 483A4A6A2ADF051A005A3B4C /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		48626CCE2AE0A3F100CCE82B /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48626CCD2AE0A3F100CCE82B /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

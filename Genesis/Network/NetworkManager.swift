@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import KeychainSwift
 
 
 
@@ -131,20 +132,39 @@ class NetworkManager:ObservableObject {
     /// A flag indicating whether the user is authenticated.
     @Published var isAuthenticated: Bool?
     
+    private let keychain = KeychainSwift()
+
+    
     
     // Private initializer for singleton.
     private init() {}
     
     // MARK: - Network Operations
     
-    // ... [Your existing methods here]
-    
+        
     // Add your methods like `signUp`, `verifyIdentity`, `resendVerificationCode`, `login`, `getUserData`, and `uploadImage` here,
     // replacing string concatenations for URLs with references to your `APIEndpoints` properties.
     // Example:
     // URL(string: APIEndpoints.baseURL + "/sign_up") becomes URL(string: APIEndpoints.signUp)
 
     // ...
+}
+
+extension NetworkManager {
+    // Save the JWT token to the Keychain
+    func saveToken(_ token: String) {
+        keychain.set(token, forKey: "com.Genesis.jwtToken")
+    }
+
+    // Retrieve the JWT token from the Keychain
+    func retrieveToken() -> String? {
+        return keychain.get("com.Genesis.jwtToken")
+    }
+
+    // Delete the JWT token from the Keychain (useful for sign out)
+    func deleteToken() {
+        keychain.delete("com.Genesis.jwtToken")
+    }
 }
 
 

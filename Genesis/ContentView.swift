@@ -37,7 +37,19 @@ import SwiftUI
 }*/
 
 struct ContentView: View {
+    @State private var succes = true
     var body: some View {
-        DashboardView()
+
+        HomeView().onAppear{
+            if NetworkManager.shared.retrieveToken() != nil{
+                succes = false
+            }
+            else{
+            }
+        }
+        .fullScreenCover(isPresented: $succes) {
+            signIn()
+        }
+        
     }
 }

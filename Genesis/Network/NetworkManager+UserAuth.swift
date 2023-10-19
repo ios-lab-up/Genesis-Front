@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 
 
+
 extension NetworkManager {
     
     
@@ -59,7 +60,13 @@ extension NetworkManager {
                         // Check if 'success' is true in the response
                         if decodedResponse.success {
                             // Handle successful response
-                            self.jwtToken = decodedResponse.data?.jwtToken
+                            if let token = decodedResponse.data?.jwtToken {
+                                self.saveToken(token)
+                                self.isAuthenticated = true
+                                self.jwtToken = token
+
+                            }
+                            
                             completion(.success(decodedResponse.data!))
                         } else {
                             // If 'success' is false, handle the error message from the response
@@ -227,7 +234,12 @@ extension NetworkManager {
                 switch response.result {
                 case .success(let decodedResponse):
                     if decodedResponse.success, let userData = decodedResponse.data {
-                        self.jwtToken = userData.jwtToken
+                        if let token = decodedResponse.data?.jwtToken {
+                            self.saveToken(token)
+                            self.isAuthenticated = true
+                            self.jwtToken = token
+
+                        }
                         completion(.success(userData))
                         
                     } else {

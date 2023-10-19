@@ -20,6 +20,7 @@ struct GenesisApp: App {
                 .environmentObject(ViewModel())
                 .onAppear{
                     UserDefaults.standard.setValue(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+                    
                 }
         }
     }
