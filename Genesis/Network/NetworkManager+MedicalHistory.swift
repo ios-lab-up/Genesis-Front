@@ -11,8 +11,8 @@ import Foundation
 extension NetworkManager{
     func uploadImage(imageData: Data, diagnostic: String, completion: @escaping (Result<Response<ImageData>, Error>) -> Void) {
         // Check if jwtToken is not nil, otherwise return an error
-        guard let token = self.jwtToken else {
-            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "JWT token is missing"])))
+        guard let token = retrieveToken() else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
             return
         }
         

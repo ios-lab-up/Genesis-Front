@@ -234,12 +234,9 @@ extension NetworkManager {
                 switch response.result {
                 case .success(let decodedResponse):
                     if decodedResponse.success, let userData = decodedResponse.data {
-                        print(decodedResponse.data?.jwtToken)
-                        print("\n")
                         if let token = decodedResponse.data?.jwtToken {
                             self.saveToken(token)
                             self.isAuthenticated = true
-                            self.jwtToken = token
 
                         }
                         completion(.success(userData))
@@ -255,5 +252,4 @@ extension NetworkManager {
     }
 }
 
-    // ... other related methods ...
 

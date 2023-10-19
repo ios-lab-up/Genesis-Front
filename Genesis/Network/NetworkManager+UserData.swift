@@ -23,7 +23,6 @@ extension NetworkManager {
             "x-access-token": token // Here we're using the non-optional token
         ]
         
-        print(token)
 
         AF.request(APIEndpoints.getUserData, method: .get, headers: headers)
             .validate(statusCode: 200..<300)

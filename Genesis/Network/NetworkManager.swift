@@ -81,6 +81,8 @@ struct ImageData: Codable {
 
 
 
+
+
 /// `APIEndpoints` provides full URL strings for network requests to the various endpoints of the Genesis API.
 /// This struct constructs URLs by appending specific path components to the base URL.
 struct APIEndpoints {
@@ -170,13 +172,10 @@ extension NetworkManager {
             getUserData { result in
                 switch result {
                 case .success:
-                    print(result)
-                    // If we successfully retrieve user data, the token is valid.
                     completion(true, nil)
                 case .failure(let error):
                     // If there's an error (likely 401 Unauthorized), the token is invalid or expired.
                     completion(false, error)
-                    print("nel")
                 }
             }
         

@@ -1,83 +1,84 @@
-//
-//  MedicalHistoryForm.swift
-//  Genesis
-//
-//  Created by Luis Cedillo M on 18/10/23.
-//
-
 import SwiftUI
 
 struct MedicalHistoryForm: View {
     
-    enum FocuesField{
-        case Treatment, Indications, Dosage, FrecuencyValue, FrecuencyUnit, StartDate, EndDate
+    enum FocusedField {
+        case treatment, indications, dosage, frequencyValue, frequencyUnit, startDate, endDate
     }
 
-    @State private var Treatment = ""
-    @State private var Indications = ""
-    @State private var Dosage = ""
-    @State private var FrequencyValue = ""
-    @State private var FrecuencyUnit = ""
-    @State private var StartDate = ""
-    @State private var EndDate = ""
+    @State private var treatment = ""
+    @State private var indications = ""
+    @State private var dosage = ""
+    @State private var frequencyValue = ""
+    @State private var frequencyUnit = ""
+    @State private var startDate = Date()
+    @State private var endDate = Date()
+    
+    @FocusState private var fieldFocus: FocusedField?
 
-    @FocusState private var fieldFocus: FocuesField?
-    
-    
     var body: some View {
-        NavigationView{
-            Form{
-            
-                
-                Section("Treatment Details"){
-                    
-                    TextField("Treatment", text: $Treatment)
-                        .focused($fieldFocus, equals: .Treatment)
-                        .textContentType(.name)
-                        .submitLabel(.next)
-                    TextField("Indications", text: $Indications)
-                        .focused($fieldFocus, equals: .Indications)
-                        .submitLabel(.next)
-                    
+        NavigationView {
+            Form {
+                Section(header: Text("Treatment Details")) {
+                    fields(for: .treatment, .indications)
                 }
                 
-                
-                Section("Dosage Details"){
-                    TextField("Dosage", text: $Dosage)
-                        .focused($fieldFocus, equals: .Dosage)
-                        .submitLabel(.next)
-                    
-                    TextField("Frecuency Value", text: $FrequencyValue)
-                        .focused($fieldFocus, equals: .FrecuencyValue)
-                        .submitLabel(.next)
-                    
-                    TextField("Frecuency Unit", text: $FrecuencyUnit)}
-                    .focused($fieldFocus, equals: .Treatment)
-                    .submitLabel(.next)
-                
-                Section("Time Range"){
-                    TextField("Start Date", text: $StartDate)
-                        .focused($fieldFocus, equals: .Treatment)
-                        .textContentType(.dateTime)
-                        .submitLabel(.next)
-                    
-                    TextField("End Date", text: $EndDate)
-                        .focused($fieldFocus, equals: .Treatment)
-                        .textContentType(.dateTime)
-                        .submitLabel(.next)
+                Section(header: Text("Dosage Details")) {
+                    fields(for: .dosage, .frequencyValue, .frequencyUnit)
                 }
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Section(header: Text("Time Range")) {
+                    DatePicker("Start Date", selection: $startDate, displayedComponents: .date)
+                        .focused($fieldFocus, equals: .startDate)
+                    
+                    DatePicker("End Date", selection: $endDate, displayedComponents: .date)
+                        .focused($fieldFocus, equals: .endDate)
+                }
+                
+                Button(action: {}) {
                     Text("Submit")
                         .frame(maxWidth: .infinity)
-                })
+                }
                 .buttonStyle(.borderedProminent)
             }
             .navigationTitle("Prescription")
         }
     }
+    
+    private func fields(for fields: FocusedField...) -> some View {
+        ForEach(fields, id: \.self) { field in
+            TextField(fieldLabel(for: field), text: binding(for: field))
+                .focused($fieldFocus, equals: field)
+                .textContentType(.name)
+                .submitLabel(.next)
+        }
+    }
+    
+    private func binding(for field: FocusedField) -> Binding<String> {
+        switch field {
+        case .treatment: return $treatment
+        case .indications: return $indications
+        case .dosage: return $dosage
+        case .frequencyValue: return $frequencyValue
+        case .frequencyUnit: return $frequencyUnit
+        default: return .constant("")
+        }
+    }
+    
+    private func fieldLabel(for field: FocusedField) -> String {
+        switch field {
+        case .treatment: return "Treatment"
+        case .indications: return "Indications"
+        case .dosage: return "Dosage"
+        case .frequencyValue: return "Frequency Value"
+        case .frequencyUnit: return "Frequency Unit"
+        default: return ""
+        }
+    }
 }
 
-#Preview {
-    MedicalHistoryForm()
+struct MedicalHistoryForm_Previews: PreviewProvider {
+    static var previews: some View {
+        MedicalHistoryForm()
+    }
 }
