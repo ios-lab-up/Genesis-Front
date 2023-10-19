@@ -14,7 +14,6 @@ struct signIn: View {
     @State private var showError = false
     @State private var isAuthenticated: Bool = false
     @State private var isPrivate = true
-    @State private var isShown: Bool = false
     var body: some View {
         NavigationView {
             VStack{
