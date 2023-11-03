@@ -21,7 +21,11 @@ extension NetworkManager {
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "x-access-token": token // Here we're using the non-optional token
+        
+            
         ]
+        
+        
         
 
         AF.request(APIEndpoints.getUserData, method: .get, headers: headers)

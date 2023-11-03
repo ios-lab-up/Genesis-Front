@@ -9,6 +9,8 @@ struct GenesisApp: App {
     var body: some Scene {
         WindowGroup {
             AppContainerView(appFlowVM: appFlowVM, networkManager: networkManager)
+
+
         }
     }
 }
