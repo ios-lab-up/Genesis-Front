@@ -38,7 +38,39 @@ extension NetworkManager {
                     completion(.failure(error))
                 }
             }
+        
+        func getUser2UserRelations(completion: @escaping (Result<[User], Error>) -> Void) {
+            
+            // Check if the token exists
+            guard let token = retrieveToken() else {
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
+                return
+            }
+
+            let headers: HTTPHeaders = [
+                "Content-Type": "application/json",
+                "x-access-token": token // Here we're using the non-optional token
+                
+            ]
+            
+
+            AF.request(APIEndpoints.getUser2UserRelations, method: .get, headers: headers)
+                .validate(statusCode: 200..<300)
+                .responseDecodable(of: Response<[User]>.self) { response in
+                    switch response.result {
+                    case .success(let userDataResponse):
+                        completion(.success(userDataResponse.data))
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+        }
+        
+        
+        
     }
+    
+
 
         
         

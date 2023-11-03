@@ -50,7 +50,7 @@ struct DashboardViewUser: View {
                 }
                 .padding(30)
                 .frame(minWidth: 0, maxWidth: .infinity)
-                .background(Color(hex: "E1F0F5"))
+                .background(Color(hex: "B099DE"))
                 .cornerRadius(15)
                 .shadow(radius: 5)
             }
