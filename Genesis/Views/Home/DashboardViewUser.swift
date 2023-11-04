@@ -1,64 +1,87 @@
-//
-//  DashboardViewUser.swift
-//  Genesis
-//
-//  Created by Luis Cedillo M on 03/11/23.
-//
-
 import SwiftUI
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ScrollView{
-                VStack(alignment: .leading, spacing: 25) {
-                    
-                    DashboardViewUser()
-                    DashboardViewUser()
-                    DashboardViewUser()
-                    DashboardViewUser()
-                    Spacer()
+            UserRelationsView()
+        }
+    }
+}
 
+class UserRelationsViewModel: ObservableObject {
+    @Published var users: [User]?
+    @Published var isLoading = false
+    @Published var error: Error?
+
+    func fetchUserRelations() {
+        self.isLoading = true
+        NetworkManager.shared.getUser2UserRelations { [weak self] (result: Result<[User], Error>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let users):
+                    self?.users = users
+                case .failure(let error):
+                    self?.error = error
                 }
-                .padding()
-                .navigationBarTitle("Home", displayMode: .large)
+                self?.isLoading = false
             }
         }
     }
 }
 
+struct UserRelationsView: View {
+    @StateObject private var viewModel = UserRelationsViewModel()
 
-
-
-
-struct DashboardViewUser: View {
     var body: some View {
-        VStack(alignment: .leading) {
-                    HStack(alignment: .top, spacing: 15) {
-                        Image(systemName: "person.circle.fill")
-                            .font(.system(size: 50))
-                        VStack(alignment: .leading, spacing: 5) {
-                            Text("Doctor Name")
-                                .font(.title)
-                            Text("Especialty")
-                                .font(.headline)
-                        }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 25) {
+                if viewModel.isLoading {
+                    ProgressView()
+                } else if let users = viewModel.users, !users.isEmpty {
+                    ForEach(users, id: \.id) { user in
+                        DashboardViewUser(user: user)
                     }
-                    Text("Next Appointment")
-                        .font(.headline)
-                        .padding(.top, 10)
+                } else {
+                    Text("You still don't have a doctor")
+                        .foregroundColor(.gray)
                 }
-                .padding(30)
-                .frame(minWidth: 0, maxWidth: .infinity)
-                .background(Color(hex: "B099DE"))
-                .cornerRadius(15)
-                .shadow(radius: 5)
+                Spacer()
             }
-
+            .padding()
+            .navigationBarTitle("Home", displayMode: .large)
+        }
+        .onAppear {
+            viewModel.fetchUserRelations()
+        }
+    }
 }
 
+struct DashboardViewUser: View {
+    var user: User
 
-
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack(alignment: .top, spacing: 15) {
+                Image(systemName: "person.circle.fill")
+                    .font(.system(size: 50))
+                VStack(alignment: .leading, spacing: 5) {
+                    Text(user.name) // assuming User has a 'name' property
+                        .font(.title)
+                    Text(user.username) // Displaying the username for the demo
+                        .font(.headline)
+                }
+            }
+            Text("Next Appointment: dd/MM/AAAA") // Placeholder text for the next appointment
+                .font(.headline)
+                .padding(.top, 10)
+        }
+        .padding(30)
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .background(Color(hex: "B099DE"))
+        .cornerRadius(15)
+        .shadow(radius: 5)
+    }
+}
 
 extension Color {
     init(hex: String) {
@@ -86,7 +109,9 @@ extension Color {
     }
 }
 
-
-#Preview {
-    DashboardViewUser()
+// For testing purposes
+struct Preview {
+    static var previews: some View {
+        UserRelationsView()
+    }
 }
