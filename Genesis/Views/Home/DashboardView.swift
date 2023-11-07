@@ -7,6 +7,28 @@
 
 import SwiftUI
 
+
+struct DoctorInfoView: View {
+    var doctor: User
+
+    var body: some View {
+        RoundedRectangle(cornerRadius: 25)
+            .fill(Color("primaryShadow"))
+            .frame(height: 150)
+            .overlay(
+                VStack(alignment: .leading, spacing: 10) {
+                    Text(doctor.name)
+                        .font(.headline)
+                    Text(doctor.email)
+                        .font(.subheadline)
+                }
+                .padding(.all, 20),
+                alignment: .topLeading
+            )
+    }
+}
+
+
 struct DashboardView: View {
     @EnvironmentObject var globalDataModel: GlobalDataModel
     var body: some View {
@@ -43,16 +65,16 @@ struct DashboardView: View {
                 
                 
                 
-                VStack(alignment: .leading){
-                    Text("Your Doctor")
-                        .font(.title)
-                    RoundedRectangle(cornerRadius: 25)
-                        .fill(Color("primaryShadow"))
-                        .frame(height: 150)
-                    
-                    
-                    
-                }
+                if let doctor = globalDataModel.userRelations.first { // Safely unwrapping the first doctor
+                                    VStack(alignment: .leading) {
+                                        Text("Your Doctor")
+                                            .font(.title)
+                                        DoctorInfoView(doctor: doctor)
+                                    }
+                                } else {
+                                    Text("No doctor data available")
+                                        .padding()
+                                }
                 
                 
                 VStack(alignment: .leading) {

@@ -10,6 +10,7 @@ import Foundation
 class GlobalDataModel: ObservableObject {
     static let shared = GlobalDataModel()
     @Published var user: User?
+    @Published var userRelations: [User] = []
 
     private init() {} // Private initializer to enforce singleton usage
 }
