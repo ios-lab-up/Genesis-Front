@@ -33,11 +33,15 @@ extension NetworkManager {
             .responseDecodable(of: Response<User>.self) { response in
                 switch response.result {
                 case .success(let userDataResponse):
+                    DispatchQueue.main.async { // Make sure to update the UI on the main thread
+                        GlobalDataModel.shared.user = userDataResponse.data
+                    }
                     completion(.success(userDataResponse.data))
                 case .failure(let error):
                     completion(.failure(error))
                 }
             }
+
         
         
         

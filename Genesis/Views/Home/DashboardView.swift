@@ -8,18 +8,24 @@
 import SwiftUI
 
 struct DashboardView: View {
+    @EnvironmentObject var globalDataModel: GlobalDataModel
     var body: some View {
+        
         NavigationView {
             VStack{
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundColor(Color("primaryShadow"))
                     VStack(alignment: .leading){
-                        Text("Your skin \nrecaps")
+                        Text("Welcome back")
                             .font(.title)
+                        Text("\(globalDataModel.user?.name ?? "Guest")")
+                            .font(.title)
+                            .bold()
+                            
                             
                         
-                        Text("Lorem ipsum dolor sit amet")
+                        Text("\(globalDataModel.user?.email ?? "Guest")")
                             .font(.footnote)
                         
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
@@ -33,7 +39,22 @@ struct DashboardView: View {
                     .padding()
                 }
                 .frame(height: 200)
-                .padding(.bottom, 30)
+                .padding(.bottom, 10)
+                
+                
+                
+                VStack(alignment: .leading){
+                    Text("Your Doctor")
+                        .font(.title)
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(Color("primaryShadow"))
+                        .frame(height: 150)
+                    
+                    
+                    
+                }
+                
+                
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Records")
@@ -113,7 +134,7 @@ struct DashboardView: View {
                         }
                         .frame(width: 60, height: 60) // Ajusta el tamaño según tus necesidades
                     }
-                    .padding(.top, 60)
+                    .padding(.top, 30)
                 }
             }
         }
@@ -125,7 +146,7 @@ struct DashboardView: View {
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardView()
+        DashboardView().environmentObject(GlobalDataModel.shared)
     }
 }
 

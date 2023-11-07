@@ -105,10 +105,12 @@ struct signIn: View {
                     switch getUserResult {
                     case .success(let fetchedUser):
                         print("Fetched user data: \(fetchedUser)")
+
                     case .failure(let fetchError):
                         print("Failed to fetch user data: \(fetchError)")
                     }
                 }
+
             case .failure(_):
                 self.showError = true
             }
@@ -119,6 +121,6 @@ struct signIn: View {
 
 struct signIn_Previews: PreviewProvider {
     static var previews: some View {
-        signIn()
+        signIn().environmentObject(GlobalDataModel.shared)
     }
 }
