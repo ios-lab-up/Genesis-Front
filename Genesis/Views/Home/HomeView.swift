@@ -22,6 +22,7 @@ struct HomeView: View {
                 .tabItem {
                     Label("Analize", systemImage: "camera")
                 }
+                .environmentObject(ViewModel())
             
             DashboardView()
                 .tabItem {

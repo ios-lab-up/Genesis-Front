@@ -5,14 +5,17 @@ import SwiftUI
 struct GenesisApp: App {
     let networkManager = NetworkManager.shared
     @ObservedObject var appFlowVM = AppFlowViewModel()
+    var viewModel = ViewModel() // Create an instance of ViewModel
 
     var body: some Scene {
         WindowGroup {
             AppContainerView(appFlowVM: appFlowVM, networkManager: networkManager)
-                .environmentObject(GlobalDataModel.shared) // Provide the shared instance here
+                .environmentObject(GlobalDataModel.shared) // Provide GlobalDataModel
+                .environmentObject(viewModel) // Provide ViewModel
         }
     }
 }
+
 
 
 struct AppContainerView: View {
