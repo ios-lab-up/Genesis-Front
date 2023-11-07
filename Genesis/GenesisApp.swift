@@ -24,6 +24,7 @@ struct AppContainerView: View {
         Group {
             if appFlowVM.isAuthenticating {
                 SplashScreenView()
+                
             } else if appFlowVM.isAuthenticated == true {
                 HomeView()
                     .environmentObject(globalDataModel) // Pass the global data model to HomeView

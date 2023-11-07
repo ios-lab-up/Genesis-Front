@@ -171,15 +171,16 @@ extension NetworkManager {
     }
     
     func validateJwtToken(completion: @escaping (Bool, Error?) -> Void) {
-            getUserData { result in
-                switch result {
-                case .success:
-                    completion(true, nil)
-                case .failure(let error):
-                    // If there's an error (likely 401 Unauthorized), the token is invalid or expired.
-                    completion(false, error)
-                }
+        NetworkManager.shared.fetchAllUserData { getUserResult in
+            switch getUserResult {
+            case .success(let fetchedUser):
+                print("Fetched user data: \(fetchedUser)")
+                completion(true, nil)
+            case .failure(let fetchError):
+                print("Failed to fetch user data: \(fetchError)")
+                completion(false, fetchError)
             }
+        }
         
         }
     
