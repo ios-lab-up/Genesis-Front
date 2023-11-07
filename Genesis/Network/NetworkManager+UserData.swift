@@ -76,6 +76,52 @@ extension NetworkManager {
                 }
             }
     }
+    
+    func fetchAllUserData(completion: @escaping (Result<(User, [User]), Error>) -> Void) {
+           let dispatchGroup = DispatchGroup()
+           
+           var userData: User?
+           var userRelations: [User]?
+           var firstError: Error?
+           
+           dispatchGroup.enter()
+           getUserData { result in
+               switch result {
+               case .success(let user):
+                   userData = user
+               case .failure(let error):
+                   firstError = error
+               }
+               dispatchGroup.leave()
+           }
+           
+           dispatchGroup.enter()
+           getUser2UserRelations { result in
+               switch result {
+               case .success(let relations):
+                   userRelations = relations
+               case .failure(let error):
+                   if firstError == nil { // Only capture the first error encountered
+                       firstError = error
+                   }
+               }
+               dispatchGroup.leave()
+           }
+           
+           dispatchGroup.notify(queue: .main) {
+               if let user = userData, let relations = userRelations {
+                   completion(.success((user, relations)))
+               } else if let error = firstError {
+                   completion(.failure(error))
+               } else {
+                   // Handle unexpected error
+                   let unexpectedError = NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "An unexpected error occurred"])
+                   completion(.failure(unexpectedError))
+               }
+           }
+       }
+       
+    
         
         
     }
