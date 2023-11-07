@@ -61,24 +61,60 @@ struct User: Codable {
     }
 }
 
+struct RootResponse: Codable {
+    let data: ImagesDataWrapper
+    let message: String
+    let status: Int
+    let success: Bool
+}
+
+// Wrapper structure for the 'data' dictionary in JSON that contains 'images'.
+struct ImagesDataWrapper: Codable {
+    let images: [ImageData]
+}
+
+struct Diagnostic: Codable {
+    let creationDate: String
+    let description: String
+    let id: Int
+    let lastUpdate: String
+    let precision: Double
+    let sickness: String
+    let status: Bool
+
+    enum CodingKeys: String, CodingKey {
+        case creationDate = "creation_date"
+        case description
+        case id
+        case lastUpdate = "last_update"
+        case precision
+        case sickness
+        case status
+    }
+}
+
+// MARK: - Image Data
 struct ImageData: Codable {
     let creationDate: String
     let id: Int
-    let imageId: Int
+    let image: String
     let lastUpdate: String
+    let mlDiagnostic: [Diagnostic]
+    let name: String
+    let path: String
     let status: Bool
-    let userId: Int
 
     enum CodingKeys: String, CodingKey {
         case creationDate = "creation_date"
         case id
-        case imageId = "image_id"
+        case image
         case lastUpdate = "last_update"
+        case mlDiagnostic = "ml_diagnostic"
+        case name
+        case path
         case status
-        case userId = "user_id"
     }
 }
-
 
 
 
@@ -116,6 +152,8 @@ struct APIEndpoints {
     static var getUserData: String { baseURL + "/get_user_data"}
     
     static var getUser2UserRelations: String { baseURL + "/get_user_to_user_relation"}
+    
+    static var getUserImages: String { baseURL + "/get_user_images_data"}
 }
 
 /// `NetworkManager` handles all network calls to the Genesis API.

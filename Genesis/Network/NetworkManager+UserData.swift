@@ -65,11 +65,43 @@ extension NetworkManager {
             }
     }
     
-    func fetchAllUserData(completion: @escaping (Result<(User, [User]), Error>) -> Void) {
+    func getUserImages(completion: @escaping (Result<[ImageData], Error>) -> Void) {
+        // Check if the token exists
+        guard let token = retrieveToken() else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
+            return
+        }
+
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "x-access-token": token // Here we're using the non-optional token
+        ]
+        
+        // Use Alamofire to make a network request
+        AF.request(APIEndpoints.getUserImages, method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: Response<Dictionary<String, [ImageData]>>.self) { response in
+                switch response.result {
+                case .success(let responseData):
+                    // Assuming 'images' is the key for the array of ImageData within the 'data' dictionary
+                    if let images = responseData.data["images"] {
+                        completion(.success(images))
+                    } else {
+                        completion(.failure(NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Data parsing error: 'images' key not found"])))
+                    }
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+
+    
+    func fetchAllUserData(completion: @escaping (Result<(User, [User], [ImageData]), Error>) -> Void) {
         let dispatchGroup = DispatchGroup()
         
         var userData: User?
         var userRelations: [User]?
+        var userImages: [ImageData]?
         var firstError: Error?
         
         dispatchGroup.enter()
@@ -96,12 +128,26 @@ extension NetworkManager {
             dispatchGroup.leave()
         }
         
+        dispatchGroup.enter()
+            getUserImages { result in
+                switch result {
+                case .success(let images):
+                    userImages = images
+                case .failure(let error):
+                    if firstError == nil { // Only capture the first error encountered
+                        firstError = error
+                    }
+                }
+                dispatchGroup.leave()
+            }
+        
         dispatchGroup.notify(queue: .main) {
-            if let user = userData, let relations = userRelations {
+            if let user = userData, let relations = userRelations, let images = userImages {
                 // Update the GlobalDataModel with the fetched data
                 GlobalDataModel.shared.user = user
                 GlobalDataModel.shared.userRelations = relations
-                completion(.success((user, relations)))
+                GlobalDataModel.shared.userImages = images
+                completion(.success((user, relations, images)))
             } else if let error = firstError {
                 completion(.failure(error))
             } else {
@@ -114,9 +160,4 @@ extension NetworkManager {
         print("fetching all user data")
     }
 
-       
-    
-    
-        
-        
     }

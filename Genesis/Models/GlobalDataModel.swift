@@ -11,6 +11,8 @@ class GlobalDataModel: ObservableObject {
     static let shared = GlobalDataModel()
     @Published var user: User?
     @Published var userRelations: [User] = []
+    @Published var userImages: [ImageData] = [] // Add this line to define userImages
 
+    
     private init() {} // Private initializer to enforce singleton usage
 }
