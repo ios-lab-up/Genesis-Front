@@ -44,6 +44,8 @@ extension NetworkManager{
             case .failure(let error):
                 print("Error: \(error)")
                 completion(.failure(error))
+                
+            
             }
         }
     }

@@ -6,20 +6,58 @@
 //
 
 import SwiftUI
+struct DoctorInfoView: View {
+    var doctor: User
+    @State private var isSelected: Bool = false
+
+    var body: some View {
+        NavigationLink(destination: ChatView()) {
+            RoundedRectangle(cornerRadius: 25)
+                .fill(isSelected ? Color.blue : Color("primaryShadow"))
+                .frame(height: 150)
+                .overlay(
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(doctor.name)
+                            .font(.headline)
+                            .foregroundColor(isSelected ? .white : .black)
+                        Text(doctor.email)
+                            .font(.subheadline)
+                            .foregroundColor(isSelected ? .white : .black)
+                    }
+                    .padding(.all, 20),
+                    alignment: .topLeading
+                )
+        }
+        .isDetailLink(false) // This ensures that the link doesn't push onto the stack if it's already present
+        .buttonStyle(PlainButtonStyle()) // To remove any button styling from the NavigationLink
+        .onTapGesture {
+            isSelected.toggle() // This will not work as expected because NavigationLink controls the navigation state
+        }
+        .animation(.default, value: isSelected)
+    }
+}
+
+
 
 struct DashboardView: View {
+    @EnvironmentObject var globalDataModel: GlobalDataModel
     var body: some View {
+        
         NavigationView {
             VStack{
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
                     RoundedRectangle(cornerRadius: 20)
                         .foregroundColor(Color("primaryShadow"))
                     VStack(alignment: .leading){
-                        Text("Your skin \nrecaps")
+                        Text("Welcome back")
                             .font(.title)
+                        Text("\(globalDataModel.user?.name ?? "Guest")")
+                            .font(.title)
+                            .bold()
+                            
                             
                         
-                        Text("Lorem ipsum dolor sit amet")
+                        Text("\(globalDataModel.user?.email ?? "Guest")")
                             .font(.footnote)
                         
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
@@ -33,7 +71,23 @@ struct DashboardView: View {
                     .padding()
                 }
                 .frame(height: 200)
-                .padding(.bottom, 30)
+                .padding(.bottom, 10)
+                
+                
+                
+                if let doctor = globalDataModel.userRelations.first { // Safely unwrapping the first doctor
+                                    VStack(alignment: .leading) {
+                                        Text("Your Doctor")
+                                            .font(.title)
+                                    
+                                            DoctorInfoView(doctor: doctor)
+                                    }
+                                } else {
+                                    Text("No doctor data available")
+                                        .padding()
+                                }
+                
+                
                 VStack(alignment: .leading) {
                     HStack {
                         Text("Records")
@@ -113,7 +167,7 @@ struct DashboardView: View {
                         }
                         .frame(width: 60, height: 60) // Ajusta el tamaño según tus necesidades
                     }
-                    .padding(.top, 60)
+                    .padding(.top, 30)
                 }
             }
         }
@@ -125,7 +179,7 @@ struct DashboardView: View {
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardView()
+        DashboardView().environmentObject(GlobalDataModel.shared)
     }
 }
 

@@ -42,8 +42,14 @@ struct MedicalHistoryForm: View {
                 .buttonStyle(.borderedProminent)
             }
             .navigationTitle("Prescription")
+            
+            
         }
+        
+        
     }
+    
+    
     
     private func fields(for fields: FocusedField...) -> some View {
         ForEach(fields, id: \.self) { field in

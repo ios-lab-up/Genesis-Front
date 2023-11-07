@@ -1,41 +1,51 @@
-//
-//  GenesisApp.swift
-//  Genesis
-//
-//  Created by Luis Cedillo M on 23/07/23.
-//
-
 import CoreML
 import SwiftUI
 
 @main
 struct GenesisApp: App {
-    // Define an instance of NetworkManager here to use its functions.
     let networkManager = NetworkManager.shared
-
-    init() {
-        // UINavigationBar.applyCustomAppearance()
-    }
+    @ObservedObject var appFlowVM = AppFlowViewModel()
+    var viewModel = ViewModel() // Create an instance of ViewModel
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(ViewModel())
-                .onAppear {
-                    UserDefaults.standard.setValue(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-                    
-                    // Validate the JWT token when the app appears.
-                    networkManager.validateJwtToken { isValid, error in
-                        if isValid {
-                            // If the token is valid, we update the state to reflect that the user is authenticated.
-                            networkManager.isAuthenticated = true
-                        } else {
-                            // Handle the error or set isAuthenticated to false to show the SignInView.
-                            print("Token validation failed: \(error?.localizedDescription ?? "Unknown error")")
-                            networkManager.isAuthenticated = false
-                        }
-                    }
+            AppContainerView(appFlowVM: appFlowVM, networkManager: networkManager)
+                .environmentObject(GlobalDataModel.shared) // Provide GlobalDataModel
+                .environmentObject(viewModel) // Provide ViewModel
+        }
+    }
+}
+
+
+
+struct AppContainerView: View {
+    @ObservedObject var appFlowVM: AppFlowViewModel
+    let networkManager: NetworkManager
+    @EnvironmentObject var globalDataModel: GlobalDataModel // Access the global data model
+
+    var body: some View {
+        Group {
+            if appFlowVM.isAuthenticating {
+                SplashScreenView()
+                
+            } else if appFlowVM.isAuthenticated == true {
+                HomeView()
+                    .environmentObject(globalDataModel) // Pass the global data model to HomeView
+            } else {
+                signIn()
+            }
+        }
+        .onAppear {
+            networkManager.validateJwtToken { isValid, error in
+                if isValid {
+                    appFlowVM.isAuthenticated = true
+                    // Optionally, fetch user data here if needed
+                } else {
+                    print("Token validation failed: \(error?.localizedDescription ?? "Unknown error")")
+                    appFlowVM.isAuthenticated = false
                 }
+                appFlowVM.isAuthenticating = false
+            }
         }
     }
 }
