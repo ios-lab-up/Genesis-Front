@@ -65,9 +65,9 @@ struct ChatView: View {
             }
            
         
-        }
+        }.navigationBarTitle("Chat", displayMode: .inline) // Set the navigation bar title for ChatView
     }
-}
+    }
 
 #Preview {
     ChatView()

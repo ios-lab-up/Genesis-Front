@@ -6,27 +6,37 @@
 //
 
 import SwiftUI
-
-
 struct DoctorInfoView: View {
     var doctor: User
+    @State private var isSelected: Bool = false
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 25)
-            .fill(Color("primaryShadow"))
-            .frame(height: 150)
-            .overlay(
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(doctor.name)
-                        .font(.headline)
-                    Text(doctor.email)
-                        .font(.subheadline)
-                }
-                .padding(.all, 20),
-                alignment: .topLeading
-            )
+        NavigationLink(destination: ChatView()) {
+            RoundedRectangle(cornerRadius: 25)
+                .fill(isSelected ? Color.blue : Color("primaryShadow"))
+                .frame(height: 150)
+                .overlay(
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text(doctor.name)
+                            .font(.headline)
+                            .foregroundColor(isSelected ? .white : .black)
+                        Text(doctor.email)
+                            .font(.subheadline)
+                            .foregroundColor(isSelected ? .white : .black)
+                    }
+                    .padding(.all, 20),
+                    alignment: .topLeading
+                )
+        }
+        .isDetailLink(false) // This ensures that the link doesn't push onto the stack if it's already present
+        .buttonStyle(PlainButtonStyle()) // To remove any button styling from the NavigationLink
+        .onTapGesture {
+            isSelected.toggle() // This will not work as expected because NavigationLink controls the navigation state
+        }
+        .animation(.default, value: isSelected)
     }
 }
+
 
 
 struct DashboardView: View {
@@ -69,7 +79,8 @@ struct DashboardView: View {
                                     VStack(alignment: .leading) {
                                         Text("Your Doctor")
                                             .font(.title)
-                                        DoctorInfoView(doctor: doctor)
+                                    
+                                            DoctorInfoView(doctor: doctor)
                                     }
                                 } else {
                                     Text("No doctor data available")
