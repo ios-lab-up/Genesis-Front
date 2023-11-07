@@ -99,9 +99,8 @@ struct signIn: View {
         NetworkManager.shared.login(username: username, password: password) { result in
             switch result {
             case .success(_):
-                self.isAuthenticated = true
-                // Call getUserData after verification is successful
-                NetworkManager.shared.getUserData { getUserResult in
+                self.isAuthenticated = true                // Call fetchAllUserData after verification is successful
+                NetworkManager.shared.fetchAllUserData { getUserResult in
                     switch getUserResult {
                     case .success(let fetchedUser):
                         print("Fetched user data: \(fetchedUser)")
@@ -110,7 +109,7 @@ struct signIn: View {
                         print("Failed to fetch user data: \(fetchError)")
                     }
                 }
-
+                
             case .failure(_):
                 self.showError = true
             }

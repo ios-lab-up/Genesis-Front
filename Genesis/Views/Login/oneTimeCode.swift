@@ -78,7 +78,15 @@ struct oneTimeCode: View {
                 print("Verified user: \(user)")
                 self.isSignUpSuccessful = true
             //self.presentationMode.wrappedValue.dismiss()
-                
+                NetworkManager.shared.fetchAllUserData { getUserResult in
+                    switch getUserResult {
+                    case .success(let fetchedUser):
+                        print("Fetched user data: \(fetchedUser)")
+
+                    case .failure(let fetchError):
+                        print("Failed to fetch user data: \(fetchError)")
+                    }
+                }
             case .failure(let error):
                 print("Failed to verify user: \(error)")
                 self.presentationMode.wrappedValue.dismiss()

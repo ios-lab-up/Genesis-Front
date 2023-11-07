@@ -90,18 +90,21 @@ struct register: View {
             case .success(let user):
                 print("Signed up user: \(user)")
                 self.isSignUpSuccessful = true
+                
             case .failure(let error):
                 print("Failed to sign up user: \(error)")
                 alertMessage = "An error occurred while signup user"
                 showAlert = true
             }
         }
+        
+        
     }
 
 }
 
 struct register_Previews: PreviewProvider {
     static var previews: some View {
-        register()
+        register().environmentObject(GlobalDataModel.shared)
     }
 }

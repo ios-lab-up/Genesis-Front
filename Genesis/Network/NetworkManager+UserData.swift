@@ -119,8 +119,11 @@ extension NetworkManager {
                    completion(.failure(unexpectedError))
                }
            }
+        
+        print("fetching all user data")
        }
        
+    
     
         
         
