@@ -21,12 +21,16 @@ extension NetworkManager{
             "Content-type": "multipart/form-data"
         ]
         
+        // Generate a random hex string using UUID
+                let randomHex = UUID().uuidString.replacingOccurrences(of: "-", with: "").prefix(8) // Take first 8 characters for shorter name
+                let randomFileName = "\(randomHex).jpg" // Append the .jpg extension
+        
         
         AF.upload(multipartFormData: { multipartFormData in
-            multipartFormData.append(imageData, withName: "file", fileName: "image.jpg", mimeType: "image/jpg") // image data
+            multipartFormData.append(imageData, withName: "file", fileName: randomFileName, mimeType: "image/jpg")
             multipartFormData.append(diagnostic.data(using: .utf8)!, withName: "diagnostic") // diagnostic data
         }, to: APIEndpoints.uploadImage, method: .post, headers: headers).responseData { response in
-            switch response.result {
+            switch response.result  {
             case .success(let data):
                 // Here, 'data' is the raw Data returned from the server
                 if let string = String(data: data, encoding: .utf8) {

@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+
+
 struct DoctorInfoView: View {
     var doctor: User
     @State private var isSelected: Bool = false
@@ -36,14 +38,61 @@ struct DoctorInfoView: View {
         .animation(.default, value: isSelected)
     }
 }
+struct RecordThumbNailImageView: View {
+    let imageData: [Genesis.ImageData] // Assuming this is an array now
 
+    var body: some View {
+        VStack(alignment: .leading) {
+            if imageData.isEmpty {
+                // Display a message when there are no records
+                RoundedRectangle(cornerRadius: 25.0)
+                    .fill(Color("primaryShadow"))
+                    .frame(width: 150, height: 180)
+                    .overlay(
+                        Text("There are no records")
+                            .foregroundColor(.white)
+                    )
+            } else {
+                // Iterate over imageData array and create thumbnails
+                ForEach(imageData, id: \.id) { data in
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .fill(Color("primaryShadow"))
+                            .frame(width: 150, height: 180)
 
+                        if let uiImage = UIImage(data: Data(base64Encoded: data.image) ?? Data()) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 150, height: 180) // Match the RoundedRectangle size
+                                .clipShape(RoundedRectangle(cornerRadius: 25.0)) // Clip the image with rounded corners
+                        } else {
+                            Text("Image not available")
+                                .frame(width: 150, height: 180)
+                                .background(Color.gray)
+                                .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                        }
+                    }
+                    .padding(.bottom, 10) // Add padding at the bottom for each thumbnail
+
+                    Text("Record \(data.id)")
+                        .bold()
+                        .padding(.top, 10)
+                    Text(data.creationDate)
+                        .font(.footnote)
+                }
+            }
+        }
+        .padding(.bottom) // Add padding at the bottom if needed
+    }
+}
 
 struct DashboardView: View {
     @EnvironmentObject var globalDataModel: GlobalDataModel
     var body: some View {
         
         NavigationView {
+            ScrollView{
             VStack{
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
                     RoundedRectangle(cornerRadius: 20)
@@ -54,8 +103,8 @@ struct DashboardView: View {
                         Text("\(globalDataModel.user?.name ?? "Guest")")
                             .font(.title)
                             .bold()
-                            
-                            
+                        
+                        
                         
                         Text("\(globalDataModel.user?.email ?? "Guest")")
                             .font(.footnote)
@@ -76,16 +125,16 @@ struct DashboardView: View {
                 
                 
                 if let doctor = globalDataModel.userRelations.first { // Safely unwrapping the first doctor
-                                    VStack(alignment: .leading) {
-                                        Text("Your Doctor")
-                                            .font(.title)
-                                    
-                                            DoctorInfoView(doctor: doctor)
-                                    }
-                                } else {
-                                    Text("No doctor data available")
-                                        .padding()
-                                }
+                    VStack(alignment: .leading) {
+                        Text("Your Doctor")
+                            .font(.title)
+                        
+                        DoctorInfoView(doctor: doctor)
+                    }
+                } else {
+                    Text("No doctor data available")
+                        .padding()
+                }
                 
                 
                 VStack(alignment: .leading) {
@@ -100,87 +149,61 @@ struct DashboardView: View {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
-                            ForEach(0..<10) { index in
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 25.0)
-                                        .fill(Color("primaryShadow"))
-                                        .frame(width: 150, height: 180)
-                                    VStack(alignment: .leading){
-                                        HStack{
-                                            Spacer()
-                                            
-                                            ZStack{
-                                                Circle()
-                                                    .frame(width: 60, height: 60)
-                                                    .foregroundStyle(Color("circlePurple"))
-                                                
-                                                Text("\(index)")
-                                                    .foregroundColor(.white)
-                                                
-                                                
-                                            }
-                                        }
-                                        
-                                        
-                                        Text("Record \(index)")
-                                            .bold()
-                                            .padding(.top, 10)
-                                        
-                                        Text("2023-07-12")
-                                            .font(.footnote)
-                                    }
-                                    .padding()
-                                }
+                            ForEach(globalDataModel.userImages, id: \.id) { imageData in
+                                RecordThumbNailImageView(imageData: [imageData])
                             }
+                            
                         }
                         
                     }
                     
+                    Spacer()
+                    
                 }
-                
-                Spacer()
-
-            }
-            .padding()
-            
-            .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    HStack {
-                        Text("Insights")
-                            .font(.largeTitle)
-                            .foregroundColor(.primary)
-                            .bold()
-                        
-                        Spacer()
-                        
-                        AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .clipShape(Circle())
-                        } placeholder: {
-                            ZStack {
-                                Circle()
-                                    .foregroundColor(.purple)
+                .padding()
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        HStack {
+                            Text("Insights")
+                                .font(.largeTitle)
+                                .foregroundColor(.primary)
+                                .bold()
+                            
+                            Spacer()
+                            
+                            AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .clipShape(Circle())
+                            } placeholder: {
+                                ZStack {
+                                    Circle()
+                                        .foregroundColor(.purple)
+                                }
                             }
+                            .frame(width: 60, height: 60) // Ajusta el tamaño según tus necesidades
                         }
-                        .frame(width: 60, height: 60) // Ajusta el tamaño según tus necesidades
+                        .padding(.top, 30)
                     }
-                    .padding(.top, 30)
                 }
             }
         }
+            
     }
-}
 
-
-
-
-struct DashboardView_Previews: PreviewProvider {
-    static var previews: some View {
-        DashboardView().environmentObject(GlobalDataModel.shared)
+            
     }
+    
+    
+    
+    
+    struct DashboardView_Previews: PreviewProvider {
+        static var previews: some View {
+            DashboardView().environmentObject(GlobalDataModel.shared)
+        }
+    }
+    
+    
 }
-
-
