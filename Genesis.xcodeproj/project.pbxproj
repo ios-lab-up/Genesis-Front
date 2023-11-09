@@ -47,6 +47,7 @@
 		48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */; };
 		48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */; };
 		48626CCF2AE0A3F100CCE82B /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48626CCE2AE0A3F100CCE82B /* KeychainSwift */; };
+		487AC5DB2AFD3A0C001F1755 /* UserBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
 		7A8BE8F52A7F437F00BAE75B /* PhotoCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E72A7F437E00BAE75B /* PhotoCollectionView.swift */; };
@@ -103,6 +104,8 @@
 		48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UserData.swift"; sourceTree = "<group>"; };
 		48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+MedicalHistory.swift"; sourceTree = "<group>"; };
 		48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistoryForm.swift; sourceTree = "<group>"; };
+		486D1FA72AFD43900050F429 /* Genesis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Genesis.entitlements; sourceTree = "<group>"; };
+		487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBadgeView.swift; sourceTree = "<group>"; };
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7A8BE8E52A7F435600BAE75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Capturing Photos.swiftpm/App/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
@@ -227,6 +230,7 @@
 		481BDDB42A6E02D3006D4D80 /* Genesis */ = {
 			isa = PBXGroup;
 			children = (
+				486D1FA72AFD43900050F429 /* Genesis.entitlements */,
 				16F2BC7E2AD7411100CE4BC5 /* Extension */,
 				16F2BC792AD740A800CE4BC5 /* UIViewRepresentable */,
 				7A8BE8E42A7F433900BAE75B /* Photos */,
@@ -285,6 +289,7 @@
 		481BDDC92A6F6EBA006D4D80 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				487AC5D92AFD39E9001F1755 /* Badge */,
 				16C99C5E2AE713750083CC54 /* Chat */,
 				48626CBF2ADF366800CCE82B /* MedicalHistory */,
 				16F2BC6E2AD7363300CE4BC5 /* Camera */,
@@ -308,6 +313,14 @@
 				48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */,
 			);
 			path = MedicalHistory;
+			sourceTree = "<group>";
+		};
+		487AC5D92AFD39E9001F1755 /* Badge */ = {
+			isa = PBXGroup;
+			children = (
+				487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */,
+			);
+			path = Badge;
 			sourceTree = "<group>";
 		};
 		7A8BE8E42A7F433900BAE75B /* Photos */ = {
@@ -459,6 +472,7 @@
 				16F2BC7B2AD740E000CE4BC5 /* ImagePicker.swift in Sources */,
 				166481EE2A7F8C8F0093032A /* register.swift in Sources */,
 				481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */,
+				487AC5DB2AFD3A0C001F1755 /* UserBadgeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,13 +598,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Genesis/Genesis.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Genesis/Preview Content\"";
 				DEVELOPMENT_TEAM = 9BY9RQP8PP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Analizar fotos";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow to enjoy all the features of DermAware";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -616,13 +634,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Genesis/Genesis.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Genesis/Preview Content\"";
 				DEVELOPMENT_TEAM = 9BY9RQP8PP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Analizar fotos";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow to enjoy all the features of DermAware";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

@@ -24,13 +24,15 @@ struct HomeView: View {
                 }
                 .environmentObject(ViewModel())
             
-            DashboardView()
+            HealthKitView()
                 .tabItem {
                     Label("My Badge", systemImage: "heart.text.square.fill")
                 }
+                .environmentObject(HealthManager())
+             }
+
         }
     }
-}
 
 
 struct HomeView_Previews: PreviewProvider {

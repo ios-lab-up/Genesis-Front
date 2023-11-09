@@ -13,3 +13,8 @@ extension FileManager {
 }
 
 
+extension Date {
+    static var startOfToday: Date {
+        return Calendar.current.startOfDay(for: Date())
+    }
+}

@@ -5,6 +5,7 @@ import SwiftUI
 struct GenesisApp: App {
     let networkManager = NetworkManager.shared
     @ObservedObject var appFlowVM = AppFlowViewModel()
+    @StateObject var healthManager = HealthManager()
     var viewModel = ViewModel() // Create an instance of ViewModel
 
     var body: some Scene {
