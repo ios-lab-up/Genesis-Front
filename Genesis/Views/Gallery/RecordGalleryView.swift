@@ -82,8 +82,8 @@ struct RecordGalleryView: View {
                 .opacity(selectedItem == nil ? 0 : min(1, max(0, 1 - abs(Double(position.height) / 800))))
             
             // Display the selected item in a larger view when tapped
-            if let selectedItem = selectedItem, let uiImage = UIImage(data: Data(base64Encoded: selectedItem.image) ?? Data()) {
-                Image(uiImage: uiImage)
+            if let selectedItem = selectedItem { // Corrected optional binding syntax
+                Image(uiImage: UIImage(data: Data(base64Encoded: selectedItem.image) ?? Data())!)
                     .resizable()
                     .aspectRatio(1, contentMode: .fit)
                     .matchedGeometryEffect(
@@ -94,7 +94,7 @@ struct RecordGalleryView: View {
                     .zIndex(2)
                     .onTapGesture {
                         withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
-                            self.selectedItem = nil
+                            self.selectedItem = nil // Dismiss the view
                         }
                     }
                     .offset(position)
@@ -103,28 +103,20 @@ struct RecordGalleryView: View {
                             .onChanged { value in
                                 self.position = value.translation
                             }
-                            .onEnded { value in
+                            .onEnded { value in // This is where .onEnded is used
                                 withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
+                                    // Determine if the drag was significant enough to dismiss the view
                                     if 200 < abs(self.position.height) {
                                         self.selectedItem = nil
-                                    } else {
-                                        self.position = .zero
                                     }
+                                    self.position = .zero // Always reset the position after the drag ends
                                 }
                             }
                     )
+
             }
-        }
-        .fullScreenCover(isPresented: $showFullScreen) {
-            // Only present full screen cover if there is a selected item
-            if let selectedItem = selectedItem, let imageData = Data(base64Encoded: selectedItem.image),
-               let uiImage = UIImage(data: imageData) {
-                // Pass a closure to dismiss the full-screen view
-                FullScreenImageView(image: Image(uiImage: uiImage)) {
-                    self.showFullScreen = false
-                    self.selectedItem = nil // Reset the selected item
-                }
-            }
+
+
         }
     }
 }
