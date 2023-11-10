@@ -82,38 +82,42 @@ struct RecordGalleryView: View {
                 .opacity(selectedItem == nil ? 0 : min(1, max(0, 1 - abs(Double(position.height) / 800))))
             
             // Display the selected item in a larger view when tapped
-            if let selectedItem = selectedItem { // Corrected optional binding syntax
-                Image(uiImage: UIImage(data: Data(base64Encoded: selectedItem.image) ?? Data())!)
-                    .resizable()
-                    .aspectRatio(1, contentMode: .fit)
-                    .matchedGeometryEffect(
-                        id: selectedItem.id,
-                        in: namespace,
-                        isSource: self.selectedItem != nil
-                    )
-                    .zIndex(2)
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
-                            self.selectedItem = nil // Dismiss the view
+            if let selectedItem = selectedItem {
+                // Corrected optional binding syntax
+                ZoomableScrollView {
+                    
+                    Image(uiImage: UIImage(data: Data(base64Encoded: selectedItem.image) ?? Data())!)
+                        .resizable()
+                        .aspectRatio(1, contentMode: .fit)
+                        .matchedGeometryEffect(
+                            id: selectedItem.id,
+                            in: namespace,
+                            isSource: self.selectedItem != nil
+                        )
+                        .zIndex(2)
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
+                                self.selectedItem = nil // Dismiss the view
+                            }
                         }
-                    }
-                    .offset(position)
-                    .gesture(
-                        DragGesture()
-                            .onChanged { value in
-                                self.position = value.translation
-                            }
-                            .onEnded { value in // This is where .onEnded is used
-                                withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
-                                    // Determine if the drag was significant enough to dismiss the view
-                                    if 200 < abs(self.position.height) {
-                                        self.selectedItem = nil
-                                    }
-                                    self.position = .zero // Always reset the position after the drag ends
+                        .offset(position)
+                        .gesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    self.position = value.translation
                                 }
-                            }
-                    )
-
+                                .onEnded { value in // This is where .onEnded is used
+                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.75)) {
+                                        // Determine if the drag was significant enough to dismiss the view
+                                        if 200 < abs(self.position.height) {
+                                            self.selectedItem = nil
+                                        }
+                                        self.position = .zero // Always reset the position after the drag ends
+                                    }
+                                }
+                        )
+                    
+                }
             }
 
 
