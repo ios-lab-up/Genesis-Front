@@ -73,7 +73,7 @@ struct ImagesDataWrapper: Codable {
     let images: [ImageData]
 }
 
-struct Diagnostic: Codable {
+struct Diagnostic: Codable, Equatable {
     let creationDate: String
     let description: String
     let id: Int
@@ -94,7 +94,7 @@ struct Diagnostic: Codable {
 }
 
 // MARK: - Image Data
-struct ImageData: Codable {
+struct ImageData: Codable, Equatable, Identifiable {
     let creationDate: String
     let id: Int
     let image: String
@@ -114,6 +114,9 @@ struct ImageData: Codable {
         case path
         case status
     }
+    static func == (lhs: ImageData, rhs: ImageData) -> Bool {
+            return lhs.id == rhs.id // Or any other logic you define for equality
+        }
 }
 
 

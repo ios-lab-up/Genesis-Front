@@ -47,6 +47,8 @@
 		48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC92ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift */; };
 		48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */; };
 		48626CCF2AE0A3F100CCE82B /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48626CCE2AE0A3F100CCE82B /* KeychainSwift */; };
+		486D1FAA2AFDA9390050F429 /* HealthKitIntegration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D1FA92AFDA9390050F429 /* HealthKitIntegration.swift */; };
+		486D1FAD2AFDAA160050F429 /* RecordGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D1FAC2AFDAA160050F429 /* RecordGalleryView.swift */; };
 		487AC5DB2AFD3A0C001F1755 /* UserBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
@@ -106,6 +108,8 @@
 		48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistoryForm.swift; sourceTree = "<group>"; };
 		486D1FA72AFD43900050F429 /* Genesis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Genesis.entitlements; sourceTree = "<group>"; };
 		486D1FA82AFD6B1B0050F429 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		486D1FA92AFDA9390050F429 /* HealthKitIntegration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitIntegration.swift; sourceTree = "<group>"; };
+		486D1FAC2AFDAA160050F429 /* RecordGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordGalleryView.swift; sourceTree = "<group>"; };
 		487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBadgeView.swift; sourceTree = "<group>"; };
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -291,6 +295,7 @@
 		481BDDC92A6F6EBA006D4D80 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				486D1FAB2AFDA9ED0050F429 /* Gallery */,
 				487AC5D92AFD39E9001F1755 /* Badge */,
 				16C99C5E2AE713750083CC54 /* Chat */,
 				48626CBF2ADF366800CCE82B /* MedicalHistory */,
@@ -317,10 +322,19 @@
 			path = MedicalHistory;
 			sourceTree = "<group>";
 		};
+		486D1FAB2AFDA9ED0050F429 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				486D1FAC2AFDAA160050F429 /* RecordGalleryView.swift */,
+			);
+			path = Gallery;
+			sourceTree = "<group>";
+		};
 		487AC5D92AFD39E9001F1755 /* Badge */ = {
 			isa = PBXGroup;
 			children = (
 				487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */,
+				486D1FA92AFDA9390050F429 /* HealthKitIntegration.swift */,
 			);
 			path = Badge;
 			sourceTree = "<group>";
@@ -449,6 +463,7 @@
 				48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */,
 				7A8BE8F62A7F437F00BAE75B /* PhotoLibrary.swift in Sources */,
 				166481FF2A7FEF080093032A /* DashboardView.swift in Sources */,
+				486D1FAA2AFDA9390050F429 /* HealthKitIntegration.swift in Sources */,
 				481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */,
 				166481F32A7F91CB0093032A /* OneTimeCodeInput.swift in Sources */,
 				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
@@ -474,6 +489,7 @@
 				16F2BC7B2AD740E000CE4BC5 /* ImagePicker.swift in Sources */,
 				166481EE2A7F8C8F0093032A /* register.swift in Sources */,
 				481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */,
+				486D1FAD2AFDAA160050F429 /* RecordGalleryView.swift in Sources */,
 				487AC5DB2AFD3A0C001F1755 /* UserBadgeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

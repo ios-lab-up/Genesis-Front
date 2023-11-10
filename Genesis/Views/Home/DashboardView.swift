@@ -53,24 +53,28 @@ struct RecordThumbNailImageView: View {
                             .foregroundColor(.white)
                     )
             } else {
-                // Iterate over imageData array and create thumbnails
                 ForEach(imageData, id: \.id) { data in
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 25.0)
-                            .fill(Color("primaryShadow"))
-                            .frame(width: 150, height: 180)
-
-                        if let uiImage = UIImage(data: Data(base64Encoded: data.image) ?? Data()) {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 150, height: 180) // Match the RoundedRectangle size
-                                .clipShape(RoundedRectangle(cornerRadius: 25.0)) // Clip the image with rounded corners
-                        } else {
-                            Text("Image not available")
+                    Button(action: {
+                        // Perform an action when the thumbnail is tapped
+                        print("Thumbnail for record \(data.id) was tapped.")
+                    }) {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 25.0)
+                                .fill(Color("primaryShadow"))
                                 .frame(width: 150, height: 180)
-                                .background(Color.gray)
-                                .clipShape(RoundedRectangle(cornerRadius: 25.0))
+
+                            if let uiImage = UIImage(data: Data(base64Encoded: data.image) ?? Data()) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 150, height: 180) // Match the RoundedRectangle size
+                                    .clipShape(RoundedRectangle(cornerRadius: 25.0)) // Clip the image with rounded corners
+                            } else {
+                                Text("Image not available")
+                                    .frame(width: 150, height: 180)
+                                    .background(Color.gray)
+                                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                            }
                         }
                     }
                     .padding(.bottom, 10) // Add padding at the bottom for each thumbnail
@@ -86,6 +90,8 @@ struct RecordThumbNailImageView: View {
         .padding(.bottom) // Add padding at the bottom if needed
     }
 }
+
+
 
 struct DashboardView: View {
     @EnvironmentObject var globalDataModel: GlobalDataModel
@@ -142,24 +148,22 @@ struct DashboardView: View {
                         Text("Records")
                             .font(.title)
                         Spacer()
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                        // Updated NavigationLink to pass the userImages array to RecordGalleryView
+                        NavigationLink(destination: RecordGalleryView(imageDataList: globalDataModel.userImages)) {
                             Text("View all")
-                        })
+                        }
                     }
-                    
+
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
                             ForEach(globalDataModel.userImages, id: \.id) { imageData in
                                 RecordThumbNailImageView(imageData: [imageData])
                             }
-                            
                         }
-                        
                     }
-                    
                     Spacer()
-                    
                 }
+                .padding()
                 .padding()
                 .navigationBarTitleDisplayMode(.large)
                 .toolbar {
