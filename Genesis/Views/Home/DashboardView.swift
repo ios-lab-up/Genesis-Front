@@ -40,6 +40,7 @@ struct DoctorInfoView: View {
 }
 struct RecordThumbNailImageView: View {
     let imageData: [Genesis.ImageData] // Assuming this is an array now
+    @State private var showFullScreenImage: Genesis.ImageData? // For tracking which image to show in full screen
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -55,8 +56,7 @@ struct RecordThumbNailImageView: View {
             } else {
                 ForEach(imageData, id: \.id) { data in
                     Button(action: {
-                        // Perform an action when the thumbnail is tapped
-                        print("Thumbnail for record \(data.id) was tapped.")
+                        showFullScreenImage = data // Assign the tapped image data for full screen view
                     }) {
                         ZStack {
                             RoundedRectangle(cornerRadius: 25.0)
@@ -67,8 +67,8 @@ struct RecordThumbNailImageView: View {
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: 150, height: 180) // Match the RoundedRectangle size
-                                    .clipShape(RoundedRectangle(cornerRadius: 25.0)) // Clip the image with rounded corners
+                                    .frame(width: 150, height: 180)
+                                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
                             } else {
                                 Text("Image not available")
                                     .frame(width: 150, height: 180)
@@ -77,7 +77,7 @@ struct RecordThumbNailImageView: View {
                             }
                         }
                     }
-                    .padding(.bottom, 10) // Add padding at the bottom for each thumbnail
+                    .padding(.bottom, 10)
 
                     Text("Record \(data.id)")
                         .bold()
@@ -87,14 +87,22 @@ struct RecordThumbNailImageView: View {
                 }
             }
         }
-        .padding(.bottom) // Add padding at the bottom if needed
+        .padding(.bottom)
+        .fullScreenCover(item: $showFullScreenImage) { item in
+            FullScreenImageView(image: Image(uiImage: UIImage(data: Data(base64Encoded: item.image) ?? Data())!), dismissAction: {
+                showFullScreenImage = nil
+            })
+        }
     }
 }
+
+// FullScreenImageView remains unchanged and is used here as a modal presentation
 
 
 
 struct DashboardView: View {
     @EnvironmentObject var globalDataModel: GlobalDataModel
+    @State private var isImageFullScreen = false
     var body: some View {
         
         NavigationView {
@@ -176,21 +184,33 @@ struct DashboardView: View {
                             
                             Spacer()
                             
+                            // Profile picture
                             AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .clipShape(Circle())
+                                    .onTapGesture {
+                                        isImageFullScreen = true // When the image is tapped, set this state to true
+                                    }
+                                    .fullScreenCover(isPresented: $isImageFullScreen) {
+                                        // This is the view that will be presented in full screen
+                                        image
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .edgesIgnoringSafeArea(.all)
+                                    }
                             } placeholder: {
                                 ZStack {
                                     Circle()
                                         .foregroundColor(.purple)
                                 }
                             }
-                            .frame(width: 60, height: 60) // Ajusta el tamaño según tus necesidades
+                            .frame(width: 60, height: 60) // Adjust the size as needed
                         }
                         .padding(.top, 30)
                     }
+
                 }
             }
         }
