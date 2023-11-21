@@ -42,9 +42,9 @@ struct LoginView: View {
                 }
                 .padding()
                 
-                NavigationLink(destination: DashboardView(), tag: true, selection: $isAuthenticated) {
+               /* NavigationLink(destination: DashboardView(), tag: true, selection: $isAuthenticated) {
                     EmptyView()
-                }
+                }*/
             }
         }
     }
