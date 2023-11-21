@@ -321,22 +321,28 @@ struct DashboardView: View {
                 {
                     Text("¿Qué te gustaría hacer?")
                     Spacer()
-                }.padding(15)
+                }.padding(.leading, 15)
                 
                 HStack{
-                    ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .foregroundColor(Color("yellowsito"))
-                                        }
+                    ZStack(alignment: Alignment(horizontal: .leading, vertical: .center))
+                    {
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundColor(Color("purplit"))
+                            .frame(height: 200)
+                            .padding(3)
+                    }
                     VStack
                     {
                         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
                             RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(Color("yellowsito"))
+                                .foregroundColor(Color("bluey"))
                         }
                         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(Color("yellowsito"))
+                            Image("eyepic") // Replace with your image name
+                                           .resizable()
+                                           .aspectRatio(contentMode: .fit)
+                                           .clipShape(RoundedRectangle(cornerRadius: 20))
+                                          
                     }
                     
                     }
