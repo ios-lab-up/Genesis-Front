@@ -7,28 +7,185 @@
 
 import SwiftUI
 
-
-struct DoctorInfoView: View {
+extension DateFormatter {
+    static let timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium // You can adjust the format as needed
+        formatter.dateFormat = "HH:mm a"
+        return formatter
+    }()
+}
+struct DiagnosticView: View {
     var doctor: User
     @State private var isSelected: Bool = false
-
+    let currentDate = Date()
+        let dayFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd"
+            return formatter
+        }()
+        let monthFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM"
+            formatter.locale = Locale(identifier: "en_US_POSIX") // Use a locale that ensures the month is in uppercase English
+            return formatter
+        }()
     var body: some View {
         NavigationLink(destination: ChatView()) {
             RoundedRectangle(cornerRadius: 25)
-                .fill(isSelected ? Color.blue : Color("primaryShadow"))
+                .fill(isSelected ? Color.blue : Color("blackish"))
                 .frame(height: 150)
                 .overlay(
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(doctor.name)
-                            .font(.headline)
-                            .foregroundColor(isSelected ? .white : .black)
-                        Text(doctor.email)
-                            .font(.subheadline)
-                            .foregroundColor(isSelected ? .white : .black)
+                    HStack{
+                        Spacer()
+                        VStack(alignment: .leading, spacing: 10) {
+                            Spacer()
+                            Text(doctor.name)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.white)
+                                .padding(.top,15)
+                                .padding(.leading, 15)
+                            Text(doctor.email)
+                                .font(.subheadline)
+                                .foregroundColor(Color("primaryShadow"))
+                                .padding(.leading, 15)
+                            HStack
+                            {
+                                Button(action: {
+                                    // Alguien cambie estooo
+                                    print("Llevar al chat que aun no está")
+                                }) {
+                                    Text("Enviar Mensaje")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.black)
+                                        .padding(10)
+                                        .background(Color("yellowsito"))
+                                        .cornerRadius(20)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color("yellowsito"), lineWidth: 1)
+                                        )
+                                }
+                                .padding()
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                        Spacer()
+                        VStack{
+                            VStack {
+                                Text(dayFormatter.string(from: currentDate))
+                                    .font(.system(size: 20, weight: .bold))
+                                    .foregroundColor(.white)
+                                
+                                Text(monthFormatter.string(from: currentDate).uppercased())
+                                    .font(.system(size: 15, weight: .semibold))
+                                    .foregroundColor(.white)
+                            }
+                            .frame(width: 70, height: 80)
+                            .background(Color.black)
+                            .cornerRadius(15)
+                            Text("Prox. Cita")
+                                .font(.system(size: 10, weight: .semibold))
+                                .foregroundColor(.black)
+                                .frame(width: 70, height: 20)
+                                .background(Color.white)
+                                .cornerRadius(15)
+                        }
+                        Spacer()
                     }
-                    .padding(.all, 20),
-                    alignment: .topLeading
-                )
+                ).padding(15)
+        }
+        .isDetailLink(false) // This ensures that the link doesn't push onto the stack if it's already present
+        .buttonStyle(PlainButtonStyle()) // To remove any button styling from the NavigationLink
+        .onTapGesture {
+            isSelected.toggle() // This will not work as expected because NavigationLink controls the navigation state
+        }
+        .animation(.default, value: isSelected)
+    }
+}
+struct DoctorInfoView: View {
+    var doctor: User
+    @State private var isSelected: Bool = false
+    let currentDate = Date()
+        let dayFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd"
+            return formatter
+        }()
+        let monthFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MMM"
+            formatter.locale = Locale(identifier: "en_US_POSIX") // Use a locale that ensures the month is in uppercase English
+            return formatter
+        }()
+    var body: some View {
+        NavigationLink(destination: ChatView()) {
+            RoundedRectangle(cornerRadius: 25)
+                .fill(isSelected ? Color.blue : Color("blackish"))
+                .frame(height: 150)
+                .overlay(
+                    HStack{
+                        Spacer()
+                        VStack(alignment: .leading, spacing: 10) {
+                            Spacer()
+                            Text(doctor.name)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.white)
+                                .padding(.top,15)
+                                .padding(.leading, 15)
+                            Text(doctor.email)
+                                .font(.subheadline)
+                                .foregroundColor(Color("primaryShadow"))
+                                .padding(.leading, 15)
+                            HStack
+                            {
+                                Button(action: {
+                                    // Alguien cambie estooo
+                                    print("Llevar al chat que aun no está")
+                                }) {
+                                    Text("Enviar Mensaje")
+                                        .font(.system(size: 12))
+                                        .foregroundColor(.black)
+                                        .padding(10)
+                                        .background(Color("yellowsito"))
+                                        .cornerRadius(20)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .stroke(Color("yellowsito"), lineWidth: 1)
+                                        )
+                                }
+                                .padding()
+                                Spacer()
+                            }
+                            Spacer()
+                        }
+                        Spacer()
+                        VStack{
+                            VStack {
+                                Text(dayFormatter.string(from: currentDate))
+                                    .font(.system(size: 20, weight: .bold))
+                                    .foregroundColor(.white)
+                                
+                                Text(monthFormatter.string(from: currentDate).uppercased())
+                                    .font(.system(size: 15, weight: .semibold))
+                                    .foregroundColor(.white)
+                            }
+                            .frame(width: 70, height: 80)
+                            .background(Color.black)
+                            .cornerRadius(15)
+                            Text("Prox. Cita")
+                                .font(.system(size: 10, weight: .semibold))
+                                .foregroundColor(.black)
+                                .frame(width: 70, height: 20)
+                                .background(Color.white)
+                                .cornerRadius(15)
+                        }
+                        Spacer()
+                    }
+                ).padding(15)
         }
         .isDetailLink(false) // This ensures that the link doesn't push onto the stack if it's already present
         .buttonStyle(PlainButtonStyle()) // To remove any button styling from the NavigationLink
@@ -103,25 +260,49 @@ struct RecordThumbNailImageView: View {
 struct DashboardView: View {
     @EnvironmentObject var globalDataModel: GlobalDataModel
     @State private var isImageFullScreen = false
+    @State private var currentTime = Date()
+    @State private var minutos = "5"
+
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
         
         NavigationView {
             ScrollView{
             VStack{
+                HStack
+                {
+                    Text("¿Cómo te sientes hoy?")
+                        .font(.title3)
+                        .multilineTextAlignment(.leading)
+                        .padding(.leading, 15)
+                    Spacer()
+                }
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
                     RoundedRectangle(cornerRadius: 20)
-                        .foregroundColor(Color("primaryShadow"))
+                        .foregroundColor(Color("yellowsito"))
                     VStack(alignment: .leading){
-                        Text("Welcome back")
-                            .font(.title)
-                        Text("\(globalDataModel.user?.name ?? "Guest")")
-                            .font(.title)
-                            .bold()
+                        Text(currentTime, formatter: DateFormatter.timeFormatter)
+                                    .onReceive(timer) { input in
+                                        currentTime = input
+                                    }
+                                    .font(.system(size: 24)) // Set the font size to your preference
+                                    .fontWeight(.medium) // Adjust the font weight as needed
+                                    .foregroundColor(Color.white) // Set the text color to white
+                                    .padding(.vertical, 8) // Add vertical padding
+                                    .padding(.horizontal, 16) // Add horizontal padding
+                                    .background(Color.black) // Set the background color to black
+                                    .cornerRadius(20)
+                        Spacer()
+                        Text("Tienes que tomar tu medicina en " + minutos + " minutos")
+                            .font(.title3)
+                            .multilineTextAlignment(.leading)
+                            .fontWeight(.bold)
+                        //Text("\(globalDataModel.user?.name ?? "Guest")")
+                            //.font(.title)
+                            //.bold()
                         
-                        
-                        
-                        Text("\(globalDataModel.user?.email ?? "Guest")")
-                            .font(.footnote)
+                        //Text("\(globalDataModel.user?.email ?? "Guest")")
+                            //.font(.footnote)
                         
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                             Text("Get started")
@@ -134,22 +315,43 @@ struct DashboardView: View {
                     .padding()
                 }
                 .frame(height: 200)
-                .padding(.bottom, 10)
+                .padding(15)
+        
+                HStack
+                {
+                    Text("¿Qué te gustaría hacer?")
+                    Spacer()
+                }.padding(15)
                 
+                HStack{
+                    ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .foregroundColor(Color("yellowsito"))
+                                        }
+                    VStack
+                    {
+                        ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundColor(Color("yellowsito"))
+                        }
+                        ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
+                            RoundedRectangle(cornerRadius: 20)
+                                .foregroundColor(Color("yellowsito"))
+                    }
+                    
+                    }
+                }.padding(15)
                 
+                    
                 
                 if let doctor = globalDataModel.userRelations.first { // Safely unwrapping the first doctor
                     VStack(alignment: .leading) {
-                        Text("Your Doctor")
-                            .font(.title)
-                        
                         DoctorInfoView(doctor: doctor)
                     }
                 } else {
                     Text("No doctor data available")
                         .padding()
                 }
-                
                 
                 VStack(alignment: .leading) {
                     HStack {
@@ -177,11 +379,14 @@ struct DashboardView: View {
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         HStack {
-                            Text("Insights")
-                                .font(.largeTitle)
-                                .foregroundColor(.primary)
-                                .bold()
+                            VStack {
                             
+                                Text("Hola, " + (globalDataModel.user?.name ?? "Guest"))
+                                    .font(.largeTitle)
+                                    .foregroundColor(.primary)
+                                    .bold()
+                                
+                            }
                             Spacer()
                             
                             // Profile picture
@@ -219,7 +424,6 @@ struct DashboardView: View {
 
             
     }
-    
     
     
     

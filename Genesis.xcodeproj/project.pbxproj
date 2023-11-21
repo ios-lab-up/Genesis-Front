@@ -53,6 +53,7 @@
 		487AC5DB2AFD3A0C001F1755 /* UserBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
+		AF508CCF2B0BE88700DBFB05 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF508CCE2B0BE88700DBFB05 /* Dashboard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -103,6 +104,7 @@
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7A8BE8E52A7F435600BAE75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Capturing Photos.swiftpm/App/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
+		AF508CCE2B0BE88700DBFB05 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +284,7 @@
 				481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */,
 				480A30172A7C79A80087FABD /* ImageClassificationView.swift */,
 				166482022A8036A90093032A /* resultsView.swift */,
+				AF508CCE2B0BE88700DBFB05 /* Dashboard.swift */,
 				166481E92A7F72310093032A /* customTextfield.swift */,
 				48A8764C2A7CBB51008F0B62 /* LoginView.swift */,
 				1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */,
@@ -414,6 +417,7 @@
 				481D6D022AF9A2BF001AAAF7 /* GlobalDataModel.swift in Sources */,
 				16F2BC842AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage in Sources */,
 				48626CC32ADF5DA700CCE82B /* NetworkManager+UserAuth.swift in Sources */,
+				AF508CCF2B0BE88700DBFB05 /* Dashboard.swift in Sources */,
 				16F2BC762AD7384E00CE4BC5 /* Picker.swift in Sources */,
 				481BDDB82A6E02D3006D4D80 /* ContentView.swift in Sources */,
 				166481F02A7F8FB10093032A /* enroll.swift in Sources */,
