@@ -128,12 +128,12 @@ struct DashboardView: View {
                                 .onReceive(timer) { input in
                                     currentTime = input
                                 }
-                                .font(.system(size: 24)) // Set the font size to your preference
-                                .fontWeight(.medium) // Adjust the font weight as needed
-                                .foregroundColor(Color.white) // Set the text color to white
-                                .padding(.vertical, 8) // Add vertical padding
-                                .padding(.horizontal, 16) // Add horizontal padding
-                                .background(Color.black) // Set the background color to black
+                                .font(.system(size: 24))
+                                .fontWeight(.medium)
+                                .foregroundColor(Color.white)
+                                .padding(.vertical, 8)
+                                .padding(.horizontal, 16)
+                                .background(Color.black)
                                 .cornerRadius(20)
                             Spacer()
                             Text("Tienes que tomar tu medicina en " + minutos + " minutos")
@@ -162,9 +162,9 @@ struct DashboardView: View {
                     
                     HStack
                     {
-                        Text("¿Qué te gustaría hacer?")
+                        Text("\n¿Qué te gustaría hacer?\n")
                         Spacer()
-                    }.padding(.leading, 15)
+                    }
                     
                     HStack{
                         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center))
@@ -173,12 +173,47 @@ struct DashboardView: View {
                                 .foregroundColor(Color("purplit"))
                                 .frame(height: 200)
                                 .padding(3)
+                            VStack{
+                                
+                                Text(" ")
+                                Text("Diagnosis")
+                                    .foregroundColor(Color.white)
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 16)
+                                    .background(Color.black)
+                                    .cornerRadius(20)
+                                Text("Conoce tu Diagnóstico")
+                                    .font(.title2)
+                                    .bold()
+                                    .padding(.leading, 15)
+                                
+                                Text(" Conoce tu diagnóstico  a detalle")
+                                    .font(.caption)
+                                    .padding(.leading, 20)
+                                    .foregroundColor(Color("grayish"))
+                                    .bold()
+                                Spacer()
+                            }
                         }
                         VStack
                         {
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
                                 RoundedRectangle(cornerRadius: 20)
                                     .foregroundColor(Color("bluey"))
+                                
+                                
+                                VStack{
+                                    Text("Lista de Medicamentos")
+                                        .bold()
+                                        .padding(.leading, 15)
+                                        .padding(.top, 15)
+                                    Text("Información detallada")
+                                        .padding(.leading, 15)
+                                        .font(.caption)
+                                        .padding(.bottom, 15)
+                                    
+                                        
+                                }
                             }
                             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
                                 if let lastImageData = globalDataModel.userImages.last,
