@@ -250,6 +250,43 @@ extension NetworkManager {
                 }
             }
     }
+    
+    func signOut(completion: @escaping (Result<Bool, Error>) -> Void) {
+            let headers: HTTPHeaders = [
+                "Content-Type": "application/json",
+                "x-access-token": self.jwtToken ?? ""
+            ]
+
+            AF.request(APIEndpoints.signOut, method: .get, headers: headers)
+                .response { response in
+                    switch response.result {
+                    case .success(let data):
+                        guard let data = data else {
+                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
+                            return
+                        }
+
+                        do {
+                            let decoder = JSONDecoder()
+                            let decodedResponse = try decoder.decode(APIResponse<Bool>.self, from: data)
+
+                            if decodedResponse.success {
+                                completion(.success(true))
+                            } else {
+                                let errorMessage = decodedResponse.message ?? "An unknown error occurred"
+                                let error = NSError(domain: "", code: decodedResponse.status ?? 0, userInfo: [NSLocalizedDescriptionKey: errorMessage])
+                                completion(.failure(error))
+                            }
+                        } catch {
+                            completion(.failure(error))
+                        }
+
+                    case .failure(let error):
+                        completion(.failure(error))
+                    }
+                }
+        }
+    
 }
 
 

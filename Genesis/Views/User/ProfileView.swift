@@ -7,6 +7,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var navigateToSignIn = false
+
     var body: some View {
         VStack {
             Image(systemName: "person.crop.circle.fill")
@@ -27,7 +29,8 @@ struct ProfileView: View {
             Spacer()
             
             Button(action: {
-                // Action to perform on logout
+                NetworkManager.shared.signOut{ result in
+                    print(result)                }
             }) {
                 Text("Logout")
                     .font(.headline)
@@ -38,8 +41,12 @@ struct ProfileView: View {
             }
             .padding(.bottom, 50)
         }
+        
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.gray.opacity(0.2)) // Or any other background
+        .background(Color.gray.opacity(0.2))
+        .fullScreenCover(isPresented: $navigateToSignIn, content: {
+                    signIn()
+                })
     }
 }
 

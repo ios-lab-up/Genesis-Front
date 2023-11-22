@@ -157,6 +157,8 @@ struct APIEndpoints {
     static var getUser2UserRelations: String { baseURL + "/get_user_to_user_relation"}
     
     static var getUserImages: String { baseURL + "/get_user_images_data"}
+    
+    static var signOut: String { baseURL + "/sign_out"}
 }
 
 /// `NetworkManager` handles all network calls to the Genesis API.

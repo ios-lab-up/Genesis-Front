@@ -221,13 +221,23 @@ struct DashboardView: View {
                                    let uiImage = UIImage(data: imageData) {
                                     Image(uiImage: uiImage)
                                         .resizable()
-                                        .scaledToFill() // Esto asegura que la imagen cubra todo el espacio disponible
+                                        .scaledToFill()
                                         .frame(height: 100) // Asegúrate de que la altura coincida con la de tu ZStack
                                         .cornerRadius(20) // Aplica esquinas redondeadas
-                                        .clipped() // Esto recorta la imagen para que se ajuste al marco y las esquinas
-                                    
-                                } else {
-                                    Color("bluey") // Un color de fondo si no hay imagen disponible
+                                        .clipped()
+
+                                    VStack {
+                                                Spacer() // Pushes the content to the bottom
+                                                HStack {
+                                                    Text(reformatDateString(lastImageData.creationDate) ?? "No date available")
+                                                        .font(.headline)
+                                                        .foregroundColor(.white)
+                                                        .padding([.leading, .bottom], 10) // Padding to position the text inside the ZStack
+                                                    Spacer() // Pushes the content to the left
+                                                }
+                                            }
+                                            } else {
+                                    Color("bluey")
                                 }
                                 
                                 // ... Resto de tu contenido que va sobre la imagen ...
@@ -256,32 +266,41 @@ struct DashboardView: View {
                         ToolbarItem(placement: .principal) {
                             HStack {
                                 VStack {
-                                    
-                                    Text(greetingText)
-                                        .font(.title2)
-                                        .foregroundColor(.primary)
-                                        .bold()
+                                    NavigationLink(destination: ProfileView()) {
+                                        Text(greetingText)
+                                            .font(.title2)
+                                            .foregroundColor(.primary)
+                                            .bold()
+                                    }
                                     
                                 }
-                                Spacer()
+                                           
+                            
+
+                            Spacer()
                                 
                                 // Profile picture
-                                NavigationLink(destination: PatientProfileView(), isActive: $navigateToNewView) {
+                          
                                                     AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
-                                                        image
-                                                            .resizable()
-                                                            .aspectRatio(contentMode: .fill)
-                                                            .clipShape(Circle())
-                                                            .onTapGesture {
-                                                                navigateToNewView = true
-                                                            }
+                                                       
+                                                            image
+                                                                .resizable()
+                                                                .aspectRatio(contentMode: .fill)
+                                                                .clipShape(Circle())
+                                                                .onTapGesture {
+                                                                    navigateToNewView = true
+                                                                
+                                                        }
                                                     } placeholder: {
                                                         ZStack {
                                                             Circle().foregroundColor(.purple)
                                                         }
                                                     }
                                                     .frame(width: 45, height: 45)
-                                                }
+                                                    .onTapGesture{
+                                                        print("Perrrrroooo")
+                                                    }
+                                                
                                             }
                                         }
                             
@@ -310,6 +329,34 @@ struct DashboardView: View {
                 return "Hola, \(fullName)"
             }
         }
+    
+    
+    func reformatDateString(_ dateString: String) -> String? {
+        // Split the string by spaces and then by colons to extract the components
+        let components = dateString.components(separatedBy: " ")
+        
+        // Check that all the necessary components are present
+        if components.count >= 4 {
+            let day = components[1]
+            let month = components[2]
+            let year = components[3]
+            
+            // Map the month string to its numerical representation
+            let monthMap = ["Jan": "01", "Feb": "02", "Mar": "03", "Apr": "04",
+                            "May": "05", "Jun": "06", "Jul": "07", "Aug": "08",
+                            "Sep": "09", "Oct": "10", "Nov": "11", "Dec": "12"]
+            if let monthNumber = monthMap[month] {
+                // Extract the last two digits of the year
+                let yearSuffix = String(year.suffix(2))
+                // Combine the new string in the "YY.MM.DD" format
+                return "\(yearSuffix).\(monthNumber).\(day)"
+            }
+        }
+        // Return nil if the string does not contain a valid date
+        return nil
+    }
+
+
         
         
     }
