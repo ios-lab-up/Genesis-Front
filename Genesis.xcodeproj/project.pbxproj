@@ -41,6 +41,9 @@
 		481BDDD12A6F876C006D4D80 /* VerifyIdentityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */; };
 		481D6D022AF9A2BF001AAAF7 /* GlobalDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481D6D012AF9A2BF001AAAF7 /* GlobalDataModel.swift */; };
 		483A4A6C2ADF051A005A3B4C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 483A4A6B2ADF051A005A3B4C /* Alamofire */; };
+		485E0C2D2B0E790E00DBF43A /* DoctorHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485E0C2C2B0E790E00DBF43A /* DoctorHomeView.swift */; };
+		485E0C2F2B0E7BC300DBF43A /* DoctorDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485E0C2E2B0E7BC300DBF43A /* DoctorDashboardView.swift */; };
+		485E0C312B0E7D9400DBF43A /* PatientProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 485E0C302B0E7D9400DBF43A /* PatientProfileView.swift */; };
 		48626CC12ADF367A00CCE82B /* ViewImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC02ADF367A00CCE82B /* ViewImage.swift */; };
 		48626CC32ADF5DA700CCE82B /* NetworkManager+UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC22ADF5DA700CCE82B /* NetworkManager+UserAuth.swift */; };
 		48626CC72ADF64D900CCE82B /* NetworkManager+UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */; };
@@ -90,6 +93,9 @@
 		481BDDCE2A6F70AB006D4D80 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyIdentityView.swift; sourceTree = "<group>"; };
 		481D6D012AF9A2BF001AAAF7 /* GlobalDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalDataModel.swift; sourceTree = "<group>"; };
+		485E0C2C2B0E790E00DBF43A /* DoctorHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorHomeView.swift; sourceTree = "<group>"; };
+		485E0C2E2B0E7BC300DBF43A /* DoctorDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDashboardView.swift; sourceTree = "<group>"; };
+		485E0C302B0E7D9400DBF43A /* PatientProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientProfileView.swift; sourceTree = "<group>"; };
 		48626CC02ADF367A00CCE82B /* ViewImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImage.swift; sourceTree = "<group>"; };
 		48626CC22ADF5DA700CCE82B /* NetworkManager+UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UserAuth.swift"; sourceTree = "<group>"; };
 		48626CC62ADF64D900CCE82B /* NetworkManager+UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+UserData.swift"; sourceTree = "<group>"; };
@@ -157,6 +163,9 @@
 				166481FE2A7FEF080093032A /* DashboardView.swift */,
 				16F2BC772AD738EE00CE4BC5 /* Photo.swift */,
 				481998062AF56D3000931AB8 /* DashboardViewUser.swift */,
+				485E0C2C2B0E790E00DBF43A /* DoctorHomeView.swift */,
+				485E0C2E2B0E7BC300DBF43A /* DoctorDashboardView.swift */,
+				485E0C302B0E7D9400DBF43A /* PatientProfileView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -410,6 +419,7 @@
 				16F2BC782AD738EE00CE4BC5 /* Photo.swift in Sources */,
 				1663A6D42AE1B02A00D98838 /* SplashScreenView.swift in Sources */,
 				166481F52A7F92020093032A /* OneTimeCodeBoxes.swift in Sources */,
+				485E0C312B0E7D9400DBF43A /* PatientProfileView.swift in Sources */,
 				1663A6D22AE1B00F00D98838 /* AppFlowViewModel.swift in Sources */,
 				48626CC72ADF64D900CCE82B /* NetworkManager+UserData.swift in Sources */,
 				16C99C622AE713990083CC54 /* MessageView.swift in Sources */,
@@ -438,6 +448,8 @@
 				166481F72A7F923A0093032A /* oneTimeCode.swift in Sources */,
 				48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */,
 				48626CC12ADF367A00CCE82B /* ViewImage.swift in Sources */,
+				485E0C2F2B0E7BC300DBF43A /* DoctorDashboardView.swift in Sources */,
+				485E0C2D2B0E790E00DBF43A /* DoctorHomeView.swift in Sources */,
 				16F2BC802AD7415A00CE4BC5 /* FileManager+Extension.swift in Sources */,
 				166482032A8036A90093032A /* resultsView.swift in Sources */,
 				481998072AF56D3000931AB8 /* DashboardViewUser.swift in Sources */,

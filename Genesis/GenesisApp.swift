@@ -30,8 +30,15 @@ struct AppContainerView: View {
                 SplashScreenView()
                 
             } else if appFlowVM.isAuthenticated == true {
-                HomeView()
-                    .environmentObject(globalDataModel) // Pass the global data model to HomeView
+                if globalDataModel.user?.profileId == 1
+                {
+                    HomeView()
+                        .environmentObject(globalDataModel) // Pass the global data model to HomeView
+                }
+                else{
+                    DoctorHomeView()
+                        .environmentObject(globalDataModel) // Pass the global data model to HomeView
+                }
             } else {
                 signIn()
             }

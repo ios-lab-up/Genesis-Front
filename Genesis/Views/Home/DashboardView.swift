@@ -108,7 +108,7 @@ struct DoctorInfoView: View {
 
 struct DashboardView: View {
     //@EnvironmentObject var globalDataModel: GlobalDataModel
-    @State private var isImageFullScreen = false
+    @State private var navigateToNewView = false
     @State private var currentTime = Date()
     @State private var minutos = "5"
     @ObservedObject var globalDataModel = GlobalDataModel.shared
@@ -266,30 +266,24 @@ struct DashboardView: View {
                                 Spacer()
                                 
                                 // Profile picture
-                                AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
-                                    image
-                                        .resizable()
-                                        .aspectRatio(contentMode: .fill)
-                                        .clipShape(Circle())
-                                        .onTapGesture {
-                                            isImageFullScreen = true // When the image is tapped, set this state to true
+                                NavigationLink(destination: PatientProfileView(), isActive: $navigateToNewView) {
+                                                    AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
+                                                        image
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fill)
+                                                            .clipShape(Circle())
+                                                            .onTapGesture {
+                                                                navigateToNewView = true
+                                                            }
+                                                    } placeholder: {
+                                                        ZStack {
+                                                            Circle().foregroundColor(.purple)
+                                                        }
+                                                    }
+                                                    .frame(width: 45, height: 45)
+                                                }
+                                            }
                                         }
-                                        .fullScreenCover(isPresented: $isImageFullScreen) {
-                                            // This is the view that will be presented in full screen
-                                            image
-                                                .resizable()
-                                                .aspectRatio(contentMode: .fit)
-                                                .edgesIgnoringSafeArea(.all)
-                                        }
-                                } placeholder: {
-                                    ZStack {
-                                        Circle()
-                                            .foregroundColor(.purple)
-                                    }
-                                }
-                                .frame(width: 30, height: 30) // Adjust the size as needed
-                            }
-                            
                             
                             
                         }
@@ -298,7 +292,6 @@ struct DashboardView: View {
                 }
             }
             
-        }
         
         var greetingText: String {
             // Obtiene el nombre completo, o "Guest" si no hay un nombre disponible
