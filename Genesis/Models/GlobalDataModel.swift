@@ -12,6 +12,7 @@ class GlobalDataModel: ObservableObject {
     @Published var user: User?
     @Published var userRelations: [User] = []
     @Published var userImages: [ImageData] = [] // Add this line to define userImages
+    @Published var medicalHistory: [MedicalHistoryItem] = []
 
     
     private init() {} // Private initializer to enforce singleton usage

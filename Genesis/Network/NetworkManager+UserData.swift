@@ -17,11 +17,11 @@ extension NetworkManager {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
             return
         }
-
+        
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "x-access-token": token // Here we're using the non-optional token
-        
+            
             
         ]
         
@@ -37,7 +37,7 @@ extension NetworkManager {
             }
     }
     
-
+    
     func getUser2UserRelations(completion: @escaping (Result<[User], Error>) -> Void) {
         
         // Check if the token exists
@@ -45,14 +45,14 @@ extension NetworkManager {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
             return
         }
-
+        
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "x-access-token": token // Here we're using the non-optional token
             
         ]
         
-
+        
         AF.request(APIEndpoints.getUser2UserRelations, method: .get, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: Response<[User]>.self) { response in
@@ -71,7 +71,7 @@ extension NetworkManager {
             completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
             return
         }
-
+        
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
             "x-access-token": token // Here we're using the non-optional token
@@ -94,16 +94,45 @@ extension NetworkManager {
                 }
             }
     }
-
     
-    func fetchAllUserData(completion: @escaping (Result<(User, [User], [ImageData]), Error>) -> Void) {
+    func fetchMedicalHistory(completion: @escaping (Result<[MedicalHistoryItem], Error>) -> Void) {
+        guard let token = retrieveToken() else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "x-access-token": token // Here we're using the non-optional token
+        ]
+        
+        
+        // Replace with your actual medical history endpoint URL
+        
+        AF.request(APIEndpoints.getMyMedicalHistory, method: .get, headers: headers)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of:Response<[MedicalHistoryItem]>.self) { response in
+                switch response.result {
+                case .success(let historyResponse):
+                    print("History Response: \(historyResponse)")
+                    completion(.success(historyResponse.data))
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+    }
+    
+    
+    func fetchAllUserData(completion: @escaping (Result<(User, [User], [ImageData], [MedicalHistoryItem]), Error>) -> Void) {
         let dispatchGroup = DispatchGroup()
         
         var userData: User?
         var userRelations: [User]?
         var userImages: [ImageData]?
+        var medicalHistory: [MedicalHistoryItem]?
         var firstError: Error?
         
+        // Fetch User Data
         dispatchGroup.enter()
         getUserData { result in
             switch result {
@@ -115,39 +144,58 @@ extension NetworkManager {
             dispatchGroup.leave()
         }
         
+        // Fetch User Relations
         dispatchGroup.enter()
         getUser2UserRelations { result in
             switch result {
             case .success(let relations):
                 userRelations = relations
             case .failure(let error):
-                if firstError == nil { // Only capture the first error encountered
+                if firstError == nil {
                     firstError = error
                 }
             }
             dispatchGroup.leave()
         }
         
+        // Fetch User Images
         dispatchGroup.enter()
-            getUserImages { result in
-                switch result {
-                case .success(let images):
-                    userImages = images
-                case .failure(let error):
-                    if firstError == nil { // Only capture the first error encountered
-                        firstError = error
-                    }
+        getUserImages { result in
+            switch result {
+            case .success(let images):
+                userImages = images
+            case .failure(let error):
+                if firstError == nil {
+                    firstError = error
                 }
-                dispatchGroup.leave()
             }
+            dispatchGroup.leave()
+        }
         
+        // Fetch Medical History
+        dispatchGroup.enter()
+        fetchMedicalHistory { result in
+            switch result {
+            case .success(let historyItems):
+                medicalHistory = historyItems
+                print(historyItems)
+            case .failure(let error):
+                if firstError == nil {
+                    firstError = error
+                }
+            }
+            dispatchGroup.leave()
+        }
+        
+        // Final aggregation
         dispatchGroup.notify(queue: .main) {
-            if let user = userData, let relations = userRelations, let images = userImages {
+            if let user = userData, let relations = userRelations, let images = userImages, let history = medicalHistory {
                 // Update the GlobalDataModel with the fetched data
                 GlobalDataModel.shared.user = user
                 GlobalDataModel.shared.userRelations = relations
                 GlobalDataModel.shared.userImages = images
-                completion(.success((user, relations, images)))
+                GlobalDataModel.shared.medicalHistory = history // Assuming GlobalDataModel has a property for medical history
+                completion(.success((user, relations, images, history)))
             } else if let error = firstError {
                 completion(.failure(error))
             } else {
@@ -159,5 +207,5 @@ extension NetworkManager {
         
         print("fetching all user data")
     }
-
-    }
+    
+}

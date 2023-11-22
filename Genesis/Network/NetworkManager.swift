@@ -119,6 +119,92 @@ struct ImageData: Codable, Equatable, Identifiable {
         }
 }
 
+struct UserImage: Codable {
+    let creationDate: String
+    let id: Int
+    let imageId: Int
+    let lastUpdate: String
+    let status: Bool
+    let userId: Int
+
+    enum CodingKeys: String, CodingKey {
+        case creationDate = "creation_date"
+        case id
+        case imageId = "image_id"
+        case lastUpdate = "last_update"
+        case status
+        case userId = "user_id"
+    }
+}
+
+// Assuming Prescription and UserImage structs are already defined
+// as per your previous JSON structure
+
+struct MedicalHistoryItem: Codable {
+    let associationId: Int
+    let creationDate: String
+    let dateOfVisit: String
+    let diagnostic: String
+    let followUpRequired: Bool
+    let id: Int
+    let lastUpdate: String
+    let nextAppointmentDate: String
+    let observation: String
+    let patientFeedback: String
+    let prescriptions: [Prescription]
+    let privateNotes: String
+    let status: Bool
+    let symptoms: String
+    let userImages: [UserImage]
+
+    enum CodingKeys: String, CodingKey {
+        case associationId = "association_id"
+        case creationDate = "creation_date"
+        case dateOfVisit = "date_of_visit"
+        case diagnostic
+        case followUpRequired = "follow_up_required"
+        case id
+        case lastUpdate = "last_update"
+        case nextAppointmentDate = "next_appointment_date"
+        case observation
+        case patientFeedback = "patient_feedback"
+        case prescriptions
+        case privateNotes = "private_notes"
+        case status
+        case symptoms
+        case userImages = "user_images"
+    }
+}
+
+struct Prescription: Codable {
+    let creationDate: String
+    let dosage: String
+    let endDate: String
+    let frequencyUnit: String
+    let frequencyValue: Int
+    let id: Int
+    let indications: String
+    let lastUpdate: String
+    let notificationsEnabled: Bool
+    let startDate: String
+    let status: Bool
+    let treatment: String
+
+    enum CodingKeys: String, CodingKey {
+        case creationDate = "creation_date"
+        case dosage
+        case endDate = "end_date"
+        case frequencyUnit = "frequency_unit"
+        case frequencyValue = "frequency_value"
+        case id
+        case indications
+        case lastUpdate = "last_update"
+        case notificationsEnabled = "notifications_enabled"
+        case startDate = "start_date"
+        case status
+        case treatment
+    }
+}
 
 
 
@@ -159,6 +245,8 @@ struct APIEndpoints {
     static var getUserImages: String { baseURL + "/get_user_images_data"}
     
     static var signOut: String { baseURL + "/sign_out"}
+    
+    static var getMyMedicalHistory: String { baseURL + "/medical_history/get_my_medical_history"}
 }
 
 /// `NetworkManager` handles all network calls to the Genesis API.
