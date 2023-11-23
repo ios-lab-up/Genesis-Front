@@ -114,7 +114,6 @@ extension NetworkManager {
             .responseDecodable(of:Response<[MedicalHistoryItem]>.self) { response in
                 switch response.result {
                 case .success(let historyResponse):
-                    print("History Response: \(historyResponse)")
                     completion(.success(historyResponse.data))
                 case .failure(let error):
                     completion(.failure(error))

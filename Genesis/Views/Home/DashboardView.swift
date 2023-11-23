@@ -14,7 +14,29 @@ extension DateFormatter {
         formatter.dateFormat = "HH:mm a"
         return formatter
     }()
+    static let yyyyMMdd: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.locale = Locale(identifier: "en_US_POSIX") // Use a fixed locale for date formatting
+            formatter.timeZone = TimeZone(secondsFromGMT: 0) // Adjust if necessary
+            return formatter
+        }()
+        
+        static let dayMonthFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "dd MMM" // for "28 Nov" format
+            formatter.locale = Locale(identifier: "es_MX") // Use the appropriate locale
+            return formatter
+        }()
+    
 }
+
+let dayFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "dd MMM" // Use the format "dd MMM" for day and abbreviated month
+    formatter.locale = Locale(identifier: "es_MX") // Adjust for your locale
+    return formatter
+}()
 struct DoctorInfoView: View {
     var doctor: User
     @State private var isSelected: Bool = false
@@ -31,8 +53,12 @@ struct DoctorInfoView: View {
         formatter.locale = Locale(identifier: "en_US_POSIX") // Use a locale that ensures the month is in uppercase English
         return formatter
     }()
+    
+   
+    
     var body: some View {
         VStack{
+           
             
             RoundedRectangle(cornerRadius: 25)
                 .fill(isSelected ? Color.blue : Color("blackish"))
@@ -77,13 +103,29 @@ struct DoctorInfoView: View {
                         Spacer()
                         VStack{
                             VStack {
-                                Text(dayFormatter.string(from: currentDate))
-                                    .font(.system(size: 20, weight: .bold))
-                                    .foregroundColor(.white)
-                                
-                                Text(monthFormatter.string(from: currentDate).uppercased())
-                                    .font(.system(size: 15, weight: .semibold))
-                                    .foregroundColor(.white)
+                                if let nextAppointmentDateString = GlobalDataModel.shared.medicalHistory.last?.nextAppointmentDate,
+                                   let date = DateFormatter.yyyyMMdd.date(from: nextAppointmentDateString) {
+                                    VStack(spacing: 0) {
+                                        Text(dayFormatter.string(from: date)) // Day
+                                            .font(.system(size: 24, weight: .bold))
+                                            .foregroundColor(.white)
+                                        Text(monthFormatter.string(from: date).uppercased()) // Month
+                                            .font(.system(size: 16, weight: .semibold))
+                                            .foregroundColor(.white)
+                                    }
+                                    .frame(width: 70, height: 80)
+                                    .background(Color.black)
+                                    .cornerRadius(15)
+                                } else {
+                                    // Placeholder if date is not available
+                                    Text("N/A")
+                                        .font(.system(size: 24, weight: .bold))
+                                        .foregroundColor(.white)
+                                        .frame(width: 70, height: 80)
+                                        .background(Color.black)
+                                        .cornerRadius(15)
+                                }
+                                Text("Prox. Cita")
                             }
                             .frame(width: 70, height: 80)
                             .background(Color.black)
@@ -176,7 +218,7 @@ struct DashboardView: View {
                             VStack{
                                 
                                 Text(" ")
-                                Text("Diagnosis")
+                                Text(globalDataModel.userImages.last?.mlDiagnostic.first?.sickness ?? "N/A")
                                     .foregroundColor(Color.white)
                                     .padding(.vertical, 8)
                                     .padding(.horizontal, 16)
