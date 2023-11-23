@@ -8,15 +8,23 @@
 import Foundation
 
 
-struct Message: Decodable, Identifiable {
-    let id = UUID()
-    let userUid: String
-    let text: String
-    let photoURL: String
-    let createdAt: Date
-    
-    
-    func isFromCurrentUser() -> Bool {
-        return true
+class Message {
+    var userUid: String
+    var text: String
+    var photoURL: String
+    var createdAt: Date
+
+    init?(dictionary: [String: Any]) {
+        guard let userUid = dictionary["userUid"] as? String,
+              let text = dictionary["text"] as? String,
+              let photoURL = dictionary["photoURL"] as? String,
+              let createdAt = dictionary["createdAt"] as? Date else {
+            return nil
+        }
+        self.userUid = userUid
+        self.text = text
+        self.photoURL = photoURL
+        self.createdAt = createdAt
     }
 }
+

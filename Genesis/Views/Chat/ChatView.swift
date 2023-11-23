@@ -6,19 +6,37 @@
 //
 
 import SwiftUI
+import SocketIO
+
 
 class ChatViewModel: ObservableObject {
     @Published var messages = [Message]()
-    
-    static let mockData: [Message] = [
-        Message(userUid: "user001", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", photoURL: "https://example.com/photo1.jpg", createdAt: Date()),
-        Message(userUid: "user002", text: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", photoURL: "https://example.com/photo2.jpg", createdAt: Date()),
-        Message(userUid: "user003", text: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.", photoURL: "https://example.com/photo3.jpg", createdAt: Date()),
-        Message(userUid: "user004", text: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.", photoURL: "https://example.com/photo4.jpg", createdAt: Date()),
-        Message(userUid: "user005", text: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", photoURL: "https://example.com/photo5.jpg", createdAt: Date()),
-        Message(userUid: "user006", text: "Nullam ac tortor vitae purus faucibus ornare suspendisse sed.", photoURL: "https://example.com/photo6.jpg", createdAt: Date()),
-    ]
+    let manager = SocketManager(socketURL: URL(string: APIEndpoints.baseURL)!, config: [.log(true), .compress])
+    var socket: SocketIOClient!
 
+    init() {
+        socket = manager.defaultSocket
+
+        socket.on(clientEvent: .connect) { data, ack in
+            print("socket connected")
+        }
+
+        socket.on("new_message") { [weak self] data, ack in
+            guard let messageDict = data[0] as? [String: Any],
+                  let message = Message(dictionary: messageDict) else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.messages.append(message)
+            }
+        }
+
+        socket.connect()
+    }
+
+    func sendMessage(_ messageText: String) {
+        socket.emit("chat_message", ["text": messageText])
+    }
 }
 
 struct ChatView: View {
@@ -27,10 +45,9 @@ struct ChatView: View {
 
     var body: some View {
         VStack {
-            ScrollView{
-                VStack(spacing: 8){
-                    ForEach(ChatViewModel.mockData){
-                        message in
+            ScrollView {
+                VStack(spacing: 8) {
+                    ForEach(chatViewModel.messages, id: \.userUid) { message in
                         MessageView(message: message)
                     }
                 }
@@ -48,8 +65,8 @@ struct ChatView: View {
                                     HStack {
                                         Spacer()
                                         Button(action: {
-                                            // Send action here
-                                            print("Send tapped!")
+                                            chatViewModel.sendMessage(text)
+                                            text = "" // Clear the text field after sending
                                         }) {
                                             Image(systemName: "arrow.up.circle.fill")
                                                 .resizable()
@@ -63,11 +80,11 @@ struct ChatView: View {
                     )
                     .padding(.horizontal, 10)
             }
-           
-        
-        }.navigationBarTitle("Chat", displayMode: .inline) // Set the navigation bar title for ChatView
+        }.navigationBarTitle("Chat", displayMode: .inline)
     }
-    }
+}
+
+
 
 #Preview {
     ChatView()
