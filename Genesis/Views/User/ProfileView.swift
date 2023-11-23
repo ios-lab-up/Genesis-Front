@@ -9,9 +9,24 @@ import SwiftUI
 struct ProfileView: View {
     @ObservedObject var globalDataModel = GlobalDataModel.shared
     @State private var navigateToSignIn = false
+    
+    @Environment(\.presentationMode) var close
+    
+    
 
     var body: some View {
         VStack {
+            HStack{
+                Button(action:{
+                    close.wrappedValue.dismiss()
+                }){
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(Color.black)
+                    
+                    Spacer()
+                }
+            }
+            .padding()
             Image(systemName: "person.crop.circle.fill")
                 .resizable()
                 .scaledToFit()

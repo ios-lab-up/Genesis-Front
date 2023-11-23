@@ -44,9 +44,22 @@ class ChatViewModel: ObservableObject {
 struct ChatView: View {
     @StateObject var chatViewModel = ChatViewModel()
     @State var text = ""
+    
+    @Environment(\.presentationMode) var close
 
     var body: some View {
         VStack {
+            HStack{
+                Button(action:{
+                    close.wrappedValue.dismiss()
+                }){
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(Color.black)
+                    
+                    Spacer()
+                }
+            }
+            .padding()
             ScrollView {
                 VStack(spacing: 8) {
                     ForEach(chatViewModel.messages) { message in
