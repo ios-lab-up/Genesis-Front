@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160F016E2B0EEF9400BFCA3F /* DoctorInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */; };
 		1663A6D22AE1B00F00D98838 /* AppFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */; };
 		1663A6D42AE1B02A00D98838 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */; };
 		166481E82A7F6F330093032A /* signIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166481E72A7F6F330093032A /* signIn.swift */; };
@@ -60,6 +61,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoView.swift; sourceTree = "<group>"; };
 		1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowViewModel.swift; sourceTree = "<group>"; };
 		1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		166481E72A7F6F330093032A /* signIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signIn.swift; sourceTree = "<group>"; };
@@ -126,6 +128,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		160F016C2B0EE8C100BFCA3F /* Dash */ = {
+			isa = PBXGroup;
+			children = (
+				160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */,
+			);
+			path = Dash;
+			sourceTree = "<group>";
+		};
 		166481E62A7F6F170093032A /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +169,7 @@
 		166481FB2A7FE5680093032A /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				160F016C2B0EE8C100BFCA3F /* Dash */,
 				166481FC2A7FEE2D0093032A /* HomeView.swift */,
 				166481FE2A7FEF080093032A /* DashboardView.swift */,
 				16F2BC772AD738EE00CE4BC5 /* Photo.swift */,
@@ -439,6 +450,7 @@
 				166481F32A7F91CB0093032A /* OneTimeCodeInput.swift in Sources */,
 				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
 				16F2BC742AD7372C00CE4BC5 /* ViewModel.swift in Sources */,
+				160F016E2B0EEF9400BFCA3F /* DoctorInfoView.swift in Sources */,
 				48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */,
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
 				48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */,

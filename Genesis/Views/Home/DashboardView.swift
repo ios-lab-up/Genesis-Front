@@ -15,19 +15,19 @@ extension DateFormatter {
         return formatter
     }()
     static let yyyyMMdd: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd"
-            formatter.locale = Locale(identifier: "en_US_POSIX") // Use a fixed locale for date formatting
-            formatter.timeZone = TimeZone(secondsFromGMT: 0) // Adjust if necessary
-            return formatter
-        }()
-        
-        static let dayMonthFormatter: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd MMM" // for "28 Nov" format
-            formatter.locale = Locale(identifier: "es_MX") // Use the appropriate locale
-            return formatter
-        }()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX") // Use a fixed locale for date formatting
+        formatter.timeZone = TimeZone(secondsFromGMT: 0) // Adjust if necessary
+        return formatter
+    }()
+    
+    static let dayMonthFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd MMM" // for "28 Nov" format
+        formatter.locale = Locale(identifier: "es_MX") // Use the appropriate locale
+        return formatter
+    }()
     
 }
 
@@ -37,115 +37,7 @@ let dayFormatter: DateFormatter = {
     formatter.locale = Locale(identifier: "es_MX") // Adjust for your locale
     return formatter
 }()
-struct DoctorInfoView: View {
-    var doctor: User
-    @State private var isSelected: Bool = false
-    @State var showchatView = false
-    let currentDate = Date()
-    let dayFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd"
-        return formatter
-    }()
-    let monthFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMM"
-        formatter.locale = Locale(identifier: "en_US_POSIX") // Use a locale that ensures the month is in uppercase English
-        return formatter
-    }()
-    
-   
-    
-    var body: some View {
-        VStack{
-           
-            
-            RoundedRectangle(cornerRadius: 25)
-                .fill(isSelected ? Color.blue : Color("blackish"))
-                .frame(height: 150)
-                .overlay(
-                    HStack{
-                        Spacer()
-                        VStack(alignment: .leading, spacing: 10) {
-                            Spacer()
-                            Text(doctor.name)
-                                .font(.title)
-                                .fontWeight(.bold)
-                                .foregroundColor(Color.white)
-                                .padding(.top,15)
-                                .padding(.leading, 15)
-                            Text(doctor.email)
-                                .font(.subheadline)
-                                .foregroundColor(Color("primaryShadow"))
-                                .padding(.leading, 15)
-                            HStack
-                            {
-                                Button(action: {
-                                    showchatView.toggle()
-                                    
-                                }) {
-                                    Text("Enviar Mensaje")
-                                        .font(.system(size: 12))
-                                        .foregroundColor(.black)
-                                        .padding(10)
-                                        .background(Color("yellowsito"))
-                                        .cornerRadius(20)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 20)
-                                                .stroke(Color("yellowsito"), lineWidth: 1)
-                                        )
-                                }
-                                .padding()
-                                Spacer()
-                            }
-                            Spacer()
-                        }
-                        Spacer()
-                        VStack{
-                            VStack {
-                                if let nextAppointmentDateString = GlobalDataModel.shared.medicalHistory.last?.nextAppointmentDate,
-                                   let date = DateFormatter.yyyyMMdd.date(from: nextAppointmentDateString) {
-                                    VStack(spacing: 0) {
-                                        Text(dayFormatter.string(from: date)) // Day
-                                            .font(.system(size: 24, weight: .bold))
-                                            .foregroundColor(.white)
-                                        Text(monthFormatter.string(from: date).uppercased()) // Month
-                                            .font(.system(size: 16, weight: .semibold))
-                                            .foregroundColor(.white)
-                                    }
-                                    .frame(width: 70, height: 80)
-                                    .background(Color.black)
-                                    .cornerRadius(15)
-                                } else {
-                                    // Placeholder if date is not available
-                                    Text("N/A")
-                                        .font(.system(size: 24, weight: .bold))
-                                        .foregroundColor(.white)
-                                        .frame(width: 70, height: 80)
-                                        .background(Color.black)
-                                        .cornerRadius(15)
-                                }
-                            }
-                            .frame(width: 70, height: 80)
-                            .background(Color.black)
-                            .cornerRadius(15)
-                            Text("Prox. Cita")
-                                .font(.system(size: 10, weight: .semibold))
-                                .foregroundColor(.black)
-                                .frame(width: 70, height: 20)
-                                .background(Color.white)
-                                .cornerRadius(15)
-                        }
-                        Spacer()
-                    }
-                ).padding(15)
-        }
-        .fullScreenCover(isPresented: $showchatView){
-            ChatView()
-        }
-        
-    }
-}
+
 
 struct DashboardView: View {
     //@EnvironmentObject var globalDataModel: GlobalDataModel
@@ -160,7 +52,7 @@ struct DashboardView: View {
         
         NavigationView {
             ScrollView{
-                VStack{
+                VStack(alignment: .leading){
                     
                     ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
                         RoundedRectangle(cornerRadius: 20)
@@ -170,7 +62,7 @@ struct DashboardView: View {
                                 .onReceive(timer) { input in
                                     currentTime = input
                                 }
-                                .font(.system(size: 24))
+                                
                                 .fontWeight(.medium)
                                 .foregroundColor(Color.white)
                                 .padding(.vertical, 8)
@@ -182,12 +74,7 @@ struct DashboardView: View {
                                 .font(.title3)
                                 .multilineTextAlignment(.leading)
                                 .fontWeight(.bold)
-                            //Text("\(globalDataModel.user?.name ?? "Guest")")
-                            //.font(.title)
-                            //.bold()
-                            
-                            //Text("\(globalDataModel.user?.email ?? "Guest")")
-                            //.font(.footnote)
+    
                             
                             Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                                 Text("Get started")
@@ -202,94 +89,141 @@ struct DashboardView: View {
                     .frame(height: 200)
                     .padding(.horizontal, 15)
                     
-                    HStack
-                    {
-                        Text("\n¿Qué te gustaría hacer?\n")
-                        Spacer()
-                    }
-                    
-                    HStack{
-                        ZStack(alignment: Alignment(horizontal: .leading, vertical: .center))
-                        {
-                            RoundedRectangle(cornerRadius: 20)
-                                .foregroundColor(Color("purplit"))
-                                .frame(height: 200)
-                                .padding(3)
-                            VStack{
-                                
-                                Text(" ")
-                                Text(globalDataModel.userImages.last?.mlDiagnostic.first?.sickness ?? "N/A")
-                                    .foregroundColor(Color.white)
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 16)
-                                    .background(Color.black)
-                                    .cornerRadius(20)
-                                Text("Conoce tu Diagnóstico")
-                                    .font(.title2)
-                                    .bold()
-                                    .padding(.leading, 15)
-                                
-                                Text(" Conoce tu diagnóstico  a detalle")
-                                    .font(.caption)
-                                    .padding(.leading, 20)
-                                    .foregroundColor(Color("grayish"))
-                                    .bold()
-                                Spacer()
-                            }
-                        }
-                        VStack
-                        {
-                            ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
+                   
+                    VStack(alignment: .leading, spacing: 20){
+                        Text("¿Qué te gustaría hacer?")
+                        .bold()
+                        .font(.title3)
+                        .padding(.horizontal)
+                          
+                        
+                        
+                        HStack{
+                            ZStack(alignment: Alignment(horizontal: .leading, vertical: .center))
+                            {
                                 RoundedRectangle(cornerRadius: 20)
-                                    .foregroundColor(Color("bluey"))
-                                
-                                
+                                    .foregroundColor(Color("purplit"))
+                                  
+                                    
                                 VStack{
-                                    Text("Lista de Medicamentos")
+                                  
+                                    Text(globalDataModel.userImages.last?.mlDiagnostic.first?.sickness ?? "N/A")
+                                        .foregroundColor(Color.white)
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 16)
+                                        .background(Color.black)
+                                        .cornerRadius(20)
+                                        .padding()
+                                    Text("Conoce tu Diagnóstico")
+                                        .font(.title2)
                                         .bold()
                                         .padding(.leading, 15)
-                                        .padding(.top, 15)
-                                    Text("Información detallada")
-                                        .padding(.leading, 15)
-                                        .font(.caption)
-                                        .padding(.bottom, 15)
                                     
+                                    Text("Conoce tu diagnóstico  a detalle")
+                                        .font(.caption)
+                                        .padding(.leading, 20)
+                                        .foregroundColor(Color("grayish"))
                                         
+                                    Spacer()
                                 }
                             }
-                            ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-                                if let lastImageData = globalDataModel.userImages.last,
-                                   let imageData = Data(base64Encoded: lastImageData.image),
-                                   let uiImage = UIImage(data: imageData) {
-                                    Image(uiImage: uiImage)
-                                        .resizable()
-                                        .scaledToFill()
-                                        .frame(height: 100) // Asegúrate de que la altura coincida con la de tu ZStack
-                                        .cornerRadius(20) // Aplica esquinas redondeadas
-                                        .clipped()
-
-                                    VStack {
-                                                Spacer() // Pushes the content to the bottom
-                                                HStack {
-                                                    Text(reformatDateString(lastImageData.creationDate) ?? "No date available")
-                                                        .font(.headline)
-                                                        .foregroundColor(.white)
-                                                        .padding([.leading, .bottom], 10) // Padding to position the text inside the ZStack
-                                                    Spacer() // Pushes the content to the left
-                                                }
+                            VStack(spacing: 10){
+                                ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
+                                    RoundedRectangle(cornerRadius: 20)
+                                        .foregroundColor(Color("bluey"))
+                                    
+                                    
+                                    
+                                    VStack(alignment: .leading, spacing: 10){
+                                        HStack{
+                                            Text("Lista de\nMedicamentos")
+                                                .bold()
+                                                .padding()
+                                                .font(.subheadline)
+                                                .fixedSize(horizontal: false, vertical: true)
+                                            Spacer()
+                                            
+                                            ZStack{
+                                                Circle()
+                                                    .frame(width: 20, height: 20)
+                                                Image(systemName: "chevron.right")
+                                                    .foregroundStyle(Color.white)
+                                                    .font(.caption)
                                             }
-                                            } else {
-                                    Color("bluey")
+                                            .padding(.trailing, 10)
+                                        }
+                                     
+                                        Text("Información detallada")
+                                            .padding(.bottom)
+                                            .padding(.horizontal)
+                                            .font(.caption)
+                                    }
                                 }
                                 
-                                // ... Resto de tu contenido que va sobre la imagen ...
+                                NavigationLink(destination: RecordGalleryView(imageDataList: globalDataModel.userImages)){
+                                    ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
+                                        if let lastImageData = globalDataModel.userImages.last,
+                                           let imageData = Data(base64Encoded: lastImageData.image),
+                                           let uiImage = UIImage(data: imageData) {
+                                            Image(uiImage: uiImage)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(height: 100)
+                                                .cornerRadius(20)
+                                                .clipped()
+                                            
+                                            RoundedRectangle(cornerRadius: 20)
+                                                .opacity(0.5)
+                                               
+                                                .frame(height: 100)
+                                            
+                                            
+                                            VStack(alignment: .leading){
+                                                Spacer()
+                                                HStack{
+                                                    VStack(alignment: .leading){
+                                                        Text("View records")
+                                                            .font(.subheadline)
+                                                            .foregroundColor(.white)
+                                                            .bold()
+                                                            .padding(.leading,10)
+                                                        Text(reformatDateString(lastImageData.creationDate) ?? "No date available")
+                                                            .font(.caption)
+                                                            .bold()
+                                                            .foregroundColor(.white)
+                                                            .padding([.leading, .bottom], 10)
+                                                    }
+                                                    Spacer()
+                                                    ZStack{
+                                                        Circle()
+                                                            .foregroundStyle(Color.white)
+                                                            .frame(width: 20, height: 20)
+                                                        Image(systemName: "chevron.right")
+                                                            
+                                                            .font(.caption)
+                                                    }
+                                                    .padding(.trailing, 10)
+                                                }
+                                                
+                                              
+                                            }
+                                        } else {
+                                            Color("bluey")
+                                        }
+                                        
+                                        
+                                    }
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            
+                                
+                                
                             }
-                            .frame(maxWidth: .infinity, maxHeight: 100) // Asegúrate de que la altura coincida con la de la imagen
-                            .padding(15)
-                            
-                            
                         }
-                    }.padding(15)
+                        .padding(.horizontal)
+                        
+                    }
+                    .padding(.vertical)
                     
                     
                     
@@ -307,75 +241,81 @@ struct DashboardView: View {
                     ProfileView()
                         .environmentObject(globalDataModel)
                 }
-                    .navigationBarTitleDisplayMode(.large)
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            HStack {
-                                VStack {
-                                    Button(action:{showProfileView.toggle()}){
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        HStack {
+                            VStack {
+                                
                                     
-                                        Text(greetingText)
-                                            .font(.title2)
-                                            .foregroundColor(.primary)
-                                            .bold()
+                                    Text(greetingText)
+                                        .font(.title2)
+                                        .foregroundColor(.primary)
+                                        .bold()
+                                
+                                
+                            }
+                            
+                            
+                            
+                            Spacer()
+                            
+                            ZStack{
+                                AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
+                                    
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(Circle())
+                                        .onTapGesture {
+                                            navigateToNewView = true
+                                            
+                                        }
+                                } placeholder: {
+                                    ZStack {
+                                        Circle().foregroundColor(.purple)
                                     }
+                                }
+                                .frame(width: 45, height: 45)
+                                
+                                Button(action:{showProfileView.toggle()}){
+                                   Circle()
+                                        .foregroundStyle(Color.clear)
+                                        .frame(width: 45, height: 45)
                                     
                                 }
-                                           
-                            
-
-                            Spacer()
-                                
-                                // Profile picture
-                          
-                                                    AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
-                                                       
-                                                            image
-                                                                .resizable()
-                                                                .aspectRatio(contentMode: .fill)
-                                                                .clipShape(Circle())
-                                                                .onTapGesture {
-                                                                    navigateToNewView = true
-                                                                
-                                                        }
-                                                    } placeholder: {
-                                                        ZStack {
-                                                            Circle().foregroundColor(.purple)
-                                                        }
-                                                    }
-                                                    .frame(width: 45, height: 45)
-                                                    .onTapGesture{
-                                                        print("Perrrrroooo")
-                                                    }
-                                                
-                                            }
-                                        }
+                            }
                             
                             
+                           
                         }
-                        
                     }
+                    
+                    
                 }
-            }
-            
-        
-        var greetingText: String {
-            // Obtiene el nombre completo, o "Guest" si no hay un nombre disponible
-            let fullName = globalDataModel.user?.name ?? "Guest"
-            
-            // Separa el nombre completo por espacios
-            let nameComponents = fullName.components(separatedBy: " ")
-            
-            // Comprueba si hay un apellido
-            if nameComponents.count > 1, let lastNameInitial = nameComponents.last?.first {
-                // Si hay un apellido, usa solo la primera letra seguida de un punto
-                let abbreviatedName = "\(nameComponents[0]) \(lastNameInitial)."
-                return "Hola, \(abbreviatedName)"
-            } else {
-                // Si no hay apellido, devuelve el nombre completo
-                return "Hola, \(fullName)"
+                
             }
         }
+    }
+    
+    
+    var greetingText: String {
+        // Obtiene el nombre completo, o "Guest" si no hay un nombre disponible
+        let fullName = globalDataModel.user?.name ?? "Guest"
+        
+        // Separa el nombre completo por espacios
+        let nameComponents = fullName.components(separatedBy: " ")
+        
+        // Comprueba si hay un apellido
+        if nameComponents.count > 1, let lastNameInitial = nameComponents.last?.first {
+            // Si hay un apellido, usa solo la primera letra seguida de un punto
+            let abbreviatedName = "\(nameComponents[0]) \(lastNameInitial)."
+            return "Hola, \(abbreviatedName)"
+        } else {
+            // Si no hay apellido, devuelve el nombre completo
+            return "Hola, \(fullName)"
+        }
+    }
     
     
     func reformatDateString(_ dateString: String) -> String? {
@@ -402,12 +342,12 @@ struct DashboardView: View {
         // Return nil if the string does not contain a valid date
         return nil
     }
+    
+    
+    
+    
+}
 
 
-        
-        
-    }
-    
-    
-    
+
 
