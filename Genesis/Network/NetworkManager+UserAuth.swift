@@ -252,41 +252,41 @@ extension NetworkManager {
     }
     
     func signOut(completion: @escaping (Result<Bool, Error>) -> Void) {
-            let headers: HTTPHeaders = [
-                "Content-Type": "application/json",
-                "x-access-token": self.jwtToken ?? ""
-            ]
+        guard let token = retrieveToken() else {
+            completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Authentication token is missing"])))
+            return
+        }
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "x-access-token": token // Here we're using the non-optional token
+        ]
 
-            AF.request(APIEndpoints.signOut, method: .get, headers: headers)
-                .response { response in
-                    switch response.result {
-                    case .success(let data):
-                        guard let data = data else {
-                            completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
-                            return
-                        }
-
-                        do {
-                            let decoder = JSONDecoder()
-                            let decodedResponse = try decoder.decode(APIResponse<Bool>.self, from: data)
-
-                            if decodedResponse.success {
-                                completion(.success(true))
-                            } else {
-                                let errorMessage = decodedResponse.message ?? "An unknown error occurred"
-                                let error = NSError(domain: "", code: decodedResponse.status ?? 0, userInfo: [NSLocalizedDescriptionKey: errorMessage])
-                                completion(.failure(error))
-                            }
-                        } catch {
+        AF.request(APIEndpoints.signOut, method: .get, headers: headers)
+            .responseDecodable(of: APIResponse<Empty>.self) { response in
+                switch response.result {
+                case .success(let apiResponse):
+                    if let statusCode = response.response?.statusCode {
+                        if statusCode == 200 {
+                            // Assuming success from status code
+                            completion(.success(true))
+                        } else {
+                            // If status code is not 200, decode the response to fetch the error message
+                            let errorMessage = apiResponse.message ?? "An unknown error occurred"
+                            let error = NSError(domain: "", code: statusCode, userInfo: [NSLocalizedDescriptionKey: errorMessage])
                             completion(.failure(error))
                         }
-
-                    case .failure(let error):
-                        completion(.failure(error))
+                    } else {
+                        completion(.failure(AFError.responseValidationFailed(reason: .dataFileNil)))
                     }
+
+                case .failure(let error):
+                    completion(.failure(error))
                 }
-        }
-    
+            }
+    }
+
+
 }
 
 

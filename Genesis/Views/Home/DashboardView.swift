@@ -125,7 +125,6 @@ struct DoctorInfoView: View {
                                         .background(Color.black)
                                         .cornerRadius(15)
                                 }
-                                Text("Prox. Cita")
                             }
                             .frame(width: 70, height: 80)
                             .background(Color.black)
@@ -154,6 +153,7 @@ struct DashboardView: View {
     @State private var currentTime = Date()
     @State private var minutos = "5"
     @ObservedObject var globalDataModel = GlobalDataModel.shared
+    @State var showProfileView = false
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
@@ -303,12 +303,17 @@ struct DashboardView: View {
                     }
                     
                 }
+                .sheet(isPresented: $showProfileView){
+                    ProfileView()
+                        .environmentObject(globalDataModel)
+                }
                     .navigationBarTitleDisplayMode(.large)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
                             HStack {
                                 VStack {
-                                    NavigationLink(destination: ProfileView()) {
+                                    Button(action:{showProfileView.toggle()}){
+                                    
                                         Text(greetingText)
                                             .font(.title2)
                                             .foregroundColor(.primary)

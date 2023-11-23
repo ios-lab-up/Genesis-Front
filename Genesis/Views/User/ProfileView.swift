@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @ObservedObject var globalDataModel = GlobalDataModel.shared
     @State private var navigateToSignIn = false
 
     var body: some View {
@@ -18,11 +19,11 @@ struct ProfileView: View {
                 .foregroundColor(.blue) // Choose your color
                 .padding(.top, 50)
             
-            Text("Username") // Replace with your dynamic username
+            Text(globalDataModel.user?.username ?? "guest") // Replace with your dynamic username
                 .font(.title)
                 .padding(.top, 20)
             
-            Text("Member since Jan 2023") // Replace with your dynamic date
+            Text("Member since " + (globalDataModel.user?.creationDate ?? "today"))
                 .font(.body)
                 .padding(.top, 5)
             
