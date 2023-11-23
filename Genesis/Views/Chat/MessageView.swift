@@ -6,48 +6,32 @@
 //
 
 import SwiftUI
-
 struct MessageView: View {
     var message: Message
-    var isFromCurrentUser: Bool = false
+    
     var body: some View {
-        if message.isFromCurrentUser() {
-            HStack{
-                
-                HStack{
-                    Text(message.text)
-                        .padding()
-                        .foregroundColor(.white)
-                }
-                .frame(maxWidth: 260, alignment: .topLeading)
-                .background(Color("Primary"))
-                .cornerRadius(20)
-                
-                /*Image(systemName: "person")
-                    .frame(maxHeight: 32)
-                    .padding(.leading, 4)*/
+        HStack(alignment: .top, spacing: 12) {
+            if message.isFromCurrentUser {
+                Spacer()
+                messageBubble(fromCurrentUser: true)
+            } else {
+                messageBubble(fromCurrentUser: false)
+                Spacer()
             }
-            .frame(maxWidth: 360, alignment: .trailing)
-            
-        } else {
-            HStack{
-                Image(systemName: "person")
-                    .frame(maxHeight: 32)
-                    .padding(.trailing, 4)
-                HStack{
-                    Text(message.text)
-                        .padding()
-                        .foregroundColor(.white)
-                }
-                .frame(maxWidth: 260, alignment: .leading)
-                .background(Color("textSecondary"))
-                .cornerRadius(15)
-            }
-            .frame(maxWidth: 360, alignment: .leading)
         }
+    }
+
+    @ViewBuilder
+    private func messageBubble(fromCurrentUser: Bool) -> some View {
+        HStack {
+            Text(message.text)
+                .padding()
+                .foregroundColor(.white)
+                .background(fromCurrentUser ? Color("Primary") : Color("textSecondary"))
+                .cornerRadius(20)
+        }
+        .frame(maxWidth: 260, alignment: fromCurrentUser ? .trailing : .leading)
     }
 }
 
-#Preview {
-    MessageView(message: Message(userUid: "123", text: "Hello, World", photoURL: "", createdAt: Date()))
-}
+// Usage (assuming you have logic to set isFromCurrentUser when initializing the message):

@@ -11,14 +11,15 @@ import SocketIO
 
 class ChatViewModel: ObservableObject {
     @Published var messages = [Message]()
-    let manager = SocketManager(socketURL: URL(string: APIEndpoints.baseURL)!, config: [.log(true), .compress])
-    var socket: SocketIOClient!
+    let manager: SocketManager
+    var socket: SocketIOClient
 
     init() {
-        socket = manager.defaultSocket
+        self.manager = SocketManager(socketURL: URL(string: APIEndpoints.baseURL)!, config: [.log(true), .compress])
+        self.socket = manager.defaultSocket
 
         socket.on(clientEvent: .connect) { data, ack in
-            print("socket connected")
+            print("Socket connected")
         }
 
         socket.on("new_message") { [weak self] data, ack in

@@ -8,11 +8,20 @@
 import Foundation
 
 
-class Message {
+struct Message {
     var userUid: String
     var text: String
     var photoURL: String
     var createdAt: Date
+    var isFromCurrentUser: Bool
+
+    init(userUid: String, text: String, photoURL: String, createdAt: Date, isFromCurrentUser: Bool) {
+        self.userUid = userUid
+        self.text = text
+        self.photoURL = photoURL
+        self.createdAt = createdAt
+        self.isFromCurrentUser = isFromCurrentUser
+    }
 
     init?(dictionary: [String: Any]) {
         guard let userUid = dictionary["userUid"] as? String,
@@ -21,10 +30,6 @@ class Message {
               let createdAt = dictionary["createdAt"] as? Date else {
             return nil
         }
-        self.userUid = userUid
-        self.text = text
-        self.photoURL = photoURL
-        self.createdAt = createdAt
+        self.init(userUid: userUid, text: text, photoURL: photoURL, createdAt: createdAt, isFromCurrentUser: false) // Determine isFromCurrentUser based on your logic
     }
 }
-
