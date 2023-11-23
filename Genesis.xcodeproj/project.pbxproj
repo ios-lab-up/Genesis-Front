@@ -57,6 +57,7 @@
 		487AC5DB2AFD3A0C001F1755 /* UserBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
+		48B2497D2B0F198800DBD62A /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 48B2497C2B0F198800DBD62A /* SocketIO */; };
 		AF508CCF2B0BE88700DBFB05 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF508CCE2B0BE88700DBFB05 /* Dashboard.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 			files = (
 				48626CCF2AE0A3F100CCE82B /* KeychainSwift in Frameworks */,
 				483A4A6C2ADF051A005A3B4C /* Alamofire in Frameworks */,
+				48B2497D2B0F198800DBD62A /* SocketIO in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,6 +375,7 @@
 			packageProductDependencies = (
 				483A4A6B2ADF051A005A3B4C /* Alamofire */,
 				48626CCE2AE0A3F100CCE82B /* KeychainSwift */,
+				48B2497C2B0F198800DBD62A /* SocketIO */,
 			);
 			productName = Genesis;
 			productReference = 481BDDB22A6E02D3006D4D80 /* Genesis.app */;
@@ -405,6 +408,7 @@
 			packageReferences = (
 				483A4A6A2ADF051A005A3B4C /* XCRemoteSwiftPackageReference "Alamofire" */,
 				48626CCD2AE0A3F100CCE82B /* XCRemoteSwiftPackageReference "keychain-swift" */,
+				48B2497B2B0F198800DBD62A /* XCRemoteSwiftPackageReference "socket" */,
 			);
 			productRefGroup = 481BDDB32A6E02D3006D4D80 /* Products */;
 			projectDirPath = "";
@@ -717,6 +721,14 @@
 				minimumVersion = 20.0.0;
 			};
 		};
+		48B2497B2B0F198800DBD62A /* XCRemoteSwiftPackageReference "socket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -729,6 +741,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 48626CCD2AE0A3F100CCE82B /* XCRemoteSwiftPackageReference "keychain-swift" */;
 			productName = KeychainSwift;
+		};
+		48B2497C2B0F198800DBD62A /* SocketIO */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 48B2497B2B0F198800DBD62A /* XCRemoteSwiftPackageReference "socket" */;
+			productName = SocketIO;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
