@@ -237,11 +237,12 @@ struct DashboardView: View {
                     }
                     
                 }
-                .sheet(isPresented: $showProfileView){
+                .fullScreenCover(isPresented: $showProfileView){
                     ProfileView()
+                 
                         .environmentObject(globalDataModel)
                 }
-                .navigationBarTitleDisplayMode(.large)
+               
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         HStack {

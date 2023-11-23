@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		160F016E2B0EEF9400BFCA3F /* DoctorInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */; };
+		160F01712B0F1D3500BFCA3F /* PatientMedicalRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */; };
 		1663A6D22AE1B00F00D98838 /* AppFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */; };
 		1663A6D42AE1B02A00D98838 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */; };
 		166481E82A7F6F330093032A /* signIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166481E72A7F6F330093032A /* signIn.swift */; };
@@ -61,6 +62,7 @@
 
 /* Begin PBXFileReference section */
 		160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoView.swift; sourceTree = "<group>"; };
+		160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientMedicalRecordView.swift; sourceTree = "<group>"; };
 		1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowViewModel.swift; sourceTree = "<group>"; };
 		1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		166481E72A7F6F330093032A /* signIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signIn.swift; sourceTree = "<group>"; };
@@ -132,6 +134,14 @@
 				160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */,
 			);
 			path = Dash;
+			sourceTree = "<group>";
+		};
+		160F016F2B0F1D0D00BFCA3F /* Prescription */ = {
+			isa = PBXGroup;
+			children = (
+				160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */,
+			);
+			path = Prescription;
 			sourceTree = "<group>";
 		};
 		166481E62A7F6F170093032A /* Login */ = {
@@ -298,6 +308,7 @@
 				166481FB2A7FE5680093032A /* Home */,
 				166481E62A7F6F170093032A /* Login */,
 				481BDDCC2A6F6F44006D4D80 /* SignUp.swift */,
+				160F016F2B0F1D0D00BFCA3F /* Prescription */,
 				481BDDD02A6F876C006D4D80 /* VerifyIdentityView.swift */,
 				480A30172A7C79A80087FABD /* ImageClassificationView.swift */,
 				166482022A8036A90093032A /* resultsView.swift */,
@@ -450,6 +461,7 @@
 				48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */,
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
 				48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */,
+				160F01712B0F1D3500BFCA3F /* PatientMedicalRecordView.swift in Sources */,
 				16C99C602AE713840083CC54 /* ChatView.swift in Sources */,
 				16C99C642AE716F10083CC54 /* MessageModel.swift in Sources */,
 				481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */,
