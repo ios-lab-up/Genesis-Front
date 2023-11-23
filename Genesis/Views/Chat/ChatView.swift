@@ -32,6 +32,7 @@ class ChatViewModel: ObservableObject {
             }
         }
 
+
         socket.connect()
     }
 
@@ -48,11 +49,12 @@ struct ChatView: View {
         VStack {
             ScrollView {
                 VStack(spacing: 8) {
-                    ForEach(chatViewModel.messages, id: \.userUid) { message in
-                        MessageView(message: message)
+                    ForEach(chatViewModel.messages) { message in
+                        MessageView(message: message, isFromCurrentUser: message.isFromCurrentUser)
                     }
                 }
             }
+
 
             HStack {
                 TextField("Type a message...", text: $text)

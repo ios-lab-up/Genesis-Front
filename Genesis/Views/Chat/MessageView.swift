@@ -8,10 +8,11 @@
 import SwiftUI
 struct MessageView: View {
     var message: Message
-    
+    var isFromCurrentUser: Bool
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
-            if message.isFromCurrentUser {
+            if isFromCurrentUser {
                 Spacer()
                 messageBubble(fromCurrentUser: true)
             } else {
@@ -33,5 +34,6 @@ struct MessageView: View {
         .frame(maxWidth: 260, alignment: fromCurrentUser ? .trailing : .leading)
     }
 }
+
 
 // Usage (assuming you have logic to set isFromCurrentUser when initializing the message):
