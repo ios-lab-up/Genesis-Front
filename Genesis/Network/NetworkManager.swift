@@ -140,7 +140,8 @@ struct UserImage: Codable {
 // Assuming Prescription and UserImage structs are already defined
 // as per your previous JSON structure
 
-struct MedicalHistoryItem: Codable {
+struct MedicalHistoryItem: Identifiable, Codable {
+    var uuid = UUID()
     let associationId: Int
     let creationDate: String
     let dateOfVisit: String

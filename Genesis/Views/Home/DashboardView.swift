@@ -238,9 +238,11 @@ struct DashboardView: View {
                     
                 }
                 .fullScreenCover(isPresented: $showProfileView){
-                    ProfileView()
+                    /*ProfileView()
                  
-                        .environmentObject(globalDataModel)
+                        .environmentObject(globalDataModel)*/
+                    
+                    PatientMedicalRecordView()
                 }
                
                 .toolbar {
