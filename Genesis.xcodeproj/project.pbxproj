@@ -118,7 +118,7 @@
 		16F2BC832AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = NanoChallenge_2.mlpackage; sourceTree = "<group>"; };
 		480A30172A7C79A80087FABD /* ImageClassificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassificationView.swift; sourceTree = "<group>"; };
 		481998062AF56D3000931AB8 /* DashboardViewUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewUser.swift; sourceTree = "<group>"; };
-		481BDDB22A6E02D3006D4D80 /* Genesis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Genesis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		481BDDB22A6E02D3006D4D80 /* DermAware.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DermAware.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenesisApp.swift; sourceTree = "<group>"; };
 		481BDDB72A6E02D3006D4D80 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		481BDDBC2A6E02D4006D4D80 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -292,7 +292,7 @@
 		481BDDB32A6E02D3006D4D80 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				481BDDB22A6E02D3006D4D80 /* Genesis.app */,
+				481BDDB22A6E02D3006D4D80 /* DermAware.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -419,9 +419,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		481BDDB12A6E02D3006D4D80 /* Genesis */ = {
+		481BDDB12A6E02D3006D4D80 /* DermAware */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 481BDDC02A6E02D4006D4D80 /* Build configuration list for PBXNativeTarget "Genesis" */;
+			buildConfigurationList = 481BDDC02A6E02D4006D4D80 /* Build configuration list for PBXNativeTarget "DermAware" */;
 			buildPhases = (
 				481BDDAE2A6E02D3006D4D80 /* Sources */,
 				481BDDAF2A6E02D3006D4D80 /* Frameworks */,
@@ -431,7 +431,7 @@
 			);
 			dependencies = (
 			);
-			name = Genesis;
+			name = DermAware;
 			packageProductDependencies = (
 				483A4A6B2ADF051A005A3B4C /* Alamofire */,
 				48626CCE2AE0A3F100CCE82B /* KeychainSwift */,
@@ -465,7 +465,7 @@
 				48E76A6D2B1147EC00D4FF73 /* FirebaseStorageCombine-Community */,
 			);
 			productName = Genesis;
-			productReference = 481BDDB22A6E02D3006D4D80 /* Genesis.app */;
+			productReference = 481BDDB22A6E02D3006D4D80 /* DermAware.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -502,7 +502,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				481BDDB12A6E02D3006D4D80 /* Genesis */,
+				481BDDB12A6E02D3006D4D80 /* DermAware */,
 			);
 		};
 /* End PBXProject section */
@@ -706,7 +706,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Genesis/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = DermAware;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Analizar fotos";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow to enjoy all the features of DermAware";
@@ -745,7 +745,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Genesis/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = DermAware;
 				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Analizar fotos";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "Please allow to enjoy all the features of DermAware";
@@ -783,7 +783,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		481BDDC02A6E02D4006D4D80 /* Build configuration list for PBXNativeTarget "Genesis" */ = {
+		481BDDC02A6E02D4006D4D80 /* Build configuration list for PBXNativeTarget "DermAware" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				481BDDC12A6E02D4006D4D80 /* Debug */,

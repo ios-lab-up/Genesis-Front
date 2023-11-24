@@ -11,9 +11,16 @@ import SwiftUI
 
 struct SplashScreenView: View {
     var body: some View {
-        VStack {
-            ProgressView()  // Indicador de carga predeterminado de SwiftUI
-            Text("Cargando...")
+        ZStack {
+            Rectangle()
+                .background(
+                    LinearGradient(gradient: Gradient(colors: [Color("modaro2"), Color("modaro"), Color("modaro")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                    )
+                .ignoresSafeArea(.all)
+            
+            Image("logo-spash")
+                .resizable()
+                .frame(width: 300, height: 300)
         }
     }
 }
