@@ -1,15 +1,10 @@
 import SwiftUI
 
 // Define the ChatMessage model if not already defined
-struct ChatMessage: Identifiable, Hashable {
-    let id = UUID()
-    let text: String
-    let isFromCurrentUser: Bool
-}
 
 // ChatViewModel to interact with SocketHelper
 class ChatViewModel: ObservableObject {
-    @Published var messages = [ChatMessage]()
+    @Published var messages = [Message]()
     @Published var inputText = ""
     private let socketHelper = SocketHelper.shared
     var username: String
@@ -35,17 +30,32 @@ class ChatViewModel: ObservableObject {
     func listenToMessages() {
         // Listen for new messages
         SocketHelper.Events.newMessage.listen { [weak self] data in
-            if let messageData = data as? [String: Any],
-               let text = messageData["text"] as? String {
-                // Assuming 'userUid' is your criteria for current user
-                let isFromCurrentUser = (messageData["userUid"] as? String) == "currentUserUid"
-                let message = ChatMessage(text: text, isFromCurrentUser: isFromCurrentUser)
+            guard let dataArray = data as? [[String: Any]], // Cast data to an array of dictionaries
+                  let messageData = dataArray.first else { return } // Access the first element of the array
+
+            if let text = messageData["text"] as? String,
+               let userUidString = messageData["userUid"] as? String,
+               let photoURL = messageData["photoURL"] as? String,
+               let createdAtString = messageData["createdAt"] as? String,
+               let createdAt = ISO8601DateFormatter().date(from: createdAtString) {
+               
+                let currentUserUidString = String(GlobalDataModel.shared.user?.id ?? 0) // Convert Int to String
+                let isFromCurrentUser = userUidString == currentUserUidString
+                
+                let message = Message(userUid: userUidString, text: text, photoURL: photoURL, createdAt: createdAt, isFromCurrentUser: isFromCurrentUser)
                 DispatchQueue.main.async {
                     self?.messages.append(message)
+                    print("Message received: \(message)")
                 }
             }
+
         }
     }
+
+
+
+
+
     // Call this method when the view appears
         func joinChatRoom() {
             socketHelper.joinRoom(username: username, room: room)
@@ -74,6 +84,7 @@ class ChatViewModel: ObservableObject {
 
 // ChatView to display and send messages
 struct ChatView: View {
+
     @StateObject var viewModel = ChatViewModel(
         username: GlobalDataModel.shared.user?.username ?? "defaultUsername",
         room: String(GlobalDataModel.shared.medicalHistory.last?.associationId ?? 0) // Convert Int to String, replace 0 with a default room ID if needed
@@ -99,6 +110,7 @@ struct ChatView: View {
                 LazyVStack {
                     ForEach(viewModel.messages) { message in
                         HStack {
+
                             if message.isFromCurrentUser {
                                 Spacer()
                                 Text(message.text)
