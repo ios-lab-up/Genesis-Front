@@ -86,6 +86,7 @@
 		48E76A6A2B1147EC00D4FF73 /* FirebaseRemoteConfigSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 48E76A692B1147EC00D4FF73 /* FirebaseRemoteConfigSwift */; };
 		48E76A6C2B1147EC00D4FF73 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 48E76A6B2B1147EC00D4FF73 /* FirebaseStorage */; };
 		48E76A6E2B1147EC00D4FF73 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 48E76A6D2B1147EC00D4FF73 /* FirebaseStorageCombine-Community */; };
+		48E76A702B114B4700D4FF73 /* MainMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E76A6F2B114B4700D4FF73 /* MainMessageView.swift */; };
 		AF508CCF2B0BE88700DBFB05 /* Dashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF508CCE2B0BE88700DBFB05 /* Dashboard.swift */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +142,7 @@
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		48B2497E2B11442100DBD62A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		48E76A6F2B114B4700D4FF73 /* MainMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMessageView.swift; sourceTree = "<group>"; };
 		7A8BE8E52A7F435600BAE75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Capturing Photos.swiftpm/App/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		AF508CCE2B0BE88700DBFB05 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -250,6 +252,7 @@
 			children = (
 				16C99C5F2AE713840083CC54 /* ChatView.swift */,
 				16C99C612AE713990083CC54 /* MessageView.swift */,
+				48E76A6F2B114B4700D4FF73 /* MainMessageView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -527,6 +530,7 @@
 				166481FD2A7FEE2D0093032A /* HomeView.swift in Sources */,
 				16F2BC782AD738EE00CE4BC5 /* Photo.swift in Sources */,
 				1663A6D42AE1B02A00D98838 /* SplashScreenView.swift in Sources */,
+				48E76A702B114B4700D4FF73 /* MainMessageView.swift in Sources */,
 				166481F52A7F92020093032A /* OneTimeCodeBoxes.swift in Sources */,
 				1663A6D22AE1B00F00D98838 /* AppFlowViewModel.swift in Sources */,
 				48626CC72ADF64D900CCE82B /* NetworkManager+UserData.swift in Sources */,

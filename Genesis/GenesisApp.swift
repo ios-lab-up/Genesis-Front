@@ -1,8 +1,15 @@
 import CoreML
 import SwiftUI
+import Firebase
 
 @main
 struct GenesisApp: App {
+    
+    
+    init() {
+        FirebaseApp.configure()
+    }
+    
     let networkManager = NetworkManager.shared
     @ObservedObject var appFlowVM = AppFlowViewModel()
     @StateObject var healthManager = HealthManager()
