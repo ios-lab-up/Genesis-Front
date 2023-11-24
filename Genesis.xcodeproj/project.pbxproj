@@ -141,7 +141,6 @@
 		160F016F2B0F1D0D00BFCA3F /* Prescription */ = {
 			isa = PBXGroup;
 			children = (
-				160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */,
 			);
 			path = Prescription;
 			sourceTree = "<group>";
@@ -326,6 +325,7 @@
 			isa = PBXGroup;
 			children = (
 				48626CC02ADF367A00CCE82B /* ViewImage.swift */,
+				160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */,
 				48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */,
 			);
 			path = MedicalHistory;
