@@ -243,6 +243,8 @@ struct DashboardView: View {
                         .environmentObject(globalDataModel)*/
                     
                     PatientMedicalRecordView()
+                    
+                  
                 }
                
                 .toolbar {
