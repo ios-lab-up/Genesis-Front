@@ -14,8 +14,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "481BDDB12A6E02D3006D4D80"
-               BuildableName = "Genesis.app"
-               BlueprintName = "Genesis"
+               BuildableName = "DermAware.app"
+               BlueprintName = "DermAware"
                ReferencedContainer = "container:Genesis.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -43,8 +43,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "481BDDB12A6E02D3006D4D80"
-            BuildableName = "Genesis.app"
-            BlueprintName = "Genesis"
+            BuildableName = "DermAware.app"
+            BlueprintName = "DermAware"
             ReferencedContainer = "container:Genesis.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
