@@ -36,7 +36,7 @@ struct Photo: View {
                 }
                 Spacer()
                 HStack{
-                    if let image = vm.image{
+                    if vm.image != nil{
                         Button(action: {
                             
                         }){
