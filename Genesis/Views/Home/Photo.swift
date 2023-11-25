@@ -15,39 +15,106 @@ struct Photo: View {
             VStack{
                 
                 if let image = vm.image {
-                    ZoomableScrollView {
+                    Spacer()
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(minWidth: 0, maxWidth: 300)
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
+                        
+                    /*ZoomableScrollView {
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                    }
+                            .frame(minWidth: 0, maxWidth: 300)
+                            .clipShape(RoundedRectangle(cornerRadius: 15))
+                    }*/
                     
                 } else {
-                    Image(systemName: "photo.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .opacity(0.6)
-                        .frame(minWidth: 0, maxWidth: .infinity)
-                        .padding()
-                }
-                HStack{
-                    Button(action: {
-                        vm.source = .camera
-                        vm.showPhotoPicker()
-                    }){
-                        Text("Camara")
-                        
-                    }
+                    LottieView(url: Bundle.main.url(forResource: "photo", withExtension: "lottie")!)
                     
-                    Button(action: {
-                        vm.source = .library
-                        vm.showPhotoPicker()
-                    }){
-                        Text("Carrete")
-                        
-                    }
                 }
                 Spacer()
+                HStack{
+                    if let image = vm.image{
+                        Button(action: {
+                            
+                        }){
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 20.0)
+                                    .foregroundStyle(Color("blackish"))
+                                Text("Enviar foto")
+                                    .foregroundStyle(Color.white)
+                            }
+                            .frame(height: 60)
+                            .padding()
+                            
+                        }
+                        
+                
+                            Menu {
+                                        Button {
+                                            vm.source = .camera
+                                            vm.showPhotoPicker()
+                                        } label: {
+                                            Label("Tomar otra foto", systemImage: "camera")
+                                        }
+                                        
+                                        Button {
+                                            vm.source = .library
+                                            vm.showPhotoPicker()
+                                        } label: {
+                                            Label("Elegir otra foto", systemImage: "photo")
+                                        }
+                                    } label: {
+                                        ZStack{
+                                            Circle()
+                                                .frame(width: 60, height: 60)
+                                                .foregroundStyle(Color("yellowsito"))
+                                            
+                                            Image(systemName: "arrow.triangle.2.circlepath")
+                                                .foregroundStyle(Color.black)
+                                        }
+                                        .padding()
+                                    }
+                            
+                        
+                    } else {
+                        
+                        Button(action: {
+                            vm.source = .camera
+                            vm.showPhotoPicker()
+                        }){
+                            ZStack{
+                                RoundedRectangle(cornerRadius: 20.0)
+                                    .foregroundStyle(Color("blackish"))
+                                Text("Tomar foto")
+                                    .foregroundStyle(Color.white)
+                            }
+                            .frame(height: 60)
+                            .padding()
+                            
+                        }
+                        
+                        Button(action: {
+                            vm.source = .library
+                            vm.showPhotoPicker()
+                        }){
+                            ZStack{
+                                Circle()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundStyle(Color("yellowsito"))
+                                
+                                Image(systemName: "photo")
+                                    .foregroundStyle(Color.black)
+                            }
+                            .padding()
+                            
+                        }
+                    }
+                    
+                    Spacer()
+                }
             }
             .navigationTitle("Analizar caso")
             .navigationBarTitleDisplayMode(.large)
