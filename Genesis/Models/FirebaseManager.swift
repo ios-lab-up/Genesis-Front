@@ -13,13 +13,13 @@ final class FirebaseManager {
     
     // Singleton instance
     static let shared = FirebaseManager()
-
+    
     // Private initializer for Singleton
-
-
+    
+    
     // Firestore reference
     private let db = Firestore.firestore()
-
+    
     // Function to save username
     func saveUsername(completion: @escaping (Error?) -> Void) {
         // Firestore example
@@ -68,6 +68,32 @@ final class FirebaseManager {
         }
     }
     
+    func fetchMessages(toId: String, completion: @escaping (Error?) -> Void) {
+        let fromId = String(GlobalDataModel.shared.user?.id ?? 0)
+        
+        let messagesRef = db.collection("messages")
+            .document(fromId)
+            .collection(toId)
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    print("Error fetching messages: \(error)")
+                    completion(error) // Pass the error to the completion handler
+                    return
+                }
 
-    // Add other Firebase related functions here as needed
+                var newMessages = [ChatMessage]() // Temporary array to hold new messages
+                
+                querySnapshot?.documents.forEach({ documentSnapshot in
+                    let documentId = documentSnapshot.documentID
+                    let data = documentSnapshot.data()
+                    let chatMessage = ChatMessage(documentId: documentId, data: data) // Create a new ChatMessage instance
+                    newMessages.append(chatMessage) // Append to the temporary array
+                })
+                
+                DispatchQueue.main.async {
+                    GlobalDataModel.shared.chatMessages.append(contentsOf: newMessages) // Append all new messages to the published array
+                }
+            }
+    }
+
 }

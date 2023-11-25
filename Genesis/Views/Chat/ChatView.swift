@@ -1,13 +1,34 @@
 import SwiftUI
 
 
+struct FirebaseConstants{
+    static let fromId = "fromId"
+    static let toId = "toId"
+    static let text = "text"
+}
+
 // Define the ChatMessage model if not already defined
+struct ChatMessage: Identifiable {
+    
+    var id: String { documentId }
+    
+    let documentId: String
+    let fromId, toId, text: String
+
+    init(documentId: String, data: [String: Any]) {
+        self.documentId = documentId
+        self.fromId = data["fromId"] as? String ?? ""
+        self.toId = data["toId"] as? String ?? ""
+        self.text = data["text"] as? String ?? ""
+    }
+}
 
 
 // ChatView to display and send messages
 struct ChatView: View {
     
     @State private var chatText = ""
+    @State private var messages = [ChatMessage]()
     let userChat = GlobalDataModel.shared.userRelations.first
     
     @Environment(\.presentationMode) var close
@@ -17,11 +38,12 @@ struct ChatView: View {
         NavigationView{
             VStack{
                 ScrollView{
-                    ForEach(0..<10){_ in
+                    ForEach(GlobalDataModel.shared.chatMessages){ message in
+
                         HStack{
                             Spacer()
                             HStack{
-                                Text("Message View")
+                                Text(message.text)
                                     .foregroundColor(.white)
                             }
                             .padding()
@@ -93,8 +115,10 @@ struct ChatView: View {
                 }
                 .navigationTitle(userChat?.name ?? "Chat")
                 .navigationBarTitleDisplayMode(.inline)
-            }
+            }.onAppear()
         }
+        
+     
     }
     
     
@@ -102,15 +126,19 @@ struct ChatView: View {
     
     
     
-    struct DescriptionPlaceholder: View {
-        var body: some View {
-            HStack {
-                Text("Description")
-                    .foregroundColor(Color(.gray))
-                    .font(.system(size: 17))
-                    .padding(.leading, 5)
-                    .padding(.top, -4)
-                Spacer()
-            }
+   }
+
+
+
+struct DescriptionPlaceholder: View {
+    var body: some View {
+        HStack {
+            Text("Description")
+                .foregroundColor(Color(.gray))
+                .font(.system(size: 17))
+                .padding(.leading, 5)
+                .padding(.top, -4)
+            Spacer()
         }
-    }}
+    }
+}

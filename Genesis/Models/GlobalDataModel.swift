@@ -13,6 +13,7 @@ class GlobalDataModel: ObservableObject {
     @Published var userRelations: [User] = []
     @Published var userImages: [ImageData] = [] // Add this line to define userImages
     @Published var medicalHistory: [MedicalHistoryItem] = []
+    @Published var chatMessages: [ChatMessage] = []
 
     
     private init() {} // Private initializer to enforce singleton usage
