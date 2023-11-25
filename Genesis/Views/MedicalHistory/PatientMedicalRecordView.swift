@@ -10,6 +10,7 @@ import SwiftUI
 struct PatientMedicalRecordView: View {
     @Environment(\.presentationMode) var close
     @ObservedObject var globalDataModel = GlobalDataModel.shared
+    @State var searchText = ""
     
     
     let dayFormatter: DateFormatter = {
@@ -94,6 +95,8 @@ struct PatientMedicalRecordView: View {
                 }
           
                 .navigationTitle("Registro Médico")
+                .navigationBarTitleDisplayMode(.large)
+                .searchable(text: $searchText)
                 .toolbar{
                     ToolbarItem(placement: .topBarLeading){
                         Button(action:{
