@@ -101,7 +101,9 @@ struct PatientMedicalRecordView: View {
                         }){
                             HStack{
                                 Image(systemName: "chevron.left")
-                                    .font(.caption)
+                                    .font(.callout)
+                                    .bold()
+                                  
                                 
                             }
                             

@@ -26,10 +26,11 @@ struct PrescriptionView: View {
                             Circle()
                                 .foregroundStyle(Color("WarningBg"))
                             
-                            Image(systemName: "Warningexclamationmark.triangle")
+                            Image(systemName: "exclamationmark.triangle")
                                 .foregroundStyle(Color("Warning"))
                         }
                         .frame(width: 50, height: 50)
+                        .padding()
                         
                         VStack(alignment: .leading,spacing: 15){
                             Text("Recuerda lo siguiente")

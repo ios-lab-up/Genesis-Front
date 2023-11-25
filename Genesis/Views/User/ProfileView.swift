@@ -15,47 +15,56 @@ struct ProfileView: View {
     
 
     var body: some View {
-        VStack {
-            HStack{
-                Button(action:{
-                    close.wrappedValue.dismiss()
-                }){
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(Color.black)
-                    
-                   
+        NavigationView{
+            VStack {
+   
+                Image(systemName: "person.crop.circle.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 150, height: 150)
+                    .foregroundColor(.blue) // Choose your color
+                    .padding(.top, 50)
+                
+                Text(globalDataModel.user?.username ?? "guest") // Replace with your dynamic username
+                    .font(.title)
+                    .padding(.top, 20)
+                
+                Text("Member since " + (globalDataModel.user?.creationDate ?? "today"))
+                    .font(.body)
+                    .padding(.top, 5)
+                
+                Spacer()
+                
+                Button(action: {
+                    NetworkManager.shared.signOut{ result in
+                        print(result)                }
+                }) {
+                    Text("Logout")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .frame(width: 200, height: 50)
+                        .background(Color.blue)
+                        .cornerRadius(25)
+                }
+                .padding(.bottom, 50)
+            }
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading){
+                    Button(action:{
+                        close.wrappedValue.dismiss()
+                    }){
+                        HStack{
+                            Image(systemName: "chevron.left")
+                                .font(.callout)
+                                .bold()
+                              
+                            
+                        }
+                        
+                        
+                    }
                 }
             }
-            .padding()
-            Image(systemName: "person.crop.circle.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 150, height: 150)
-                .foregroundColor(.blue) // Choose your color
-                .padding(.top, 50)
-            
-            Text(globalDataModel.user?.username ?? "guest") // Replace with your dynamic username
-                .font(.title)
-                .padding(.top, 20)
-            
-            Text("Member since " + (globalDataModel.user?.creationDate ?? "today"))
-                .font(.body)
-                .padding(.top, 5)
-            
-            Spacer()
-            
-            Button(action: {
-                NetworkManager.shared.signOut{ result in
-                    print(result)                }
-            }) {
-                Text("Logout")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .frame(width: 200, height: 50)
-                    .background(Color.blue)
-                    .cornerRadius(25)
-            }
-            .padding(.bottom, 50)
         }
         
         .frame(maxWidth: .infinity, maxHeight: .infinity)

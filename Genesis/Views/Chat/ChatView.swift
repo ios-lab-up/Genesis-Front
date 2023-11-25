@@ -94,53 +94,62 @@ struct ChatView: View {
 
 
     var body: some View {
-        VStack {
-            HStack{
-                Button(action:{
-                    close.wrappedValue.dismiss()
-                }){
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(Color.black)
-                    
-                    Spacer()
-                }
-            }
-            .padding()
-            ScrollView {
-                LazyVStack {
-                    ForEach(viewModel.messages) { message in
-                        HStack {
+        NavigationView{
+            VStack {
+               
+                ScrollView {
+                    LazyVStack {
+                        ForEach(viewModel.messages) { message in
+                            HStack {
 
-                            if message.isFromCurrentUser {
-                                Spacer()
-                                Text(message.text)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .cornerRadius(10)
-                                    .foregroundColor(.white)
-                            } else {
-                                Text(message.text)
-                                    .padding()
-                                    .background(Color.gray)
-                                    .cornerRadius(10)
-                                    .foregroundColor(.white)
-                                Spacer()
+                                if message.isFromCurrentUser {
+                                    Spacer()
+                                    Text(message.text)
+                                        .padding()
+                                        .background(Color.blue)
+                                        .cornerRadius(10)
+                                        .foregroundColor(.white)
+                                } else {
+                                    Text(message.text)
+                                        .padding()
+                                        .background(Color.gray)
+                                        .cornerRadius(10)
+                                        .foregroundColor(.white)
+                                    Spacer()
+                                }
                             }
                         }
                     }
                 }
+                
+                HStack {
+                    TextField("Type a message...", text: $viewModel.inputText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Button(action: viewModel.sendMessage) {
+                        Image(systemName: "arrow.up.circle.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                    }
+                }.padding()
             }
-            
-            HStack {
-                TextField("Type a message...", text: $viewModel.inputText)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                Button(action: viewModel.sendMessage) {
-                    Image(systemName: "arrow.up.circle.fill")
-                        .resizable()
-                        .frame(width: 30, height: 30)
+            .navigationBarTitle("Chat", displayMode: .inline)
+            .toolbar{
+                ToolbarItem(placement: .topBarLeading){
+                    Button(action:{
+                        close.wrappedValue.dismiss()
+                    }){
+                        HStack{
+                            Image(systemName: "chevron.left")
+                                .font(.callout)
+                                .bold()
+                              
+                            
+                        }
+                        
+                        
+                    }
                 }
-            }.padding()
+            }
         }
-        .navigationBarTitle("Chat", displayMode: .inline)
     }
 }
