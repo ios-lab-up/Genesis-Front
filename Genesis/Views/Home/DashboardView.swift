@@ -47,10 +47,11 @@ struct DashboardView: View {
     @ObservedObject var globalDataModel = GlobalDataModel.shared
     @State var showProfileView = false
     @State var showMedRecordView = false
+   
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
-        
+        var name = globalDataModel.user?.name ?? ""
         NavigationView {
             ScrollView{
                 VStack(alignment: .leading){
@@ -272,9 +273,9 @@ struct DashboardView: View {
                             
                             
                             Spacer()
-                            
+                            Button(action:{showProfileView.toggle()}){
                             ZStack{
-                                AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
+                               /*AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
                                     
                                     image
                                         .resizable()
@@ -289,14 +290,20 @@ struct DashboardView: View {
                                         Circle().foregroundColor(.purple)
                                     }
                                 }
-                                .frame(width: 45, height: 45)
+                                .frame(width: 45, height: 45)*/
                                 
-                                Button(action:{showProfileView.toggle()}){
+                              
                                    Circle()
-                                        .foregroundStyle(Color.clear)
-                                        .frame(width: 45, height: 45)
+                                        .foregroundStyle(Color("Primary"))
+                                        
+                                
+                                Text(name.prefix(1))
+                                    .foregroundStyle(Color.white)
+                                    .bold()
+                                    .padding()
                                     
                                 }
+                            .frame(width: 40, height: 40)
                             }
                             
                             

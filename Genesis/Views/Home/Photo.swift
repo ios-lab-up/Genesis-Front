@@ -113,7 +113,7 @@ struct Photo: View {
                         }
                     }
                     
-                    Spacer()
+                    
                 }
             }
             .navigationTitle("Analizar caso")
