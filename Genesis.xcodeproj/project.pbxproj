@@ -99,7 +99,7 @@
 		160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoView.swift; sourceTree = "<group>"; };
 		160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientMedicalRecordView.swift; sourceTree = "<group>"; };
 		160F01742B115E3700BFCA3F /* PrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionView.swift; sourceTree = "<group>"; };
-		160F017A2B11707900BFCA3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "/Users/luisced/Code/School/Genesis/Genesis-Front/Genesis/Assets.xcassets"; sourceTree = "<absolute>"; };
+		160F017A2B11707900BFCA3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		160F017F2B11801600BFCA3F /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		160F01822B11806900BFCA3F /* photo.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = photo.lottie; sourceTree = "<group>"; };
 		1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowViewModel.swift; sourceTree = "<group>"; };
