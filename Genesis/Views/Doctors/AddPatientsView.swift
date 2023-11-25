@@ -1,4 +1,11 @@
 //
+//  AddPatientsView.swift
+//  DermAware
+//
+//  Created by Luis Cedillo M on 25/11/23.
+//
+
+//
 //  AddPatientView.swift
 //  DermAware
 //
@@ -7,7 +14,7 @@
 
 import SwiftUI
 
-struct AddPatientView: View {
+struct AddPatientsView: View {
     var body: some View {
         NavigationView{
             ZStack{
@@ -63,5 +70,5 @@ struct AddPatientView: View {
 }
 
 #Preview {
-    AddPatientView()
+    AddPatientsView()
 }

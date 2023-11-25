@@ -2,6 +2,13 @@
 //  ScheduleView.swift
 //  DermAware
 //
+//  Created by Luis Cedillo M on 25/11/23.
+//
+
+//
+//  ScheduleView.swift
+//  DermAware
+//
 //  Created by Mauricio Pérez on 25/11/23.
 //
 

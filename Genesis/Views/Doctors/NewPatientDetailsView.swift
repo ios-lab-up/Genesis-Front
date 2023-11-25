@@ -2,8 +2,10 @@
 //  NewPatientDetailsView.swift
 //  DermAware
 //
-//  Created by Mauricio Pérez on 25/11/23.
+//  Created by Luis Cedillo M on 25/11/23.
 //
+
+
 
 import SwiftUI
 
