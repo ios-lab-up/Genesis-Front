@@ -46,6 +46,7 @@ struct DashboardView: View {
     @State private var minutos = "5"
     @ObservedObject var globalDataModel = GlobalDataModel.shared
     @State var showProfileView = false
+    @State var showMedRecordView = false
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
@@ -128,37 +129,40 @@ struct DashboardView: View {
                                 }
                             }
                             VStack(spacing: 10){
-                                ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .foregroundColor(Color("bluey"))
-                                    
-                                    
-                                    
-                                    VStack(alignment: .leading, spacing: 10){
-                                        HStack{
-                                            Text("Lista de\nMedicamentos")
-                                                .bold()
-                                                .padding()
-                                                .font(.subheadline)
-                                                .fixedSize(horizontal: false, vertical: true)
-                                            Spacer()
-                                            
-                                            ZStack{
-                                                Circle()
-                                                    .frame(width: 20, height: 20)
-                                                Image(systemName: "chevron.right")
-                                                    .foregroundStyle(Color.white)
-                                                    .font(.caption)
+                                Button(action: {showMedRecordView.toggle()}){
+                                    ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)){
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .foregroundColor(Color("bluey"))
+                                        
+                                        
+                                        
+                                        VStack(alignment: .leading, spacing: 10){
+                                            HStack{
+                                                Text("Tu registro\nmédico")
+                                                    .bold()
+                                                    .padding()
+                                                    .font(.subheadline)
+                                                    .fixedSize(horizontal: false, vertical: true)
+                                                Spacer()
+                                                
+                                                ZStack{
+                                                    Circle()
+                                                        .frame(width: 20, height: 20)
+                                                    Image(systemName: "chevron.right")
+                                                        .foregroundStyle(Color.white)
+                                                        .font(.caption)
+                                                }
+                                                .padding(.trailing, 10)
                                             }
-                                            .padding(.trailing, 10)
+                                         
+                                            Text("Información detallada")
+                                                .padding(.bottom)
+                                                .padding(.horizontal)
+                                                .font(.caption)
                                         }
-                                     
-                                        Text("Información detallada")
-                                            .padding(.bottom)
-                                            .padding(.horizontal)
-                                            .font(.caption)
                                     }
                                 }
+                                .buttonStyle(PlainButtonStyle())
                                 
                                 NavigationLink(destination: RecordGalleryView(imageDataList: globalDataModel.userImages)){
                                     ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
@@ -238,14 +242,18 @@ struct DashboardView: View {
                     
                 }
                 .fullScreenCover(isPresented: $showProfileView){
-                    /*ProfileView()
-                 
-                        .environmentObject(globalDataModel)*/
+                  ProfileView()
+                        .environmentObject(globalDataModel)
+                    
+                  
+                }
+                .fullScreenCover(isPresented: $showMedRecordView){
                     
                     PatientMedicalRecordView()
                     
                   
                 }
+                
                
                 .toolbar {
                     ToolbarItem(placement: .principal) {

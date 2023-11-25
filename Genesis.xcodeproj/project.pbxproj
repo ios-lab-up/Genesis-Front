@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		160F016E2B0EEF9400BFCA3F /* DoctorInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */; };
 		160F01712B0F1D3500BFCA3F /* PatientMedicalRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */; };
+		160F01752B115E3700BFCA3F /* PrescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160F01742B115E3700BFCA3F /* PrescriptionView.swift */; };
+		160F017B2B11707900BFCA3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 160F017A2B11707900BFCA3F /* Assets.xcassets */; };
 		1663A6D22AE1B00F00D98838 /* AppFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */; };
 		1663A6D42AE1B02A00D98838 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */; };
 		166481E82A7F6F330093032A /* signIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166481E72A7F6F330093032A /* signIn.swift */; };
@@ -31,7 +33,6 @@
 		16F2BC7B2AD740E000CE4BC5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC7A2AD740E000CE4BC5 /* ImagePicker.swift */; };
 		16F2BC7D2AD740FF00CE4BC5 /* ZoomableScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC7C2AD740FF00CE4BC5 /* ZoomableScrollView.swift */; };
 		16F2BC802AD7415A00CE4BC5 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC7F2AD7415A00CE4BC5 /* FileManager+Extension.swift */; };
-		16F2BC812AD7453700CE4BC5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A8BE8E52A7F435600BAE75B /* Assets.xcassets */; };
 		16F2BC822AD7453E00CE4BC5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 481BDDBC2A6E02D4006D4D80 /* Preview Assets.xcassets */; };
 		16F2BC842AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 16F2BC832AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage */; };
 		480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 480A30172A7C79A80087FABD /* ImageClassificationView.swift */; };
@@ -93,6 +94,8 @@
 /* Begin PBXFileReference section */
 		160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoView.swift; sourceTree = "<group>"; };
 		160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientMedicalRecordView.swift; sourceTree = "<group>"; };
+		160F01742B115E3700BFCA3F /* PrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionView.swift; sourceTree = "<group>"; };
+		160F017A2B11707900BFCA3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../../../Downloads/Assets.xcassets; sourceTree = "<group>"; };
 		1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowViewModel.swift; sourceTree = "<group>"; };
 		1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		166481E72A7F6F330093032A /* signIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signIn.swift; sourceTree = "<group>"; };
@@ -143,7 +146,6 @@
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		48B2497E2B11442100DBD62A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		48E76A6F2B114B4700D4FF73 /* MainMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMessageView.swift; sourceTree = "<group>"; };
-		7A8BE8E52A7F435600BAE75B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Capturing Photos.swiftpm/App/Assets.xcassets"; sourceTree = SOURCE_ROOT; };
 		AF508CCE2B0BE88700DBFB05 /* Dashboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dashboard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,9 +313,9 @@
 				481BDDC52A6F6E6D006D4D80 /* Assets */,
 				48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */,
 				16F2BC832AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage */,
+				160F017A2B11707900BFCA3F /* Assets.xcassets */,
 				481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */,
 				481BDDB72A6E02D3006D4D80 /* ContentView.swift */,
-				7A8BE8E52A7F435600BAE75B /* Assets.xcassets */,
 				481BDDBB2A6E02D4006D4D80 /* Preview Content */,
 			);
 			path = Genesis;
@@ -386,6 +388,7 @@
 			children = (
 				48626CC02ADF367A00CCE82B /* ViewImage.swift */,
 				160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */,
+				160F01742B115E3700BFCA3F /* PrescriptionView.swift */,
 				48626CCB2AE0396700CCE82B /* MedicalHistoryForm.swift */,
 			);
 			path = MedicalHistory;
@@ -513,7 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16F2BC822AD7453E00CE4BC5 /* Preview Assets.xcassets in Resources */,
-				16F2BC812AD7453700CE4BC5 /* Assets.xcassets in Resources */,
+				160F017B2B11707900BFCA3F /* Assets.xcassets in Resources */,
 				48B2497F2B11442100DBD62A /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,6 +555,7 @@
 				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
 				16F2BC742AD7372C00CE4BC5 /* ViewModel.swift in Sources */,
 				160F016E2B0EEF9400BFCA3F /* DoctorInfoView.swift in Sources */,
+				160F01752B115E3700BFCA3F /* PrescriptionView.swift in Sources */,
 				48626CCA2ADF8E4000CCE82B /* NetworkManager+MedicalHistory.swift in Sources */,
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
 				48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */,
