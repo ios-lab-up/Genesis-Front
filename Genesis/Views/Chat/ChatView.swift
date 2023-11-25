@@ -29,6 +29,8 @@ struct ChatView: View {
     
     @State private var chatText = ""
     @State private var messages = [ChatMessage]()
+    @ObservedObject private var globalData = GlobalDataModel.shared
+    
     let userChat = GlobalDataModel.shared.userRelations.first
     
     @Environment(\.presentationMode) var close
@@ -38,8 +40,8 @@ struct ChatView: View {
         NavigationView{
             VStack{
                 ScrollView{
-                    ForEach(GlobalDataModel.shared.chatMessages){ message in
-
+                    ForEach(globalData.chatMessages){ message in
+                        
                         HStack{
                             Spacer()
                             HStack{
@@ -115,30 +117,49 @@ struct ChatView: View {
                 }
                 .navigationTitle(userChat?.name ?? "Chat")
                 .navigationBarTitleDisplayMode(.inline)
-            }.onAppear()
+            }.onAppear{
+                // Fetch messages when the view appears
+                fetchUserMessages()
+            }
         }
         
-     
+        
+    }
+    
+    private func fetchUserMessages() {
+        guard let toId = userChat?.id else { return }
+        
+        FirebaseManager.shared.fetchMessages(toId: String(toId)) {fetchedMessages, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    // Handle the error, e.g., show an alert
+                    print("Error fetching messages: \(error.localizedDescription)")
+                } else {
+                    // If you want to use the local messages array to display messages
+                    self.messages = fetchedMessages
+                    
+                    // Or if you want to use the global data model's chatMessages
+                    // This line is not needed if your ForEach uses `globalData.chatMessages`
+                    // self?.globalData.chatMessages = fetchedMessages
+                }
+            }
+        }
     }
     
     
     
     
     
-    
-   }
-
-
-
-struct DescriptionPlaceholder: View {
-    var body: some View {
-        HStack {
-            Text("Description")
-                .foregroundColor(Color(.gray))
-                .font(.system(size: 17))
-                .padding(.leading, 5)
-                .padding(.top, -4)
-            Spacer()
+    struct DescriptionPlaceholder: View {
+        var body: some View {
+            HStack {
+                Text("Description")
+                    .foregroundColor(Color(.gray))
+                    .font(.system(size: 17))
+                    .padding(.leading, 5)
+                    .padding(.top, -4)
+                Spacer()
+            }
         }
     }
 }

@@ -68,32 +68,39 @@ final class FirebaseManager {
         }
     }
     
-    func fetchMessages(toId: String, completion: @escaping (Error?) -> Void) {
+    // Within FirebaseManager.swift
+
+    func fetchMessages(toId: String, completion: @escaping ([ChatMessage], Error?) -> Void) {
         let fromId = String(GlobalDataModel.shared.user?.id ?? 0)
-        
-        let messagesRef = db.collection("messages")
+
+        db.collection("messages")
             .document(fromId)
             .collection(toId)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
-                    print("Error fetching messages: \(error)")
-                    completion(error) // Pass the error to the completion handler
+                    DispatchQueue.main.async {
+                        completion([], error) // Pass an empty array of ChatMessage and the error
+                    }
                     return
                 }
 
-                var newMessages = [ChatMessage]() // Temporary array to hold new messages
-                
-                querySnapshot?.documents.forEach({ documentSnapshot in
+                // Use compactMap to create an array of ChatMessage
+                // Make sure to handle optional correctly
+                let newMessages = querySnapshot?.documents.compactMap { documentSnapshot -> ChatMessage? in
                     let documentId = documentSnapshot.documentID
                     let data = documentSnapshot.data()
-                    let chatMessage = ChatMessage(documentId: documentId, data: data) // Create a new ChatMessage instance
-                    newMessages.append(chatMessage) // Append to the temporary array
-                })
-                
+                    // Ensure that ChatMessage initialization does not fail
+                    return ChatMessage(documentId: documentId, data: data)
+                } ?? [] // Provide an empty array as a default value
+
                 DispatchQueue.main.async {
-                    GlobalDataModel.shared.chatMessages.append(contentsOf: newMessages) // Append all new messages to the published array
+                    completion(newMessages, nil) // newMessages is explicitly an array of ChatMessage
                 }
             }
     }
+
+
+
+
 
 }
