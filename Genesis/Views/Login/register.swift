@@ -90,6 +90,13 @@ struct register: View {
             case .success(let user):
                 print("Signed up user: \(user)")
                 self.isSignUpSuccessful = true
+                FirebaseManager.shared.saveUsername { error in
+                    if let error = error {
+                        print("Failed to save username in firebase: \(error)")
+                    } else {
+                        print("Successfully saved username in firebase")
+                    }
+                }
                 
             case .failure(let error):
                 print("Failed to sign up user: \(error)")

@@ -59,6 +59,7 @@
 		486D1FAD2AFDAA160050F429 /* RecordGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D1FAC2AFDAA160050F429 /* RecordGalleryView.swift */; };
 		486D1FB02AFED3050050F429 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486D1FAF2AFED3050050F429 /* ProfileView.swift */; };
 		487AC5DB2AFD3A0C001F1755 /* UserBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */; };
+		4897AD1F2B119C5900E6CA5E /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4897AD1E2B119C5900E6CA5E /* FirebaseManager.swift */; };
 		48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */; };
 		48A8764D2A7CBB51008F0B62 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48A8764C2A7CBB51008F0B62 /* LoginView.swift */; };
 		48B2497D2B0F198800DBD62A /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 48B2497C2B0F198800DBD62A /* SocketIO */; };
@@ -98,7 +99,7 @@
 		160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorInfoView.swift; sourceTree = "<group>"; };
 		160F01702B0F1D3500BFCA3F /* PatientMedicalRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientMedicalRecordView.swift; sourceTree = "<group>"; };
 		160F01742B115E3700BFCA3F /* PrescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionView.swift; sourceTree = "<group>"; };
-		160F017A2B11707900BFCA3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "/Users/inakisiguenza/Desktop/Dev/Genesis-Front/Genesis/Assets.xcassets"; sourceTree = "<absolute>"; };
+		160F017A2B11707900BFCA3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "/Users/luisced/Code/School/Genesis/Genesis-Front/Genesis/Assets.xcassets"; sourceTree = "<absolute>"; };
 		160F017F2B11801600BFCA3F /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		160F01822B11806900BFCA3F /* photo.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = photo.lottie; sourceTree = "<group>"; };
 		1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowViewModel.swift; sourceTree = "<group>"; };
@@ -147,6 +148,7 @@
 		486D1FAC2AFDAA160050F429 /* RecordGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordGalleryView.swift; sourceTree = "<group>"; };
 		486D1FAF2AFED3050050F429 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		487AC5DA2AFD3A0C001F1755 /* UserBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBadgeView.swift; sourceTree = "<group>"; };
+		4897AD1E2B119C5900E6CA5E /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		48B2497E2B11442100DBD62A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 				1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */,
 				16C99C632AE716F10083CC54 /* MessageModel.swift */,
 				481D6D012AF9A2BF001AAAF7 /* GlobalDataModel.swift */,
+				4897AD1E2B119C5900E6CA5E /* FirebaseManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -580,6 +583,7 @@
 				481BDDCF2A6F70AB006D4D80 /* NetworkManager.swift in Sources */,
 				48626CCC2AE0396700CCE82B /* MedicalHistoryForm.swift in Sources */,
 				160F01712B0F1D3500BFCA3F /* PatientMedicalRecordView.swift in Sources */,
+				4897AD1F2B119C5900E6CA5E /* FirebaseManager.swift in Sources */,
 				16C99C602AE713840083CC54 /* ChatView.swift in Sources */,
 				16C99C642AE716F10083CC54 /* MessageModel.swift in Sources */,
 				481BDDB62A6E02D3006D4D80 /* GenesisApp.swift in Sources */,

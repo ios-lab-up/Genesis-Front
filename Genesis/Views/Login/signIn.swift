@@ -104,7 +104,13 @@ struct signIn: View {
                     switch getUserResult {
                     case .success(let fetchedUser):
                         print("Fetched user data: \(fetchedUser)")
-
+                        FirebaseManager.shared.saveUsername { error in
+                            if let error = error {
+                                print("Failed to save username in firebase: \(error)")
+                            } else {
+                                print("Successfully saved username in firebase")
+                            }
+                        }
                     case .failure(let fetchError):
                         print("Failed to fetch user data: \(fetchError)")
                     }
