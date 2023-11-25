@@ -1,0 +1,77 @@
+# Xcode
+*.xcodeproj/*
+checkout feat_chat.xcodeproj/project.pbxproj
+checkout feat_chat.xcodeproj/xcshareddata/
+checkout feat_chat.xcodeproj/xcuserdata/
+*.xcworkspace/*
+checkout feat_chat.xcworkspace/contents.xcworkspacedata
+checkout feat_chat.xcworkspace/xcshareddata/
+checkout feat_chat.xcworkspace/xcuserdata/
+*.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+xcuserdata/
+DerivedData/
+*.moved-aside
+IDEWorkspaceChecks.plist
+WorkspaceSettings.xcsettings
+
+# Swift Package Manager
+.build/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+
+# Carthage
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Code Injection
+*.app/InjectionBundle
+
+# Various settings
+*.swp
+*.orig
+
+# OS X noise
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear on disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Playgrounds
+timeline
+xcuserdata
+
+# Swift PM
+.build/
+
+# Package.pins is no longer used starting Swift 5.3
+# If you are using an earlier version of Swift, please uncomment this line
+# and remove the Package.resolved entry above.
+# Package.pins
+
+# Code coverage
+*.coverage
+*.coverage.json
+coverage/
+
