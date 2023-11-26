@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseFirestore
 
 
 struct FirebaseConstants{
@@ -14,13 +15,21 @@ struct ChatMessage: Identifiable {
     
     let documentId: String
     let fromId, toId, text: String
+    let timestamp: Date
+
 
     init(documentId: String, data: [String: Any]) {
         self.documentId = documentId
         self.fromId = data["fromId"] as? String ?? ""
         self.toId = data["toId"] as? String ?? ""
         self.text = data["text"] as? String ?? ""
+        if let timestamp = data["timestamp"] as? Timestamp {
+            self.timestamp = timestamp.dateValue()
+        } else {
+            self.timestamp = Date() // Default to current date if not available
+        }
     }
+    
 }
 
 
@@ -40,8 +49,8 @@ struct ChatView: View {
         NavigationView{
             VStack{
                 ScrollView{
-                    ForEach(globalData.chatMessages){ message in
-                        
+                    // Use the 'messages' state array here
+                    ForEach(messages) { message in
                         HStack{
                             Spacer()
                             HStack{
@@ -55,10 +64,7 @@ struct ChatView: View {
                         .padding(.horizontal)
                         .padding(.top, 8)
                     }
-                    
-                    
                     HStack{Spacer()}
-                    
                 }
                 .background(Color(.init(white:0.95, alpha:1)))
                 HStack(spacing: 16){
@@ -121,6 +127,8 @@ struct ChatView: View {
                 // Fetch messages when the view appears
                 fetchUserMessages()
             }
+        }.onAppear{
+            fetchUserMessages()
         }
         
         
@@ -129,23 +137,17 @@ struct ChatView: View {
     private func fetchUserMessages() {
         guard let toId = userChat?.id else { return }
         
-        FirebaseManager.shared.fetchMessages(toId: String(toId)) {fetchedMessages, error in
+        FirebaseManager.shared.fetchMessages(toId: String(toId)) { fetchedMessages, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    // Handle the error, e.g., show an alert
                     print("Error fetching messages: \(error.localizedDescription)")
                 } else {
-                    // If you want to use the local messages array to display messages
-                    self.messages = fetchedMessages
-                    
-                    // Or if you want to use the global data model's chatMessages
-                    // This line is not needed if your ForEach uses `globalData.chatMessages`
-                    // self?.globalData.chatMessages = fetchedMessages
+                    // Sort messages by timestamp
+                    self.messages = fetchedMessages.sorted(by: { $0.timestamp < $1.timestamp })
                 }
             }
         }
     }
-    
     
     
     

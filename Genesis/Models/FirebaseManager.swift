@@ -76,6 +76,7 @@ final class FirebaseManager {
         db.collection("messages")
             .document(fromId)
             .collection(toId)
+            .order(by: "timestamp", descending: false) // Add this line
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
                     DispatchQueue.main.async {
@@ -85,19 +86,22 @@ final class FirebaseManager {
                 }
 
                 // Use compactMap to create an array of ChatMessage
-                // Make sure to handle optional correctly
                 let newMessages = querySnapshot?.documents.compactMap { documentSnapshot -> ChatMessage? in
                     let documentId = documentSnapshot.documentID
                     let data = documentSnapshot.data()
-                    // Ensure that ChatMessage initialization does not fail
                     return ChatMessage(documentId: documentId, data: data)
                 } ?? [] // Provide an empty array as a default value
 
                 DispatchQueue.main.async {
                     completion(newMessages, nil) // newMessages is explicitly an array of ChatMessage
+                    // Print each message
+                    newMessages.forEach { message in
+                        print("Message: \(message)")
+                    }
                 }
             }
     }
+
 
 
 
