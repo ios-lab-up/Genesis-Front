@@ -2,7 +2,7 @@
 //  DoctorDashboardView.swift
 //  Genesis
 //
-//  Created by Sara Cedillo M on 22/11/23.
+//  Created by Sara M on 22/11/23.
 //
 
 import SwiftUI
@@ -131,13 +131,33 @@ struct DoctorDashboardView: View {
                                                     .foregroundColor(.black)
                                             }
                                         }
+                                        
                                     }
+                                    
                                 }
                             }
                         }.padding() // Padding around the HStack
                     }
                     Spacer()
+                    
+                    Button(action: {
+                                // Your action here
+                            }) {
+                                Text("Agregar Paciente")
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.black)
+                                    .padding()
+                                    .frame(width: 200)
+                                    .background(LinearGradient(gradient: Gradient(colors: [Color.purple, Color("purplit")]), startPoint: .topLeading, endPoint: .bottomTrailing))
+                                    .cornerRadius(20)
+                                    .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 5, y: 5)
+                                    .shadow(color: Color.gray.opacity(0.5), radius: 10, x: -5, y: -5)
+                            }
+                            .padding()
+                    Spacer()
+                    Spacer()
                 }
+                
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
