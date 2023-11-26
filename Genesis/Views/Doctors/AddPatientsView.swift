@@ -21,7 +21,7 @@ struct AddPatientsView: View {
                 HStack{
                     VStack{
                         HStack{
-                            RoundedRectangle(cornerRadius: 100)
+                            Circle()
                                 .fill(.gray)
                                 .frame(width: 100, height: 100)
                                 .padding(.trailing)
@@ -45,7 +45,7 @@ struct AddPatientsView: View {
                                     .background(Color("yellowsito"))
                                     .clipShape(Capsule())
                             }
-                            NavigationLink(destination: ScheduleView()){
+                            NavigationLink(destination: NewPatientDetailsView()){
                                 Text("Detalles")
                                     .font(.system(size: 16, weight: .bold))
                                     .foregroundStyle(Color(.white))
@@ -64,8 +64,7 @@ struct AddPatientsView: View {
                 .background(Color("blackish"))
                 .cornerRadius(22)
             }
-                .navigationTitle("Mis pacientes")
-        }
+                .navigationTitle("Pacientes")        }
     }
 }
 
