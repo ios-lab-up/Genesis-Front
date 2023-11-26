@@ -16,55 +16,54 @@ import SwiftUI
 
 struct AddPatientsView: View {
     var body: some View {
-        NavigationView{
-            ZStack{
-                HStack{
-                    VStack{
-                        HStack{
-                            Circle()
-                                .fill(.gray)
-                                .frame(width: 100, height: 100)
-                                .padding(.trailing)
-                            VStack(alignment: .leading){
-                                Text("Ivan Cruz")
-                                    .font(.system(size: 32, weight: .semibold))
-                                Text("21 de noviembre, 2023")
-                                    .font(.system(size: 12))
-                                Text("Melanoma")
-                                    .font(.system(size: 16))
-                            }
-                            .foregroundStyle(Color(.white))
+        ZStack{
+            HStack{
+                VStack{
+                    HStack{
+                        Circle()
+                            .fill(.gray)
+                            .frame(width: 100, height: 100)
+                            .padding(.trailing)
+                        VStack(alignment: .leading){
+                            Text("Ivan Cruz")
+                                .font(.system(size: 32, weight: .semibold))
+                            Text("21 de noviembre, 2023")
+                                .font(.system(size: 12))
+                            Text("Melanoma")
+                                .font(.system(size: 16))
                         }
-                        HStack{
-                            NavigationLink(destination: ScheduleView()){
-                                Text("Agendar Cita")
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundStyle(Color("blackish"))
-                                    .padding()
-                                    .padding(.horizontal, 20)
-                                    .background(Color("yellowsito"))
-                                    .clipShape(Capsule())
-                            }
-                            NavigationLink(destination: NewPatientDetailsView()){
-                                Text("Detalles")
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundStyle(Color(.white))
-                                    .padding()
-                                    .overlay(
-                                            RoundedRectangle(cornerRadius: 50)
-                                                .stroke(.white, lineWidth: 3)
-                                        )
-                            }
+                        .foregroundStyle(Color(.white))
+                    }
+                    HStack{
+                        NavigationLink(destination: ScheduleView()){
+                            Text("Agendar Cita")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundStyle(Color("blackish"))
+                                .padding()
+                                .padding(.horizontal, 20)
+                                .background(Color("yellowsito"))
+                                .clipShape(Capsule())
+                        }
+                        NavigationLink(destination: NewPatientDetailsView()){
+                            Text("Detalles")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundStyle(Color(.white))
+                                .padding()
+                                .overlay(
+                                        RoundedRectangle(cornerRadius: 50)
+                                            .stroke(.white, lineWidth: 3)
+                                    )
                         }
                     }
                 }
-                .padding(.horizontal, 30)
-                .padding(.top, 20)
-                .padding(.bottom, 20)
-                .background(Color("blackish"))
-                .cornerRadius(22)
             }
-                .navigationTitle("Pacientes")        }
+            .padding(.horizontal, 30)
+            .padding(.top, 20)
+            .padding(.bottom, 20)
+            .background(Color("blackish"))
+            .cornerRadius(22)
+        }
+            .navigationTitle("Pacientes")        
     }
 }
 
