@@ -207,6 +207,10 @@ struct Prescription: Codable {
     }
 }
 
+struct ProfileImage {
+    let userID: String
+    let imageURL: String
+}
 
 
 /// `APIEndpoints` provides full URL strings for network requests to the various endpoints of the Genesis API.

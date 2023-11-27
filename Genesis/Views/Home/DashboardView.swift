@@ -274,7 +274,7 @@ struct DashboardView: View {
                             Spacer()
                             
                             ZStack{
-                                AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
+                                AsyncImage(url: URL(string: globalDataModel.userProfileImageUrl ?? "")) { image in
                                     
                                     image
                                         .resizable()

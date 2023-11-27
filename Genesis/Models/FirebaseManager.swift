@@ -99,6 +99,17 @@ final class FirebaseManager {
             }
     }
 
+    func fetchUserProfilePicture(userID: String, completion: @escaping (String?, Error?) -> Void) {
+        db.collection("users").document(userID).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                let profilePicUrl = data?["profile_url"] as? String
+                completion(profilePicUrl, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
 
 
 

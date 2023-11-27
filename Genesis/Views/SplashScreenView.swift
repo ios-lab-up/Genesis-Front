@@ -14,7 +14,7 @@ struct SplashScreenView: View {
         ZStack {
             Rectangle()
                 .background(
-                    LinearGradient(gradient: Gradient(colors: [Color("modaro2"), Color("modaro"), Color("modaro")]), startPoint: .bottomTrailing, endPoint: .topLeading)
+                    LinearGradient(gradient: Gradient(colors: [Color("Primary"), Color("Primary"), Color("Primary")]), startPoint: .bottomTrailing, endPoint: .topLeading)
                     )
                 .ignoresSafeArea(.all)
             
