@@ -14,7 +14,12 @@ class GlobalDataModel: ObservableObject {
     @Published var userImages: [ImageData] = [] // Add this line to define userImages
     @Published var medicalHistory: [MedicalHistoryItem] = []
     @Published var chatMessages: [ChatMessage] = []
+    @Published var userProfileImageUrl: String? // New variable for profile image URL
 
+    
+
+
+    
     
     private init() {} // Private initializer to enforce singleton usage
 }

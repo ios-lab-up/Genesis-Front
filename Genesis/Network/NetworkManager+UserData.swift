@@ -129,6 +129,7 @@ extension NetworkManager {
         var userRelations: [User]?
         var userImages: [ImageData]?
         var medicalHistory: [MedicalHistoryItem]?
+        var userProfilePicture: String?
         var firstError: Error?
         
         // Fetch User Data
@@ -186,23 +187,45 @@ extension NetworkManager {
             dispatchGroup.leave()
         }
         
+        dispatchGroup.enter()
+            getUserData { result in
+                switch result {
+                case .success(let user):
+                    userData = user
+                    FirebaseManager.shared.fetchUserProfilePicture(userID: String( user.id)) { urlProfile, error in
+                        if let url = urlProfile {
+                            userProfilePicture = urlProfile
+                        } else if let error = error {
+                            firstError = error
+                        }
+                        dispatchGroup.leave()
+                    }
+                case .failure(let error):
+                    firstError = error
+                    dispatchGroup.leave()
+                }
+            }
+        
         // Final aggregation
         dispatchGroup.notify(queue: .main) {
-            if let user = userData, let relations = userRelations, let images = userImages, let history = medicalHistory {
-                // Update the GlobalDataModel with the fetched data
-                GlobalDataModel.shared.user = user
-                GlobalDataModel.shared.userRelations = relations
-                GlobalDataModel.shared.userImages = images
-                GlobalDataModel.shared.medicalHistory = history // Assuming GlobalDataModel has a property for medical history
-                completion(.success((user, relations, images, history)))
-            } else if let error = firstError {
-                completion(.failure(error))
-            } else {
-                // Handle unexpected error
-                let unexpectedError = NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "An unexpected error occurred"])
-                completion(.failure(unexpectedError))
+                if let user = userData, let relations = userRelations, let images = userImages, let history = medicalHistory {
+                    // Update the GlobalDataModel with the fetched data
+                    GlobalDataModel.shared.user = user
+                    GlobalDataModel.shared.userRelations = relations
+                    GlobalDataModel.shared.userImages = images
+                    GlobalDataModel.shared.medicalHistory = history
+                    if let profileUrl = userProfilePicture {
+                        GlobalDataModel.shared.userProfileImageUrl = profileUrl
+                    }
+                    completion(.success((user, relations, images, history)))
+                } else if let error = firstError {
+                    completion(.failure(error))
+                } else {
+                    // Handle unexpected error
+                    let unexpectedError = NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "An unexpected error occurred"])
+                    completion(.failure(unexpectedError))
+                }
             }
-        }
         
         print("fetching all user data")
     }
