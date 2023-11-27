@@ -199,6 +199,7 @@ struct DoctorDashboardView: View {
                 }
             }
         }
+        .navigationBarHidden(true)
     }
 }
 
