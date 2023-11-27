@@ -49,23 +49,30 @@ struct ChatView: View {
         NavigationView{
             VStack{
                 ScrollView{
-                    // Use the 'messages' state array here
                     ForEach(messages) { message in
                         HStack{
                             Spacer()
-                            HStack{
+                            VStack(alignment: .trailing) {  // Align text to the right
                                 Text(message.text)
                                     .foregroundColor(.white)
+                                    .padding(8)
+                                    .background(Color("Primary"))
+                                    .cornerRadius(8)
+
+                                Text(formatDate(message.timestamp)) // Timestamp below the message text
+                                    .font(.caption)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal, 8)
+                                    .padding(.bottom, 4)
                             }
-                            .padding()
-                            .background(Color("Primary"))
-                            .cornerRadius(8)
                         }
                         .padding(.horizontal)
                         .padding(.top, 8)
                     }
                     HStack{Spacer()}
                 }
+                .background(Color(.init(white:0.95, alpha:1)))
+
                 .background(Color(.init(white:0.95, alpha:1)))
                 HStack(spacing: 16){
                     Image(systemName: "photo.on.rectangle")
@@ -164,4 +171,11 @@ struct ChatView: View {
             }
         }
     }
+}
+
+func formatDate(_ date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateStyle = .short
+    formatter.timeStyle = .short
+    return formatter.string(from: date)
 }
