@@ -192,11 +192,9 @@ extension NetworkManager {
                 switch result {
                 case .success(let user):
                     userData = user
-                    // Fetch User Profile Picture
                     FirebaseManager.shared.fetchUserProfilePicture(userID: String( user.id)) { urlProfile, error in
                         if let url = urlProfile {
                             userProfilePicture = urlProfile
-                            print(url)
                         } else if let error = error {
                             firstError = error
                         }
