@@ -25,7 +25,7 @@ struct NewPatientDetailsView: View {
                 ScrollView(.horizontal, showsIndicators: false){
                     HStack{
                         ForEach((1...5), id: \.self) {
-                            HStack{
+                            NavigationLink(destination: PresDetailsView()){
                                 ZStack{
                                     Image("skinSample")
                                         .resizable()

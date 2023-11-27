@@ -82,56 +82,58 @@ struct DoctorDashboardView: View {
                                 Button(action: {
                                     showFullScreenImage = data
                                 }) {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 25.0)
-                                            .fill(LinearGradient(
-                                                gradient: Gradient(stops: [
-                                                    .init(color: Color("blackish"), location: 0.75),
-                                                    .init(color: Color("yellowsito"), location: 0.25)
-                                                ]),
-                                                startPoint: .top,
-                                                endPoint: .bottom))
-                                        
-                                            .frame(width: 150, height: 150)
-                                        VStack {
-                                            HStack {
-                                                Image("imagenPaciente")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fill)
-                                                    .frame(width: 45, height: 45)
-                                                    .clipShape(Circle())
-                                                    .overlay(Circle().stroke(Color.white, lineWidth: 1))
-                                                    .shadow(radius: 10)
-                                                    .padding(.leading,10)
-                                                Spacer()
+                                    NavigationLink(destination: NewPatientDetailsView()){
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 25.0)
+                                                .fill(LinearGradient(
+                                                    gradient: Gradient(stops: [
+                                                        .init(color: Color("blackish"), location: 0.75),
+                                                        .init(color: Color("yellowsito"), location: 0.25)
+                                                    ]),
+                                                    startPoint: .top,
+                                                    endPoint: .bottom))
+                                            
+                                                .frame(width: 150, height: 150)
+                                            VStack {
+                                                HStack {
+                                                    Image("imagenPaciente")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .frame(width: 45, height: 45)
+                                                        .clipShape(Circle())
+                                                        .overlay(Circle().stroke(Color.white, lineWidth: 1))
+                                                        .shadow(radius: 10)
+                                                        .padding(.leading,10)
+                                                    Spacer()
+                                                }
+                                                
+                                                HStack {
+                                                    Text("Sara Miranda")
+                                                        .foregroundColor(.white)
+                                                        .bold()
+                                                        .padding(.leading,10)
+                                                    Spacer()
+                                                }
+                                                HStack{
+                                                    Text("Diagnosis")
+                                                        .font(.caption)
+                                                        .foregroundColor(.white)
+                                                        .padding(.leading,10)
+                                                    Spacer()
+                                                }
+                                                Text(" ")
+                                                HStack {
+                                                    Image(systemName: "clock.fill")
+                                                        .symbolRenderingMode(.hierarchical)
+                                                        .font(.system(size: 18, weight: .light))
+                                                        .foregroundColor(Color.black.opacity(0.7))
+                                                    Text("\(data):00 PM")
+                                                        .font(.body)
+                                                        .foregroundColor(.black)
+                                                }
                                             }
                                             
-                                            HStack {
-                                                Text("Sara Miranda")
-                                                    .foregroundColor(.white)
-                                                    .bold()
-                                                    .padding(.leading,10)
-                                                Spacer()
-                                            }
-                                            HStack{
-                                                Text("Diagnosis")
-                                                    .font(.caption)
-                                                    .foregroundColor(.white)
-                                                    .padding(.leading,10)
-                                                Spacer()
-                                            }
-                                            Text(" ")
-                                            HStack {
-                                                Image(systemName: "clock.fill")
-                                                    .symbolRenderingMode(.hierarchical)
-                                                    .font(.system(size: 18, weight: .light))
-                                                    .foregroundColor(Color.black.opacity(0.7))
-                                                Text("\(data):00 PM")
-                                                    .font(.body)
-                                                    .foregroundColor(.black)
-                                            }
                                         }
-                                        
                                     }
                                     
                                 }
