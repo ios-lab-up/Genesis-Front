@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Photo: View {
     @EnvironmentObject var vm: ViewModel
+    @State private var navigateToDashboard = false
     var body: some View {
         NavigationView {
             VStack{
@@ -38,18 +39,24 @@ struct Photo: View {
                 HStack{
                     if vm.image != nil{
                         Button(action: {
-                            
-                        }){
-                            ZStack{
-                                RoundedRectangle(cornerRadius: 20.0)
-                                    .foregroundStyle(Color("blackish"))
-                                Text("Enviar foto")
-                                    .foregroundStyle(Color.white)
-                            }
-                            .frame(height: 60)
-                            .padding()
-                            
-                        }
+                                            self.navigateToDashboard = true
+                                        }){
+                                            ZStack{
+                                                RoundedRectangle(cornerRadius: 20.0)
+                                                    .foregroundStyle(Color("blackish"))
+                                                Text("Enviar foto")
+                                                    .foregroundStyle(Color.white)
+                                            }
+                                            .frame(height: 60)
+                                            .padding()
+                                        }
+                                        // NavigationLink is here, but it's hidden and only activated when navigateToDashboard is true
+                                        .background(
+                                            NavigationLink(destination: HomeView(), isActive: $navigateToDashboard) {
+                                                EmptyView()
+                                            }
+                                            .hidden()
+                                        )
                         
                 
                             Menu {
@@ -121,6 +128,7 @@ struct Photo: View {
             .fullScreenCover(isPresented: $vm.showPicker){
                 ImagePicker(sourceType: vm.source == .library ? .photoLibrary : .camera, selectedImage: $vm.image)
                     .ignoresSafeArea()
+                
         }
         }
         
