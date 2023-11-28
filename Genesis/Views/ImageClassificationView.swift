@@ -3,6 +3,7 @@ import UIKit
 
 
 func analyzeImage(image: UIImage) {
+
     
     guard let resizedImage = image.resize(to: CGSize(width: 224, height: 224)),
           let buffer = resizedImage.toCVPixelBuffer() else {
@@ -37,6 +38,7 @@ func analyzeImage(image: UIImage) {
             switch result {
             case .success(let response):
                 print("Success: \(response)")
+
             case .failure(let error):
                 print("Error: \(error)")
             }
@@ -130,5 +132,7 @@ func uploadDiagnosticImage(imageData: Data, top3Predictions: [(key: String, valu
 
     // Call the upload function
     NetworkManager.shared.uploadImage(imageData: imageData, diagnostic: diagnosticData, completion: completion)
+    
+
 }
 

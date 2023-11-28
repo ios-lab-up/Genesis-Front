@@ -250,17 +250,14 @@ struct DashboardView: View {
                 .fullScreenCover(isPresented: $showMedRecordView){
                     
                     PatientMedicalRecordView()
-                    
                   
                 }
                 
-               
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         HStack {
                             VStack {
                                 
-                                    
                                     Text(greetingText)
                                         .font(.title2)
                                         .foregroundColor(.primary)
@@ -308,8 +305,15 @@ struct DashboardView: View {
                 }
                 
             }
-        }
-    }
+        }.onAppear {
+            NetworkManager.shared.validateJwtToken { isValid, error in
+                if isValid {
+                    print("Token validation succeeded")
+                } else {
+                    print("Token validation failed: \(error?.localizedDescription ?? "Unknown error")")
+                }
+            }
+        }    }
     
     
     var greetingText: String {
