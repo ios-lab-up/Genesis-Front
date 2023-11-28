@@ -19,22 +19,39 @@ class HealthManager: ObservableObject{
         let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)!
         let heightType = HKObjectType.quantityType(forIdentifier: .height)!
         let weightType = HKObjectType.quantityType(forIdentifier: .bodyMass)!
-        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
         let bloodType = HKObjectType.characteristicType(forIdentifier: .bloodType)!
         let genderType = HKObjectType.characteristicType(forIdentifier: .biologicalSex)!
         let dateOfBirthType = HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
-        let healthKitTypesToRead: Set<HKObjectType> = [stepCountType, heightType, weightType, bloodType, genderType, dateOfBirthType]
-        // Combine the data types into a set.
-       
+        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
 
-        // Create an asynchronous task to request authorization.
+        let healthKitTypesToRead: Set<HKObjectType> = [
+            stepCountType,
+            heightType,
+            weightType,
+            bloodType,
+            genderType,
+            dateOfBirthType,
+            heartRateType // Include heart rate type
+        ]
+
+        // Request authorization
+        requestHealthKitAuthorization()
+    }
+
+    func requestHealthKitAuthorization() {
+        // Asynchronously request authorization for the data types
         Task {
             do {
-                // Request authorization for the data types.
-                try await healthStore.requestAuthorization(toShare: [], read: healthKitTypesToRead)
+                let success = try await healthStore.requestAuthorization(toShare: [], read: healthKitTypesToRead)
+                if success {
+                    DispatchQueue.main.async {
+                        // Do any further setup or data fetching here
+                    }
+                } else {
+                    print("Authorization was not successful")
+                }
             } catch {
-                // If an error occurs, handle it here.
-                print("Error requesting authorization: \(error)")
+                print("Authorization request failed with error: \(error)")
             }
         }
     }

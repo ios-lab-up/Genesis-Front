@@ -303,6 +303,7 @@ struct ProfileView: View {
             }
         }
         .onAppear {
+            healthManager.requestHealthKitAuthorization()
             healthManager.fetchHeartRateData()
                         healthManager.fetchBloodType()
                         healthManager.fetchHeight()
