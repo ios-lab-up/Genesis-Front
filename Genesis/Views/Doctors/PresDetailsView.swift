@@ -13,18 +13,22 @@ struct PresDetailsView: View {
     @State var horas = 1
     @State var comments = ""
     var body: some View {
-        VStack(alignment: .leading){
+        VStack{
             Text("Medicamento:")
                 .font(.system(size: 24))
                 .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
             TextField("Nombre del medicamento", text: $name)
                 .font(.system(size: 16))
                 .padding()
                 .border(Color("bluey"), width: 2)
+                .background(Color("bluey"))
+                .cornerRadius(22)
             
             Text("Cada:")
                 .font(.system(size: 24))
                 .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
             HStack{
                 Button("-"){
                     if self.horas > 1{
@@ -51,6 +55,7 @@ struct PresDetailsView: View {
             Text("Días:")
                 .font(.system(size: 24))
                 .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
                 Button("-"){
                     if self.dias > 1{
@@ -76,10 +81,13 @@ struct PresDetailsView: View {
             Text("Comentarios:")
                 .font(.system(size: 24))
                 .fontWeight(.semibold)
+                .frame(maxWidth: .infinity, alignment: .leading)
             TextField("Notas importantes", text: $comments, axis: .vertical)
                 .font(.system(size: 16))
                 .padding()
                 .border(Color("bluey"), width: 2)
+                .background(Color("bluey"))
+                .cornerRadius(22)
             Spacer()
             }
         .padding()
