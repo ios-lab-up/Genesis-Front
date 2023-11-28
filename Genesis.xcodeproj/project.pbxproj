@@ -210,6 +210,8 @@
 			isa = PBXGroup;
 			children = (
 				160F016D2B0EEF9300BFCA3F /* DoctorInfoView.swift */,
+				16F2BC6E2AD7363300CE4BC5 /* Camera */,
+				485E0C2E2B0E7BC300DBF43A /* DoctorDashboardView.swift */,
 			);
 			path = Dash;
 			sourceTree = "<group>";
@@ -268,7 +270,6 @@
 				16F2BC772AD738EE00CE4BC5 /* Photo.swift */,
 				481998062AF56D3000931AB8 /* DashboardViewUser.swift */,
 				485E0C2C2B0E790E00DBF43A /* DoctorHomeView.swift */,
-				485E0C2E2B0E7BC300DBF43A /* DoctorDashboardView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -287,7 +288,8 @@
 			isa = PBXGroup;
 			children = (
 			);
-			path = Camera;
+			name = Camera;
+			path = ../../Camera;
 			sourceTree = "<group>";
 		};
 		16F2BC792AD740A800CE4BC5 /* UIViewRepresentable */ = {
@@ -394,7 +396,6 @@
 				487AC5D92AFD39E9001F1755 /* Badge */,
 				16C99C5E2AE713750083CC54 /* Chat */,
 				48626CBF2ADF366800CCE82B /* MedicalHistory */,
-				16F2BC6E2AD7363300CE4BC5 /* Camera */,
 				166481FB2A7FE5680093032A /* Home */,
 				166481E62A7F6F170093032A /* Login */,
 				481BDDCC2A6F6F44006D4D80 /* SignUp.swift */,
