@@ -122,7 +122,7 @@ extension NetworkManager {
     }
     
     
-    func fetchAllUserData(completion: @escaping (Result<(User, [User], [ImageData], [MedicalHistoryItem]), Error>) -> Void) {
+    func fetchAllUserData(completion: @escaping (Result<(User?, [User]?, [ImageData]?, [MedicalHistoryItem]?, [Error]), Error>) -> Void) {
         let dispatchGroup = DispatchGroup()
         
         var userData: User?
@@ -130,19 +130,20 @@ extension NetworkManager {
         var userImages: [ImageData]?
         var medicalHistory: [MedicalHistoryItem]?
         var userProfilePicture: String?
+        var errors: [Error] = []  // Declare the errors array
         var firstError: Error?
         
         // Fetch User Data
         dispatchGroup.enter()
-        getUserData { result in
-            switch result {
-            case .success(let user):
-                userData = user
-            case .failure(let error):
-                firstError = error
+            getUserData { result in
+                switch result {
+                case .success(let user):
+                    userData = user
+                case .failure(let error):
+                    errors.append(error)
+                }
+                dispatchGroup.leave()
             }
-            dispatchGroup.leave()
-        }
         
         // Fetch User Relations
         dispatchGroup.enter()
@@ -208,24 +209,29 @@ extension NetworkManager {
         
         // Final aggregation
         dispatchGroup.notify(queue: .main) {
-                if let user = userData, let relations = userRelations, let images = userImages, let history = medicalHistory {
-                    // Update the GlobalDataModel with the fetched data
-                    GlobalDataModel.shared.user = user
-                    GlobalDataModel.shared.userRelations = relations
-                    GlobalDataModel.shared.userImages = images
-                    GlobalDataModel.shared.medicalHistory = history
-                    if let profileUrl = userProfilePicture {
-                        GlobalDataModel.shared.userProfileImageUrl = profileUrl
-                    }
-                    completion(.success((user, relations, images, history)))
-                } else if let error = firstError {
-                    completion(.failure(error))
-                } else {
-                    // Handle unexpected error
-                    let unexpectedError = NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "An unexpected error occurred"])
-                    completion(.failure(unexpectedError))
-                }
+               
+            
+            GlobalDataModel.shared.user = userData
+            GlobalDataModel.shared.userRelations = userRelations ?? []
+            GlobalDataModel.shared.userImages = userImages ?? []
+            GlobalDataModel.shared.medicalHistory = medicalHistory ?? []
+            if let profileUrl = userProfilePicture {
+                GlobalDataModel.shared.userProfileImageUrl = profileUrl
             }
+
+            // Check if at least one data point is non-nil
+            if userData != nil || userRelations != nil || userImages != nil || medicalHistory != nil {
+                // Return all available data, and errors if any
+                completion(.success((userData, userRelations, userImages, medicalHistory, errors)))
+            } else if !errors.isEmpty {
+                // Handle the case where all requests failed but there are error messages to convey
+                completion(.failure(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to fetch all user data. Errors: \(errors)"])))
+            } else {
+                // Handle an unexpected scenario where no data was fetched and no errors were recorded
+                let unexpectedError = NSError(domain: "", code: -2, userInfo: [NSLocalizedDescriptionKey: "An unexpected error occurred"])
+                completion(.failure(unexpectedError))
+            }
+        }
         
         print("fetching all user data")
     }

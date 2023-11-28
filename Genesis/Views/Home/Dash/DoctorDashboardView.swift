@@ -17,6 +17,12 @@ struct DoctorDashboardView: View {
     @State var showMedRecordView = false
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    
+    
+    
+    
+    
     var body: some View {
         
         NavigationView{
@@ -163,11 +169,26 @@ struct DoctorDashboardView: View {
                 ToolbarItem(placement: .principal) {
                     HStack {
                         VStack {
-                            Text("Hola, Dr.")
-                                .font(.title2)
-                                .foregroundColor(.primary)
-                                .bold()
-                        }
+                            // Extract the first name from the user's name and display it
+                            if let fullName = globalDataModel.user?.name {
+                                let nameComponents = fullName.split(separator: " ").map(String.init)
+                                if let firstName = nameComponents.first {
+                                    Text("Hola, Dr. \(firstName)")
+                                        .font(.title2)
+                                        .foregroundColor(.primary)
+                                        .bold()
+                                } else {
+                                    Text("Hola, Dr. ")
+                                        .font(.title2)
+                                        .foregroundColor(.primary)
+                                        .bold()
+                                }
+                            } else {
+                                Text("Hola, Dr. ")
+                                    .font(.title2)
+                                    .foregroundColor(.primary)
+                                    .bold()
+                            }}
                         
                         Spacer()
                         
