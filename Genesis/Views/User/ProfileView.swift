@@ -23,22 +23,50 @@ struct ProfileView: View {
                     .ignoresSafeArea()
                 VStack {
                     
-                    VStack{
-                        Image(systemName: "person.crop.circle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150, height: 150)
-                            .foregroundColor(.blue) // Choose your color
-                            .padding(.top, 50)
+                    ZStack{
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .foregroundStyle(Color("blackish"))
                         
-                        Text(globalDataModel.user?.username ?? "guest") // Replace with your dynamic username
-                            .font(.title)
-                            .padding(.top, 20)
+                        HStack(alignment: .center){
+                            VStack{
+                                AsyncImage(url: URL(string: globalDataModel.userProfileImageUrl ?? "")) { image in
+                                    
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .clipShape(Circle())
+                                     
+                                } placeholder: {
+                                    ZStack {
+                                        Circle().foregroundColor(.purple)
+                                    }
+                                }
+                                .frame(width: 100, height: 100)
+                                
+                             
+                            }
+                            
+                            VStack(alignment: .leading, spacing: 5){
+                                
+                                Text(globalDataModel.user?.name ?? "N/A")
+                                    .font(.title2)
+                                    .bold()
+                                    .foregroundStyle(Color.white)
+                                    
+                                
+                                Text("Miembro desde: \(globalDataModel.user?.creationDate ?? "today")")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.white)
+                                
+                            }
+                        }
+                        .padding()
                         
-                        Text("Member since " + (globalDataModel.user?.creationDate ?? "today"))
-                            .font(.body)
-                            .padding(.top, 5)
                     }
+                    .frame(height: 150)
+                    .padding()
+                    
+                   
                     
                     
                     VStack(alignment: .leading){
@@ -188,19 +216,23 @@ struct ProfileView: View {
                                         VStack(alignment: .leading){
                                             Text("Ritmo Cardiaco")
                                                 .bold()
-                                                .font(.title3)
+                                                .font(.headline)
                                      
-                                            if let heartRateData = healthManager.userHealthData["heartRate"],
-                                                      let latestHeartRate = heartRateData.heartRateDataPoints?.last {
-                                                       Text("\(Int(latestHeartRate.value)) BPM")
-                                                           .font(.title3)
-                                                           .bold()
-                                                   }
+                                            
                                             
                                         }
                                         
                                         
                                     }
+                                    Spacer()
+                                    
+                                    if let heartRateData = healthManager.userHealthData["heartRate"],
+                                              let latestHeartRate = heartRateData.heartRateDataPoints?.last {
+                                               Text("\(Int(latestHeartRate.value)) LPM")
+                                                   .font(.title)
+                                                   .bold()
+                                           }
+                                    
                                     Spacer()
                                 }
                                 .padding()
@@ -274,12 +306,14 @@ struct ProfileView: View {
                             }
                         }
                     }) {
-                        Text("Logout")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(width: 200, height: 50)
-                            .background(Color.blue)
-                            .cornerRadius(25)
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 20.0)
+                                .foregroundStyle(Color("blackish"))
+                            Text("Cerrar sesión")
+                                .foregroundStyle(Color.white)
+                        }
+                        .frame(height: 60)
+                        .padding()
                     }
                     .padding(.bottom, 50)
                 }
