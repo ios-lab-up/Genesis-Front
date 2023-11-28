@@ -64,7 +64,7 @@ struct ChatView: View {
                        .padding(.horizontal)
                        .background(Color(.init(white: 0.95, alpha: 1)))
 
-                .background(Color("ListColor"))
+               
                        HStack {
                            Image(systemName: "photo.on.rectangle")
                                .font(.system(size: 20)) // Tamaño ajustado del ícono
@@ -96,7 +96,7 @@ struct ChatView: View {
 
 
 
-                .background(Color("ListColor"))
+                
                 .toolbar{
                     ToolbarItem(placement: .topBarLeading){
                         Button(action:{
