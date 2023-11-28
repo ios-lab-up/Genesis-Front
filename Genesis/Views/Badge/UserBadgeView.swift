@@ -9,7 +9,7 @@ import SwiftUI
 
 
 
-
+/*
 struct HealthKitViewCard: View {
     var userHealthData: UserHealthData // Removed the @State as it should be a simple passed-in value
 
@@ -86,7 +86,7 @@ struct HealthKitView: View {
     }
 }
 
-
+*/
 
 extension Double{
     func formattedString() -> String?{
@@ -106,9 +106,5 @@ extension Date {
     }
 }
 
-#Preview {
-    HealthKitView()
-        .environmentObject(HealthManager())
-    
-  
-}
+
+

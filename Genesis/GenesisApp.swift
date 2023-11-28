@@ -27,10 +27,11 @@ struct GenesisApp: App {
 
 
 struct AppContainerView: View {
+    var healthManager = HealthManager()
     @ObservedObject var appFlowVM: AppFlowViewModel
     let networkManager: NetworkManager
-    @EnvironmentObject var globalDataModel: GlobalDataModel // Access the global data model
-
+    @EnvironmentObject var globalDataModel: GlobalDataModel
+   
     var body: some View {
         Group {
             if appFlowVM.isAuthenticating {
@@ -40,11 +41,12 @@ struct AppContainerView: View {
                 if globalDataModel.user?.profileId == 1
                 {
                     HomeView()
-                        .environmentObject(globalDataModel) // Pass the global data model to HomeView
+                        .environmentObject(globalDataModel)
+                        .environmentObject(healthManager)
                 }
                 else{
                     DoctorHomeView()
-                        .environmentObject(globalDataModel) // Pass the global data model to HomeView
+                        .environmentObject(globalDataModel)  .environmentObject(healthManager)
                 }
             } else {
                 signIn()

@@ -24,11 +24,11 @@ struct HomeView: View {
                 }
                 .environmentObject(ViewModel())
             
-            HealthKitView()
+            /*HealthKitView()
                 .tabItem {
                     Label("My Badge", systemImage: "heart.text.square.fill")
                 }
-                .environmentObject(HealthManager())
+                .environmentObject(HealthManager())*/
              }
 
         }

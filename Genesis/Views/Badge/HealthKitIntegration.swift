@@ -48,7 +48,7 @@ class HealthManager: ObservableObject{
                 return
             }
             let stepValue = quantity.doubleValue(for: HKUnit.count())
-            let stepsFormattedString = stepValue.formattedString() ?? "N/A" // Provide "N/A" if nil
+            let stepsFormattedString = stepValue.formattedString() ?? "N/A" // Provide "aN/A" if nil
             
             let activity = UserHealthData(
                 id: 1,
@@ -101,11 +101,23 @@ class HealthManager: ObservableObject{
             }
         }
     }
+    
+    
+    func requestHealthKitAuthorization() {
+        let healthKitTypesToRead: Set<HKObjectType> = [/* ... tus tipos de datos ... */]
+
+        healthStore.requestAuthorization(toShare: [], read: healthKitTypesToRead) { success, error in
+            if !success {
+                // Manejar el caso de error o falta de autorización
+            }
+        }
+    }
+    
 
     // Utility function to convert HKBloodType to a string representation
     private func string(from bloodType: HKBloodType) -> String {
         switch bloodType {
-        case .notSet: return "Unknown"
+        case .notSet: return "N/A"
         case .aPositive: return "A+"
         case .aNegative: return "A-"
         case .bPositive: return "B+"
@@ -114,9 +126,43 @@ class HealthManager: ObservableObject{
         case .abNegative: return "AB-"
         case .oPositive: return "O+"
         case .oNegative: return "O-"
-        @unknown default: return "Unknown"
+        @unknown default: return "N/A"
         }
     }
+    
+    func fetchHeartRateData() {
+        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        
+        let query = HKSampleQuery(sampleType: heartRateType, predicate: nil, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { [weak self] _, results, error in
+            guard let self = self, let samples = results as? [HKQuantitySample], error == nil else {
+                print("Failed to fetch heart rate: \(String(describing: error))")
+                return
+            }
+            
+            let heartRateDataPoints = samples.map { sample -> HeartRateData in
+                let value = sample.quantity.doubleValue(for: HKUnit(from: "count/min"))
+                let date = sample.startDate
+                return HeartRateData(value: value, date: date)
+            }
+            
+            let heartRateUserHealthData = UserHealthData(
+                id: 8,
+                title: "Heart Rate",
+                subtitle: "Last 24 Hours",
+                image: "heart.fill",
+                amount: "See Details", // Placeholder since we have multiple data points
+                heartRateDataPoints: heartRateDataPoints
+            )
+            
+            DispatchQueue.main.async {
+                self.userHealthData["heartRate"] = heartRateUserHealthData
+            }
+        }
+        healthStore.execute(query)
+    }
+
+
 
     func fetchHeight() {
         let heightType = HKSampleType.quantityType(forIdentifier: .height)!
@@ -137,7 +183,7 @@ class HealthManager: ObservableObject{
             }
 
             let height = heightSample.quantity.doubleValue(for: HKUnit.meter())
-            let heightString = String(format: "%.2f meters", height) // Format height string to two decimal places
+            let heightString = String(height*100) // Format height string to two decimal places
 
             // Create the UserHealthData instance for height
             let heightData = UserHealthData(
@@ -176,7 +222,7 @@ class HealthManager: ObservableObject{
             // Assuming you only want the latest weight entry
             if let weightSample = results?.first as? HKQuantitySample {
                 let weight = weightSample.quantity.doubleValue(for: HKUnit.gramUnit(with: .kilo))
-                let weightString = "\(Int(weight)) kg" // Converts the weight to a string with "kg" unit
+                let weightString = "\(Int(weight))" // Converts the weight to a string with "kg" unit
 
                 // Create the UserHealthData instance for weight
                 let weightData = UserHealthData(
@@ -224,31 +270,54 @@ class HealthManager: ObservableObject{
     func fetchAge() {
         do {
             let birthdayComponents = try healthStore.dateOfBirthComponents()
+            let calendar = Calendar.current
             let today = Date()
-            let thisYearBirthday = Calendar.current.date(from: DateComponents(year: today.getYear(), month: birthdayComponents.month, day: birthdayComponents.day))
-            var age = today.getYear() - birthdayComponents.year! // Force-unwrapping is safe here if year is guaranteed
-            
+            let thisYearBirthday = calendar.date(from: DateComponents(year: today.getYear(), month: birthdayComponents.month, day: birthdayComponents.day))
+            var age = today.getYear() - (birthdayComponents.year ?? today.getYear()) // Use nil-coalescing as a fallback
+
             // Check if this year's birthday has occurred yet; if not, subtract one year from age
             if let thisYearBirthday = thisYearBirthday, thisYearBirthday > today {
                 age -= 1
             }
             
-            let ageString = "\(age) years old"
+            // Add the age data
             let ageData = UserHealthData(
                 id: 6, // Unique identifier for age data
                 title: "Age",
-                subtitle: "", // Subtitle if needed
+                subtitle: "", // No subtitle for age
                 image: "calendar", // An example system image for age
-                amount: ageString
+                amount: "\(age)"
             )
             
             DispatchQueue.main.async {
                 self.userHealthData["age"] = ageData
             }
+            
+            // Format and add the birthday date
+            if let birthDate = calendar.date(from: birthdayComponents) {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM/yyyy"
+                let birthdayString = dateFormatter.string(from: birthDate)
+                
+                let birthdayData = UserHealthData(
+                    id: 7, // Unique identifier for birthday data
+                    title: "Birthday",
+                    subtitle: "", // No subtitle for birthday
+                    image: "gift", // An example system image for birthday
+                    amount: birthdayString
+                )
+                
+                DispatchQueue.main.async {
+                    self.userHealthData["birthday"] = birthdayData
+                }
+            }
         } catch {
-            print("Failed to fetch age: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                print("Failed to fetch age or birthday: \(error.localizedDescription)")
+            }
         }
     }
+
 
 
     
@@ -272,4 +341,35 @@ struct UserHealthData{
     let subtitle: String
     let image: String
     let amount: String
+    var heartRateDataPoints: [HeartRateData]?
 }
+
+struct HeartRateData {
+    var value: Double
+    var date: Date
+}
+
+struct HeartRateGraph: Shape {
+    var dataPoints: [HeartRateData]
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        // Assuming dataPoints are sorted by date and we have at least one data point
+        guard let firstDataPoint = dataPoints.first else { return path }
+        
+        let start = CGPoint(x: 0, y: rect.height - CGFloat(firstDataPoint.value))
+        path.move(to: start)
+        
+        let totalTime = dataPoints.last?.date.timeIntervalSince(dataPoints.first?.date ?? Date()) ?? 1
+
+        for dataPoint in dataPoints {
+            let timeOffset = dataPoint.date.timeIntervalSince(dataPoints.first?.date ?? Date())
+            let xPos = (timeOffset / totalTime) * rect.width
+            // Calculate yPos as before...
+        }
+        
+        return path
+    }
+}
+
