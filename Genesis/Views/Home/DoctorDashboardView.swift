@@ -142,20 +142,17 @@ struct DoctorDashboardView: View {
                     }
                     Spacer()
                     
-                    Button(action: {
-                                // Your action here
-                            }) {
-                                Text("Agregar Paciente")
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.black)
-                                    .padding()
-                                    .frame(width: 200)
-                                    .background(Color("purplit"))
-                                    .cornerRadius(20)
-                                    .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 5, y: 5)
-                                    .shadow(color: Color.gray.opacity(0.5), radius: 10, x: -5, y: -5)
-                            }
+                    NavigationLink(destination: AgregarPacienteView()){
+                        Text("Agregar Paciente")
+                            .fontWeight(.semibold)
+                            .foregroundColor(.black)
                             .padding()
+                            .frame(width: 200)
+                            .background(Color("purplit"))
+                            .cornerRadius(20)
+                            .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 5, y: 5)
+                            .shadow(color: Color.gray.opacity(0.5), radius: 10, x: -5, y: -5)
+                    }
                     Spacer()
                     Spacer()
                 }

@@ -95,6 +95,7 @@
 		48E76A6C2B1147EC00D4FF73 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 48E76A6B2B1147EC00D4FF73 /* FirebaseStorage */; };
 		48E76A6E2B1147EC00D4FF73 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 48E76A6D2B1147EC00D4FF73 /* FirebaseStorageCombine-Community */; };
 		48E76A702B114B4700D4FF73 /* MainMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48E76A6F2B114B4700D4FF73 /* MainMessageView.swift */; };
+		5CA2D5722B15B4C900563893 /* AgregarPacienteDetalles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA2D5712B15B4C900563893 /* AgregarPacienteDetalles.swift */; };
 		5CFC009D2B14598C009F909E /* PrescriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFC009C2B14598C009F909E /* PrescriptionDetailsView.swift */; };
 		5CFC009F2B145EA5009F909E /* PresDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFC009E2B145EA5009F909E /* PresDetailsView.swift */; };
 		AF4ABB9D2B140A9B0078458F /* AgregarPaciente.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4ABB9C2B140A9B0078458F /* AgregarPaciente.swift */; };
@@ -162,6 +163,7 @@
 		48A8764C2A7CBB51008F0B62 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		48B2497E2B11442100DBD62A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		48E76A6F2B114B4700D4FF73 /* MainMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMessageView.swift; sourceTree = "<group>"; };
+		5CA2D5712B15B4C900563893 /* AgregarPacienteDetalles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgregarPacienteDetalles.swift; sourceTree = "<group>"; };
 		5CFC009C2B14598C009F909E /* PrescriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionDetailsView.swift; sourceTree = "<group>"; };
 		5CFC009E2B145EA5009F909E /* PresDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresDetailsView.swift; sourceTree = "<group>"; };
 		AF4ABB9C2B140A9B0078458F /* AgregarPaciente.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgregarPaciente.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 				48476D602B12AB79004B4DB7 /* NewPatientDetailsView.swift */,
 				5CFC009C2B14598C009F909E /* PrescriptionDetailsView.swift */,
 				5CFC009E2B145EA5009F909E /* PresDetailsView.swift */,
+				5CA2D5712B15B4C900563893 /* AgregarPacienteDetalles.swift */,
 			);
 			path = Doctors;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 				48A876492A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel in Sources */,
 				166481FF2A7FEF080093032A /* DashboardView.swift in Sources */,
 				486D1FAA2AFDA9390050F429 /* HealthKitIntegration.swift in Sources */,
+				5CA2D5722B15B4C900563893 /* AgregarPacienteDetalles.swift in Sources */,
 				481BDDCD2A6F6F44006D4D80 /* SignUp.swift in Sources */,
 				166481F32A7F91CB0093032A /* OneTimeCodeInput.swift in Sources */,
 				480A30182A7C79A80087FABD /* ImageClassificationView.swift in Sources */,
