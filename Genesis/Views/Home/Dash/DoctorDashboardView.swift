@@ -17,12 +17,6 @@ struct DoctorDashboardView: View {
     @State var showMedRecordView = false
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    
-    
-    
-    
-    
     var body: some View {
         
         NavigationView{
@@ -65,20 +59,15 @@ struct DoctorDashboardView: View {
                     Text(" ")
                         .font(.footnote)
                     
+                    
                     HStack {
                         Text("Pacientes recientes ")
                             .bold()
                             .padding(.leading, 20)
     
                         Spacer()
-                        //cambiar a la vista de MauP
-                        NavigationLink(destination: AddPatientsView()) {
-                            Text("View all")
-                            
-                        }
-                        .padding(.trailing, 20)
+                        
                     }
-                    
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         // Horizontal stack for aligning items horizontally
@@ -88,56 +77,58 @@ struct DoctorDashboardView: View {
                                 Button(action: {
                                     showFullScreenImage = data
                                 }) {
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 25.0)
-                                            .fill(LinearGradient(
-                                                gradient: Gradient(stops: [
-                                                    .init(color: Color("blackish"), location: 0.75),
-                                                    .init(color: Color("yellowsito"), location: 0.25)
-                                                ]),
-                                                startPoint: .top,
-                                                endPoint: .bottom))
-                                        
-                                            .frame(width: 150, height: 150)
-                                        VStack {
-                                            HStack {
-                                                Image("imagenPaciente")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fill)
-                                                    .frame(width: 45, height: 45)
-                                                    .clipShape(Circle())
-                                                    .overlay(Circle().stroke(Color.white, lineWidth: 1))
-                                                    .shadow(radius: 10)
-                                                    .padding(.leading,10)
-                                                Spacer()
+                                    NavigationLink(destination: NewPatientDetailsView()){
+                                        ZStack {
+                                            RoundedRectangle(cornerRadius: 25.0)
+                                                .fill(LinearGradient(
+                                                    gradient: Gradient(stops: [
+                                                        .init(color: Color("blackish"), location: 0.75),
+                                                        .init(color: Color("yellowsito"), location: 0.25)
+                                                    ]),
+                                                    startPoint: .top,
+                                                    endPoint: .bottom))
+                                            
+                                                .frame(width: 150, height: 150)
+                                            VStack {
+                                                HStack {
+                                                    Image("imagenPaciente")
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                        .frame(width: 45, height: 45)
+                                                        .clipShape(Circle())
+                                                        .overlay(Circle().stroke(Color.white, lineWidth: 1))
+                                                        .shadow(radius: 10)
+                                                        .padding(.leading,10)
+                                                    Spacer()
+                                                }
+                                                
+                                                HStack {
+                                                    Text("Sara Miranda")
+                                                        .foregroundColor(.white)
+                                                        .bold()
+                                                        .padding(.leading,10)
+                                                    Spacer()
+                                                }
+                                                HStack{
+                                                    Text("Diagnosis")
+                                                        .font(.caption)
+                                                        .foregroundColor(.white)
+                                                        .padding(.leading,10)
+                                                    Spacer()
+                                                }
+                                                Text(" ")
+                                                HStack {
+                                                    Image(systemName: "clock.fill")
+                                                        .symbolRenderingMode(.hierarchical)
+                                                        .font(.system(size: 18, weight: .light))
+                                                        .foregroundColor(Color.black.opacity(0.7))
+                                                    Text("\(data):00 PM")
+                                                        .font(.body)
+                                                        .foregroundColor(.black)
+                                                }
                                             }
                                             
-                                            HStack {
-                                                Text("Sara Miranda")
-                                                    .foregroundColor(.white)
-                                                    .bold()
-                                                    .padding(.leading,10)
-                                                Spacer()
-                                            }
-                                            HStack{
-                                                Text("Diagnosis")
-                                                    .font(.caption)
-                                                    .foregroundColor(.white)
-                                                    .padding(.leading,10)
-                                                Spacer()
-                                            }
-                                            Text(" ")
-                                            HStack {
-                                                Image(systemName: "clock.fill")
-                                                    .symbolRenderingMode(.hierarchical)
-                                                    .font(.system(size: 18, weight: .light))
-                                                    .foregroundColor(Color.black.opacity(0.7))
-                                                Text("\(data):00 PM")
-                                                    .font(.body)
-                                                    .foregroundColor(.black)
-                                            }
                                         }
-                                        
                                     }
                                     
                                 }
@@ -146,20 +137,15 @@ struct DoctorDashboardView: View {
                     }
                     Spacer()
                     
-                    Button(action: {
-                                // Your action here
-                            }) {
-                                Text("Agregar Paciente")
-                                    .fontWeight(.semibold)
-                                    .foregroundColor(.black)
-                                    .padding()
-                                    .frame(width: 200)
-                                    .background(Color("purplit"))
-                                    .cornerRadius(20)
-                                    .shadow(color: Color.gray.opacity(0.5), radius: 10, x: 5, y: 5)
-                                    .shadow(color: Color.gray.opacity(0.5), radius: 10, x: -5, y: -5)
-                            }
+                    NavigationLink(destination: AgregarPacienteView()){
+                        Text("Agregar Paciente")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundStyle(Color(.white))
                             .padding()
+                            .padding(.horizontal, 25)
+                            .background(Color("blackish"))
+                            .clipShape(RoundedRectangle(cornerRadius: 22))
+                    }
                     Spacer()
                     Spacer()
                 }
@@ -169,26 +155,11 @@ struct DoctorDashboardView: View {
                 ToolbarItem(placement: .principal) {
                     HStack {
                         VStack {
-                            // Extract the first name from the user's name and display it
-                            if let fullName = globalDataModel.user?.name {
-                                let nameComponents = fullName.split(separator: " ").map(String.init)
-                                if let firstName = nameComponents.first {
-                                    Text("Hola, Dr. \(firstName)")
-                                        .font(.title2)
-                                        .foregroundColor(.primary)
-                                        .bold()
-                                } else {
-                                    Text("Hola, Dr. ")
-                                        .font(.title2)
-                                        .foregroundColor(.primary)
-                                        .bold()
-                                }
-                            } else {
-                                Text("Hola, Dr. ")
-                                    .font(.title2)
-                                    .foregroundColor(.primary)
-                                    .bold()
-                            }}
+                            Text("Hola, Dr.")
+                                .font(.title2)
+                                .foregroundColor(.primary)
+                                .bold()
+                        }
                         
                         Spacer()
                         
@@ -218,6 +189,7 @@ struct DoctorDashboardView: View {
                 }
             }
         }
+        .navigationBarHidden(true)
     }
 }
 
