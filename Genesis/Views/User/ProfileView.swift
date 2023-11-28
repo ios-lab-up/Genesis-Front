@@ -36,8 +36,17 @@ struct ProfileView: View {
                 Spacer()
                 
                 Button(action: {
-                    NetworkManager.shared.signOut{ result in
-                        print(result)                }
+                    NetworkManager.shared.signOut { result in
+                        switch result {
+                        case .success(_):
+                            print("Logged out successfully")
+                            // Assuming you want to navigate to the sign-in view upon successful logout:
+                            self.navigateToSignIn = true
+                        case .failure(let error):
+                            print("Logout failed: \(error)")
+                            // Handle the error accordingly
+                        }
+                    }
                 }) {
                     Text("Logout")
                         .font(.headline)
