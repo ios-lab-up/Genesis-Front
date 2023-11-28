@@ -68,6 +68,10 @@ struct DoctorDashboardView: View {
                             .padding(.leading, 20)
     
                         Spacer()
+                        //NavigationLink(destination: AddPatientsView()){
+                          //  Text("Ver Todos")
+                        //}
+
                         
                     }
                     

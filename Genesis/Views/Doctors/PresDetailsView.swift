@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PresDetailsView: View {
+    @ObservedObject var globalDataModel = GlobalDataModel.shared
     @State var name = ""
     @State var dias = 1
     @State var horas = 1
@@ -93,15 +94,17 @@ struct PresDetailsView: View {
         .padding()
         
         
-        NavigationLink(destination: DoctorDashboardView()){
-            Text("Agendar cita")
+        Button(action: {
+            //showDoctorDash.toggle()
+            globalDataModel.tabSelectionDr = "1"
+        }){
+            Text("Enviar")
                 .font(.system(size: 24, weight: .bold))
                 .foregroundStyle(Color(.white))
                 .padding()
                 .padding(.horizontal, 25)
                 .background(Color("blackish"))
                 .clipShape(RoundedRectangle(cornerRadius: 22))
-            
         }
         .padding()
         .navigationTitle("Receta")

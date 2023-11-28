@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AgregarPacienteDetalles: View {
+    @ObservedObject var globalDataModel = GlobalDataModel.shared
     var body: some View {
         VStack{
             Image("imagenPaciente")
@@ -52,7 +53,10 @@ struct AgregarPacienteDetalles: View {
             .clipShape(RoundedRectangle(cornerRadius: 22))
             Spacer()
             
-            NavigationLink(destination: DoctorDashboardView()){
+            Button(action: {
+                //showDoctorDash.toggle()
+                globalDataModel.tabSelectionDr = "1"
+            }){
                 Text("Agregar")
                     .font(.system(size: 24, weight: .bold))
                     .foregroundStyle(Color(.white))

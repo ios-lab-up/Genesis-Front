@@ -2,7 +2,7 @@ import SwiftUI
 
 struct resultsView: View {
     
-    
+    @ObservedObject var globalDataModel = GlobalDataModel.shared
     @Environment(\.presentationMode) var close
 
     var body: some View {
@@ -14,12 +14,12 @@ struct resultsView: View {
 
                     HStack{
                         VStack(alignment: .leading){
-                            Text("Your results")
+                            Text("Tus Resultados")
 
                             Text("resultText")
                                 .font(.title)
                                 .padding(.bottom, 1)
-                            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+                            Text("Clasificaciones dermatológicas basadas en análisis probabilístico mediante modelo de aprendizaje automático.")
                                 .font(.footnote)
                         }
                         .frame(width: 150)
@@ -51,7 +51,7 @@ struct resultsView: View {
                             
                             HStack{
                                 
-                                Text("Your \npredicton\npercentage")
+                                Text("Tu \npredicción\nporcentaje")
                                     .bold()
                                 Spacer()
                                 ZStack{
@@ -80,7 +80,7 @@ struct resultsView: View {
                     
                     
                     VStack(alignment: .leading){
-                        Text("resultText") // Texto del resultado
+                        Text(globalDataModel.userImages.) // Texto del resultado
                             .font(.title3)
                             .bold()
 
@@ -133,3 +133,6 @@ struct resultsView: View {
 
 
 
+func findHighestPrecisionDiagnosis(in diagnostics: [Diagnostic]) -> Diagnostic? {
+    return diagnostics.max(by: { $0.precision < $1.precision })
+}

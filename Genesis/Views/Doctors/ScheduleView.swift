@@ -17,6 +17,7 @@ import SwiftUI
 struct ScheduleView: View {
     @State private var scheduleDate = Date.now
     @State var showDoctorDash = false
+    @ObservedObject var globalDataModel = GlobalDataModel.shared
     var body: some View {
         VStack{
             DatePicker("Enter your birthday", selection: $scheduleDate)
@@ -35,7 +36,8 @@ struct ScheduleView: View {
                 .font(.system(size: 18))
             Spacer()
             Button(action: {
-                showDoctorDash.toggle()
+                //showDoctorDash.toggle()
+                globalDataModel.tabSelectionDr = "1"
             }){
                 Text("Agendar cita")
                     .font(.system(size: 24, weight: .bold))
