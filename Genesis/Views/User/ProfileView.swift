@@ -189,17 +189,17 @@ struct ProfileView: View {
                                             Text("Ritmo Cardiaco")
                                                 .bold()
                                                 .font(.title3)
+                                     
+                                            if let heartRateData = healthManager.userHealthData["heartRate"],
+                                                      let latestHeartRate = heartRateData.heartRateDataPoints?.last {
+                                                       Text("\(Int(latestHeartRate.value)) BPM")
+                                                           .font(.title3)
+                                                           .bold()
+                                                   }
                                             
                                         }
                                         
                                         
-                                    }
-                                    
-                                    if let heartRateData = healthManager.userHealthData["heartRate"] {
-                     
-                                        HeartRateGraph(dataPoints: heartRateData.heartRateDataPoints ?? [])
-                                            .stroke(Color.red, lineWidth: 2)
-                                            .padding()
                                     }
                                     Spacer()
                                 }
@@ -303,16 +303,12 @@ struct ProfileView: View {
             }
         }
         .onAppear {
-            healthManager.requestHealthKitAuthorization()
-                        healthManager.fetchTodaySteps()
+            healthManager.fetchHeartRateData()
                         healthManager.fetchBloodType()
                         healthManager.fetchHeight()
                         healthManager.fetchWeight()
                         healthManager.fetchGender()
                         healthManager.fetchAge()
-            
-            
-            
                     }
         
         .frame(maxWidth: .infinity, maxHeight: .infinity)

@@ -19,6 +19,7 @@ class HealthManager: ObservableObject{
         let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)!
         let heightType = HKObjectType.quantityType(forIdentifier: .height)!
         let weightType = HKObjectType.quantityType(forIdentifier: .bodyMass)!
+        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
         let bloodType = HKObjectType.characteristicType(forIdentifier: .bloodType)!
         let genderType = HKObjectType.characteristicType(forIdentifier: .biologicalSex)!
         let dateOfBirthType = HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
@@ -37,6 +38,40 @@ class HealthManager: ObservableObject{
             }
         }
     }
+    
+    func fetchHeartRateData() {
+            let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
+            let now = Date()
+            let startOfDay = Calendar.current.startOfDay(for: now)
+            let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+            let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: true)
+            
+            let query = HKSampleQuery(sampleType: heartRateType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { [weak self] _, results, error in
+                guard let self = self, let samples = results as? [HKQuantitySample], error == nil else {
+                    print("Failed to fetch heart rate: \(error?.localizedDescription ?? "unknown error")")
+                    return
+                }
+                
+                let heartRateDataPoints = samples.map { sample -> HeartRateData in
+                    let value = sample.quantity.doubleValue(for: HKUnit(from: "count/min"))
+                    let date = sample.startDate
+                    return HeartRateData(value: value, date: date)
+                }
+                
+                // Update the userHealthData dictionary on the main thread
+                DispatchQueue.main.async {
+                    self.userHealthData["heartRate"] = UserHealthData(
+                        id: 8,
+                        title: "Heart Rate",
+                        subtitle: "Today",
+                        image: "heart.fill",
+                        amount: "See Graph",
+                        heartRateDataPoints: heartRateDataPoints
+                    )
+                }
+            }
+            healthStore.execute(query)
+        }
     
     
     func fetchTodaySteps() {
@@ -103,16 +138,6 @@ class HealthManager: ObservableObject{
     }
     
     
-    func requestHealthKitAuthorization() {
-        let healthKitTypesToRead: Set<HKObjectType> = [/* ... tus tipos de datos ... */]
-
-        healthStore.requestAuthorization(toShare: [], read: healthKitTypesToRead) { success, error in
-            if !success {
-                // Manejar el caso de error o falta de autorización
-            }
-        }
-    }
-    
 
     // Utility function to convert HKBloodType to a string representation
     private func string(from bloodType: HKBloodType) -> String {
@@ -130,39 +155,7 @@ class HealthManager: ObservableObject{
         }
     }
     
-    func fetchHeartRateData() {
-        let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
-        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
-        
-        let query = HKSampleQuery(sampleType: heartRateType, predicate: nil, limit: HKObjectQueryNoLimit, sortDescriptors: [sortDescriptor]) { [weak self] _, results, error in
-            guard let self = self, let samples = results as? [HKQuantitySample], error == nil else {
-                print("Failed to fetch heart rate: \(String(describing: error))")
-                return
-            }
-            
-            let heartRateDataPoints = samples.map { sample -> HeartRateData in
-                let value = sample.quantity.doubleValue(for: HKUnit(from: "count/min"))
-                let date = sample.startDate
-                return HeartRateData(value: value, date: date)
-            }
-            
-            let heartRateUserHealthData = UserHealthData(
-                id: 8,
-                title: "Heart Rate",
-                subtitle: "Last 24 Hours",
-                image: "heart.fill",
-                amount: "See Details", // Placeholder since we have multiple data points
-                heartRateDataPoints: heartRateDataPoints
-            )
-            
-            DispatchQueue.main.async {
-                self.userHealthData["heartRate"] = heartRateUserHealthData
-            }
-        }
-        healthStore.execute(query)
-    }
-
-
+    
 
     func fetchHeight() {
         let heightType = HKSampleType.quantityType(forIdentifier: .height)!
@@ -348,28 +341,3 @@ struct HeartRateData {
     var value: Double
     var date: Date
 }
-
-struct HeartRateGraph: Shape {
-    var dataPoints: [HeartRateData]
-    
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        
-        // Assuming dataPoints are sorted by date and we have at least one data point
-        guard let firstDataPoint = dataPoints.first else { return path }
-        
-        let start = CGPoint(x: 0, y: rect.height - CGFloat(firstDataPoint.value))
-        path.move(to: start)
-        
-        let totalTime = dataPoints.last?.date.timeIntervalSince(dataPoints.first?.date ?? Date()) ?? 1
-
-        for dataPoint in dataPoints {
-            let timeOffset = dataPoint.date.timeIntervalSince(dataPoints.first?.date ?? Date())
-            let xPos = (timeOffset / totalTime) * rect.width
-            // Calculate yPos as before...
-        }
-        
-        return path
-    }
-}
-
