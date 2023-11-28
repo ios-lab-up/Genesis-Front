@@ -23,38 +23,49 @@ class HealthManager: ObservableObject{
         let genderType = HKObjectType.characteristicType(forIdentifier: .biologicalSex)!
         let dateOfBirthType = HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
         let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
-
-        let healthKitTypesToRead: Set<HKObjectType> = [
-            stepCountType,
-            heightType,
-            weightType,
-            bloodType,
-            genderType,
-            dateOfBirthType,
-            heartRateType // Include heart rate type
-        ]
-
-        // Request authorization
+        
         requestHealthKitAuthorization()
+
+  
+      
     }
 
     func requestHealthKitAuthorization() {
-        // Asynchronously request authorization for the data types
-        Task {
-            do {
-                let success = try await healthStore.requestAuthorization(toShare: [], read: healthKitTypesToRead)
-                if success {
-                    DispatchQueue.main.async {
-                        // Do any further setup or data fetching here
-                    }
-                } else {
-                    print("Authorization was not successful")
-                }
-            } catch {
-                print("Authorization request failed with error: \(error)")
-            }
-        }
-    }
+           // Define the data types you want to read from HealthKit.
+           let stepCountType = HKObjectType.quantityType(forIdentifier: .stepCount)!
+           let heightType = HKObjectType.quantityType(forIdentifier: .height)!
+           let weightType = HKObjectType.quantityType(forIdentifier: .bodyMass)!
+           let bloodType = HKObjectType.characteristicType(forIdentifier: .bloodType)!
+           let genderType = HKObjectType.characteristicType(forIdentifier: .biologicalSex)!
+           let dateOfBirthType = HKObjectType.characteristicType(forIdentifier: .dateOfBirth)!
+           let heartRateType = HKObjectType.quantityType(forIdentifier: .heartRate)!
+           
+           let healthKitTypesToRead: Set<HKObjectType> = [
+               stepCountType,
+               heightType,
+               weightType,
+               bloodType,
+               genderType,
+               dateOfBirthType,
+               heartRateType // Include heart rate type
+           ]
+
+           // Asynchronously request authorization for the data types.
+           Task {
+               do {
+                   let success = try await healthStore.requestAuthorization(toShare: [], read: healthKitTypesToRead)
+                  
+                       DispatchQueue.main.async {
+                           // Do any further setup or data fetching here.
+                           // For example, fetch heart rate data after authorization.
+                           self.fetchHeartRateData()
+                       }
+                  
+               } catch {
+                   print("Authorization request failed with error: \(error)")
+               }
+           }
+       }
     
     func fetchHeartRateData() {
             let heartRateType = HKQuantityType.quantityType(forIdentifier: .heartRate)!
