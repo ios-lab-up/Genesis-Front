@@ -47,6 +47,7 @@ struct DashboardView: View {
     @ObservedObject var globalDataModel = GlobalDataModel.shared
     @State var showProfileView = false
     @State var showMedRecordView = false
+    @State var showModelResultView = false
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
@@ -106,27 +107,30 @@ struct DashboardView: View {
                                     .foregroundColor(Color("purplit"))
                                   
                                     
-                                VStack{
-                                  
-                                    Text(globalDataModel.userImages.last?.mlDiagnostic.first?.sickness ?? "N/A")
-                                        .foregroundColor(Color.white)
-                                        .padding(.vertical, 8)
-                                        .padding(.horizontal, 16)
-                                        .background(Color.black)
-                                        .cornerRadius(20)
-                                        .padding()
-                                    Text("Conoce tu Diagnóstico")
-                                        .font(.title2)
-                                        .bold()
-                                        .padding(.leading, 15)
-                                    
-                                    Text("Conoce tu diagnóstico  a detalle")
-                                        .font(.caption)
-                                        .padding(.leading, 20)
-                                        .foregroundColor(Color("grayish"))
+                                Button(action: {showModelResultView.toggle()}){
+                                    VStack{
+                                      
+                                        Text(globalDataModel.userImages.last?.mlDiagnostic.first?.sickness ?? "N/A")
+                                            .foregroundColor(Color.white)
+                                            .padding(.vertical, 8)
+                                            .padding(.horizontal, 16)
+                                            .background(Color.black)
+                                            .cornerRadius(20)
+                                            .padding()
+                                        Text("Conoce tu Diagnóstico")
+                                            .font(.title2)
+                                            .bold()
+                                            .padding(.leading, 15)
                                         
-                                    Spacer()
+                                        Text("Conoce tu diagnóstico  a detalle")
+                                            .font(.caption)
+                                            .padding(.leading, 20)
+                                            .foregroundColor(Color("grayish"))
+                                            
+                                        Spacer()
+                                    }
                                 }
+                                .buttonStyle(.plain)
                             }
                             VStack(spacing: 10){
                                 Button(action: {showMedRecordView.toggle()}){
@@ -250,6 +254,11 @@ struct DashboardView: View {
                 .fullScreenCover(isPresented: $showMedRecordView){
                     
                     PatientMedicalRecordView()
+                  
+                }
+                .fullScreenCover(isPresented: $showModelResultView){
+                    
+                    resultsView()
                   
                 }
                 

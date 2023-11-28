@@ -64,39 +64,39 @@ struct ChatView: View {
                        .padding(.horizontal)
                        .background(Color(.init(white: 0.95, alpha: 1)))
 
-                .background(Color("ListColor"))
-                       HStack(spacing: 16) {
+               
+                       HStack {
                            Image(systemName: "photo.on.rectangle")
-                               .font(.system(size: 24))
+                               .font(.system(size: 20)) // Tamaño ajustado del ícono
                                .foregroundColor(.gray)
-                           
-                           ZStack {
-                               DescriptionPlaceholder()
-                               TextEditor(text: $chatText)
-                                   
-                                   .background(Color("ListColor"))
-                               
-                           }
-                           .frame(height: 40)
-                           .cornerRadius(20) // Añadir corner radius aquí si deseas bordes redondeados en el TextEditor
-                           
-                           Button {
-                               // Aquí va tu código para manejar el envío del mensaje
-                           } label: {
-                               Image(systemName: "paperplane.fill")
-                                   .foregroundColor(.black)
-                                   .padding(8) // Añadir padding alrededor del icono para que no esté pegado al borde
-                           }
-                           .background(Color("yellowsito")) // Usar el color de fondo primario para el botón
-                           .cornerRadius(100) // Esto hará que el botón sea un círculo perfecto
-                           .padding(.trailing, 10) // Añadir padding a la derecha del botón para separarlo del borde
-                       }
-                       .clipShape(Capsule()) // Esto dará a todo el HStack una forma de cápsula
-                       .border(Color("blackish"), width: 1) // Añadir un borde verde
-                       .cornerRadius(25) // Asegurarte de que el corner radius aquí sea suficientemente grande para afectar la forma de cápsula
-                       .padding(.horizontal, 5)
+                               .padding(.leading, 10) // Padding interno del icono
 
-                .background(Color("ListColor"))
+                           TextEditor(text: $chatText)
+                               .frame(minHeight: 30, maxHeight: 30) // Limita la altura del TextEditor
+                               .padding(4) // Padding interno para el texto
+                               
+                               
+
+                           Button(action: {
+                               // Acciones para enviar el mensaje
+                           }) {
+                               Image(systemName: "paperplane.fill")
+                                   .foregroundColor(.white)
+                                   .padding(8) // Padding interno del botón de enviar
+                                   .background(Color.blue)
+                                   .clipShape(Circle())
+                           }
+                           .padding(.trailing, 10) // Padding externo del botón de enviar
+                       }
+                       .padding(.horizontal, 10) // Padding externo del HStack
+                       .padding(.vertical, 8) // Padding vertical para el HStack
+                       .background(Color.white)
+                       .cornerRadius(20) // Radio de las esquinas del fondo
+                       .shadow(radius: 1) // Sombra opcional para profundidad
+
+
+
+                
                 .toolbar{
                     ToolbarItem(placement: .topBarLeading){
                         Button(action:{
