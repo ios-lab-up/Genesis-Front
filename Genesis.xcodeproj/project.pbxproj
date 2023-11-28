@@ -14,6 +14,7 @@
 		160F017E2B117FD000BFCA3F /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 160F017D2B117FD000BFCA3F /* Lottie */; };
 		160F01802B11801600BFCA3F /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160F017F2B11801600BFCA3F /* LottieView.swift */; };
 		160F01832B11806900BFCA3F /* photo.lottie in Resources */ = {isa = PBXBuildFile; fileRef = 160F01822B11806900BFCA3F /* photo.lottie */; };
+		166184D32B15E36900B0EEE1 /* Dermaware.mlpackage in Sources */ = {isa = PBXBuildFile; fileRef = 166184D22B15E36900B0EEE1 /* Dermaware.mlpackage */; };
 		1663A6D22AE1B00F00D98838 /* AppFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */; };
 		1663A6D42AE1B02A00D98838 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */; };
 		166481E82A7F6F330093032A /* signIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166481E72A7F6F330093032A /* signIn.swift */; };
@@ -110,6 +111,7 @@
 		160F017A2B11707900BFCA3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		160F017F2B11801600BFCA3F /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		160F01822B11806900BFCA3F /* photo.lottie */ = {isa = PBXFileReference; lastKnownFileType = file; path = photo.lottie; sourceTree = "<group>"; };
+		166184D22B15E36900B0EEE1 /* Dermaware.mlpackage */ = {isa = PBXFileReference; lastKnownFileType = folder.mlpackage; path = Dermaware.mlpackage; sourceTree = "<group>"; };
 		1663A6D12AE1B00F00D98838 /* AppFlowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowViewModel.swift; sourceTree = "<group>"; };
 		1663A6D32AE1B02A00D98838 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		166481E72A7F6F330093032A /* signIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signIn.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				481BDDC62A6F6EA5006D4D80 /* Models */,
 				481BDDC52A6F6E6D006D4D80 /* Assets */,
 				48A876482A7CB37D008F0B62 /* GoogLeNetPlaces.mlmodel */,
+				166184D22B15E36900B0EEE1 /* Dermaware.mlpackage */,
 				16F2BC832AD88C1700CE4BC5 /* NanoChallenge_2.mlpackage */,
 				160F017A2B11707900BFCA3F /* Assets.xcassets */,
 				481BDDB52A6E02D3006D4D80 /* GenesisApp.swift */,
@@ -585,6 +588,7 @@
 			files = (
 				166481EA2A7F72310093032A /* customTextfield.swift in Sources */,
 				166481E82A7F6F330093032A /* signIn.swift in Sources */,
+				166184D32B15E36900B0EEE1 /* Dermaware.mlpackage in Sources */,
 				166481FD2A7FEE2D0093032A /* HomeView.swift in Sources */,
 				16F2BC782AD738EE00CE4BC5 /* Photo.swift in Sources */,
 				1663A6D42AE1B02A00D98838 /* SplashScreenView.swift in Sources */,
@@ -789,6 +793,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -828,6 +833,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

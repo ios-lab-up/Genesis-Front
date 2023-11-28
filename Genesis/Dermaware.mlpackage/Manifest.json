@@ -1,0 +1,24 @@
+{
+    "fileFormatVersion": "1.0.0",
+    "itemInfoEntries": {
+        "26E30D17-702E-411B-BE07-A5345F9AC802": {
+            "author": "com.apple.CoreML",
+            "description": "External Metadata Overlay",
+            "name": "Metadata.json",
+            "path": "com.apple.CoreML/Metadata.json"
+        },
+        "3B946C78-499A-412A-8230-18EB581B10A4": {
+            "author": "com.apple.CoreML",
+            "description": "External FeatureDescription Overlay",
+            "name": "FeatureDescriptions.json",
+            "path": "com.apple.CoreML/FeatureDescriptions.json"
+        },
+        "ABA5CA2C-19B2-4BC0-AD5C-7467D7E3C924": {
+            "author": "com.apple.CoreML",
+            "description": "CoreML Model Specification",
+            "name": "Dermaware.mlmodel",
+            "path": "com.apple.CoreML/Dermaware.mlmodel"
+        }
+    },
+    "rootModelIdentifier": "ABA5CA2C-19B2-4BC0-AD5C-7467D7E3C924"
+}

@@ -73,8 +73,9 @@ struct ChatView: View {
                            ZStack {
                                DescriptionPlaceholder()
                                TextEditor(text: $chatText)
-                                   .opacity(chatText.isEmpty ? 0.5 : 1)
-                                   .background(Color.clear) // Remover el fondo del TextEditor
+                                   
+                                   .background(Color("ListColor"))
+                               
                            }
                            .frame(height: 40)
                            .cornerRadius(20) // Añadir corner radius aquí si deseas bordes redondeados en el TextEditor

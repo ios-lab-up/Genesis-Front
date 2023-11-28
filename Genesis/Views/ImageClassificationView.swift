@@ -19,12 +19,12 @@ func analyzeImage(image: UIImage) {
     
     do {
         let config = MLModelConfiguration()
-        let model = try NanoChallenge_2(configuration: config)
-        let input = NanoChallenge_2Input(image: buffer)
+        let model = try Dermaware(configuration: config)
+        let input = DermawareInput(image: buffer)
         
         let output = try model.prediction(input: input)
         
-        let top3Predictions = Array(output.classLabelProbs.sorted(by: { $0.value > $1.value }).prefix(3))
+        let top3Predictions = Array(output.targetProbability.sorted(by: { $0.value > $1.value }).prefix(3))
         
         // Print top 3 predictions for debugging purposes
         for (index, prediction) in top3Predictions.enumerated() {

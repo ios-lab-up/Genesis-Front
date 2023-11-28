@@ -1,0 +1,10 @@
+{
+  "MLModelDescriptionKey" : "Image Classification modifier, proyect for Genesis.\n\nLabels used: Melanoma, superficial lesions, insect bites, vitiligo, Cutaneus sickness, healty skin and Random.\n\nMelanoma - skin cancer\nsuperficial lesion - bruisses, burns and trauma\nInsect bites - mosquito, bed bugs, bees, and other insects\nVitiligo - patches of skin to become white \nCutaneus sickness - as fungi, dandruff and other sickness\nHealty skin - our control group with acne, dots.\nRandom daily objects at a close up, to prevent.\n\n\n\nThis model just has data set images appended Together, it is balanced but has no quality\n\nBut i works\n\n",
+  "MLModelCreatorDefinedKey" : {
+    "com.apple.createml.version" : "14.1.1",
+    "com.apple.createml.app.tag" : "121.1",
+    "com.apple.coreml.model.preview.type" : "imageClassifier",
+    "com.apple.createml.app.version" : "5.0"
+  },
+  "MLModelAuthorKey" : "Lorenzo Reinoso"
+}

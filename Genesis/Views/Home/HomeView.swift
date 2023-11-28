@@ -15,16 +15,22 @@ struct HomeView: View {
         TabView(selection: $globalDataModel.tabSelection ){
             DashboardView()
                 .tabItem {
-                    Label("Home", systemImage: "house")
+                    Label("Inicio", systemImage: "house")
                 }
                 .tag("1")
                 
             Photo()
                 .tabItem {
-                    Label("Analize", systemImage: "camera")
+                    Label("Analizar", systemImage: "camera")
                 }
                 .tag("2")
                 .environmentObject(ViewModel())
+            
+            ScheduleView()
+                .tabItem {
+                    Label("Calendario", systemImage: "calendar")
+                }
+                .tag("3")
             
             /*HealthKitView()
                 .tabItem {
