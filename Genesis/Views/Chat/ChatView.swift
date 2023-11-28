@@ -62,7 +62,7 @@ struct ChatView: View {
                            }
                        }
                        .padding(.horizontal)
-                       .background(Color(.init(white: 0.95, alpha: 1)))
+                       .background(Color.white)
 
                
                        HStack {
@@ -72,27 +72,40 @@ struct ChatView: View {
                                .padding(.leading, 10) // Padding interno del icono
 
                            TextEditor(text: $chatText)
-                               .frame(minHeight: 30, maxHeight: 30) // Limita la altura del TextEditor
+                               .frame(minHeight: 20, maxHeight: 20) // Limita la altura del TextEditor
                                .padding(4) // Padding interno para el texto
                                
                                
 
                            Button(action: {
-                               // Acciones para enviar el mensaje
+                               let message = chatText // Capture the current chat text
+                                                      if let toId = userChat?.id { // Safely unwrap the optional userChat ID
+                                                          FirebaseManager.shared.saveMessage(message: message, toId: String(toId)) { error in
+                                                              DispatchQueue.main.async {
+                                                                  if let error = error {
+                                                                      print("Error saving message: \(error.localizedDescription)")
+                                                                  } else {
+                                                                      chatText = "" // Reset chatText on the main thread
+                                                                      print("Successfully saved message")
+                                                                  }
+                                                              }
+                                                          }
+                                                      }
                            }) {
                                Image(systemName: "paperplane.fill")
-                                   .foregroundColor(.white)
+                                   .foregroundColor(.black)
                                    .padding(8) // Padding interno del botón de enviar
-                                   .background(Color.blue)
+                                   .background(Color("yellowsito"))
                                    .clipShape(Circle())
                            }
                            .padding(.trailing, 10) // Padding externo del botón de enviar
                        }
-                       .padding(.horizontal, 10) // Padding externo del HStack
-                       .padding(.vertical, 8) // Padding vertical para el HStack
+                       .padding(.horizontal, 3) // Padding externo del HStack
+                       .padding(.vertical, 5) // Padding vertical para el HStack
                        .background(Color.white)
                        .cornerRadius(20) // Radio de las esquinas del fondo
-                       .shadow(radius: 1) // Sombra opcional para profundidad
+                       .shadow(radius: 1)
+                       .padding(.horizontal,5)// Sombra opcional para profundidad
 
 
 
