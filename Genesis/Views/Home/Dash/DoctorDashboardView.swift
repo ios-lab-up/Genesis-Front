@@ -15,6 +15,8 @@ struct DoctorDashboardView: View {
     @ObservedObject var globalDataModel = GlobalDataModel.shared
     @State var showProfileView = false
     @State var showMedRecordView = false
+    @State var navigateToNewView = false
+
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     var body: some View {
@@ -150,6 +152,9 @@ struct DoctorDashboardView: View {
                     Spacer()
                 }
                 
+            }.fullScreenCover(isPresented: $showProfileView){
+                ProfileView()
+                    .environmentObject(globalDataModel)
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -163,27 +168,30 @@ struct DoctorDashboardView: View {
                         
                         Spacer()
                         
-                        ZStack {
-                            AsyncImage(url: URL(string: "https://media.discordapp.net/attachments/856712471774494720/1134959498113589399/Memoji_Disc.png?width=809&height=809")) { image in
+                        ZStack{
+                            AsyncImage(url: URL(string: globalDataModel.userProfileImageUrl ?? "")) { image in
+                                
                                 image
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
                                     .clipShape(Circle())
                                     .onTapGesture {
-                                        // If you want to navigate to a new view, you can uncomment and use this
-                                        // navigateToNewView = true
+                                        navigateToNewView = true
+                                        
                                     }
                             } placeholder: {
-                                Circle().foregroundColor(.purple)
+                                ZStack {
+                                    Circle().foregroundColor(.purple)
+                                }
                             }
                             .frame(width: 45, height: 45)
                             
-                            // If you plan to use a button, it should be here
-                            // Button(action: { showProfileView.toggle() }) {
-                            //    Circle()
-                            //        .foregroundStyle(Color.clear)
-                            //        .frame(width: 45, height: 45)
-                            // }
+                            Button(action:{showProfileView.toggle()}){
+                               Circle()
+                                    .foregroundStyle(Color.clear)
+                                    .frame(width: 45, height: 45)
+                                
+                            }
                         }
                     }
                 }
