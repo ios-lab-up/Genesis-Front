@@ -10,6 +10,7 @@ import SwiftUI
 
 struct Photo: View {
     @EnvironmentObject var vm: ViewModel
+    @ObservedObject var globalDataModel = GlobalDataModel.shared
     @State private var navigateToDashboard = false
     var body: some View {
         NavigationView {
@@ -39,7 +40,7 @@ struct Photo: View {
                 HStack{
                     if vm.image != nil{
                         Button(action: {
-                                            self.navigateToDashboard = true
+                            globalDataModel.tabSelection = "1"
                                         }){
                                             ZStack{
                                                 RoundedRectangle(cornerRadius: 20.0)

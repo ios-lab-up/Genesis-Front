@@ -44,74 +44,59 @@ struct ChatView: View {
     
     @Environment(\.presentationMode) var close
     
+    private var currentUserId: String {
+            String(globalData.user?.id ?? -1)
+        }
     
     var body: some View {
-        NavigationView{
-            VStack{
-                ScrollView{
-                    ForEach(messages) { message in
-                        HStack{
-                            Spacer()
-                            VStack(alignment: .trailing) {  // Align text to the right
-                                Text(message.text)
-                                    .foregroundColor(.white)
-                                    .padding(8)
-                                    .background(Color("Primary"))
-                                    .cornerRadius(8)
+        NavigationView {
+                   VStack {
+                       ScrollView(showsIndicators: false){
+                           ForEach(messages) { message in
+                               
+                               if message.fromId == currentUserId {
+                                   MessageView(message: message, isCurrentUser: true)
+                               } else {
+                                   MessageView(message: message, isCurrentUser: false)
+                               }
+                           }
+                       }
+                       .padding(.horizontal)
+                       .background(Color(.init(white: 0.95, alpha: 1)))
 
-                                Text(formatDate(message.timestamp)) // Timestamp below the message text
-                                    .font(.caption)
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 8)
-                                    .padding(.bottom, 4)
-                            }
-                        }
-                        .padding(.horizontal)
-                        .padding(.top, 8)
-                    }
-                    HStack{Spacer()}
-                }
-                .background(Color(.init(white:0.95, alpha:1)))
+                .background(Color("ListColor"))
+                       HStack(spacing: 16) {
+                           Image(systemName: "photo.on.rectangle")
+                               .font(.system(size: 24))
+                               .foregroundColor(.gray)
+                           
+                           ZStack {
+                               DescriptionPlaceholder()
+                               TextEditor(text: $chatText)
+                                   .opacity(chatText.isEmpty ? 0.5 : 1)
+                                   .background(Color.clear) // Remover el fondo del TextEditor
+                           }
+                           .frame(height: 40)
+                           .cornerRadius(20) // Añadir corner radius aquí si deseas bordes redondeados en el TextEditor
+                           
+                           Button {
+                               // Aquí va tu código para manejar el envío del mensaje
+                           } label: {
+                               Image(systemName: "paperplane.fill")
+                                   .foregroundColor(.black)
+                                   .padding(8) // Añadir padding alrededor del icono para que no esté pegado al borde
+                           }
+                           .background(Color("yellowsito")) // Usar el color de fondo primario para el botón
+                           .cornerRadius(100) // Esto hará que el botón sea un círculo perfecto
+                           .padding(.trailing, 10) // Añadir padding a la derecha del botón para separarlo del borde
+                       }
+                       .clipShape(Capsule()) // Esto dará a todo el HStack una forma de cápsula
+                       .border(Color("blackish"), width: 1) // Añadir un borde verde
+                       .cornerRadius(25) // Asegurarte de que el corner radius aquí sea suficientemente grande para afectar la forma de cápsula
+                       .padding(.horizontal, 5)
 
-                .background(Color(.init(white:0.95, alpha:1)))
-                HStack(spacing: 16){
-                    Image(systemName: "photo.on.rectangle")
-                        .font(.system(size: 24))
-                        .foregroundColor(.gray)
-                    ZStack{
-                        DescriptionPlaceholder()
-                        TextEditor(text: $chatText)
-                            .opacity(chatText.isEmpty ? 0.5:1)
-                    }
-                    .frame(height: 40)
-                    
-                    Button {
-                        let message = chatText // Capture the current chat text
-                        if let toId = userChat?.id { // Safely unwrap the optional userChat ID
-                            FirebaseManager.shared.saveMessage(message: message, toId: String(toId)) { error in
-                                DispatchQueue.main.async {
-                                    if let error = error {
-                                        print("Error saving message: \(error.localizedDescription)")
-                                    } else {
-                                        chatText = "" // Reset chatText on the main thread
-                                        print("Successfully saved message")
-                                    }
-                                }
-                            }
-                        }
-                    } label: {
-                        Text("Send")
-                            .foregroundColor(.white)
-                    }
-                    .padding(.horizontal)
-                    .padding(.vertical, 12)
-                    .background(Color("Primary"))
-                    .cornerRadius(8)
-                    
-                    
-                    
-                    
-                }.toolbar{
+                .background(Color("ListColor"))
+                .toolbar{
                     ToolbarItem(placement: .topBarLeading){
                         Button(action:{
                             close.wrappedValue.dismiss()
@@ -130,9 +115,6 @@ struct ChatView: View {
                 }
                 .navigationTitle(userChat?.name ?? "Chat")
                 .navigationBarTitleDisplayMode(.inline)
-            }.onAppear{
-                // Fetch messages when the view appears
-                fetchUserMessages()
             }
         }.onAppear{
             fetchUserMessages()

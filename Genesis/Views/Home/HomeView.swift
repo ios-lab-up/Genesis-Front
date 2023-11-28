@@ -10,18 +10,20 @@ import SwiftUI
 
 
 struct HomeView: View {
-    
+    @ObservedObject var globalDataModel = GlobalDataModel.shared
     var body: some View {
-        TabView {
+        TabView(selection: $globalDataModel.tabSelection ){
             DashboardView()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
+                .tag("1")
                 
             Photo()
                 .tabItem {
                     Label("Analize", systemImage: "camera")
                 }
+                .tag("2")
                 .environmentObject(ViewModel())
             
             /*HealthKitView()

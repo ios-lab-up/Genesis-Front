@@ -318,6 +318,8 @@ struct ProfileView: View {
                     .padding(.bottom, 50)
                 }
             }
+            .navigationTitle("Mi Perfil")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar{
                 ToolbarItem(placement: .topBarLeading){
                     Button(action:{

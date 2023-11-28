@@ -8,6 +8,7 @@
 import Foundation
 
 class GlobalDataModel: ObservableObject {
+    @Published var tabSelection: String = "1"
     static let shared = GlobalDataModel()
     @Published var user: User?
     @Published var userRelations: [User] = []
