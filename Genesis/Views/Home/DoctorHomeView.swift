@@ -15,17 +15,15 @@ struct DoctorHomeView: View {
                        Label("Home", systemImage: "house")
                    }
                    
-               Photo()
+               AddPatientsView()
                    .tabItem {
-                       Label("Calendar", systemImage: "calendar")
+                       Label("Patients", systemImage: "person.3.fill")
                    }
-                   .environmentObject(ViewModel())
                
-              /* HealthKitView()
+               ChatView()
                    .tabItem {
-                       Label("My Badge", systemImage: "heart.text.square.fill")
+                       Label("Chat", systemImage: "message.fill")
                    }
-                   .environmentObject(HealthManager())*/
                 }
 
            }
