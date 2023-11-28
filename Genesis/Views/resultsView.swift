@@ -1,10 +1,12 @@
 import SwiftUI
 
+
+
+
 struct resultsView: View {
     
     @ObservedObject var globalDataModel = GlobalDataModel.shared
     @Environment(\.presentationMode) var close
-
     var body: some View {
         NavigationView{
             VStack{
@@ -16,7 +18,7 @@ struct resultsView: View {
                         VStack(alignment: .leading){
                             Text("Tus Resultados")
 
-                            Text("resultText")
+                            Text(globalDataModel.userImages.last?.mlDiagnostic.first?.sickness ?? "N/A")
                                 .font(.title)
                                 .padding(.bottom, 1)
                             Text("Clasificaciones dermatológicas basadas en análisis probabilístico mediante modelo de aprendizaje automático.")
@@ -51,7 +53,7 @@ struct resultsView: View {
                             
                             HStack{
                                 
-                                Text("Tu \npredicción\nporcentaje")
+                                Text("Tu \npredicción")
                                     .bold()
                                 Spacer()
                                 ZStack{
@@ -64,7 +66,7 @@ struct resultsView: View {
 
                             
 
-                            Text("Int(progressValue)%") // Texto del resultado
+                            Text("") // Texto del resultado
                                                         .font(.title)
                                                         .bold()
                                                         .padding(.top)
@@ -80,25 +82,25 @@ struct resultsView: View {
                     
                     
                     VStack(alignment: .leading){
-                        Text(globalDataModel.userImages.) // Texto del resultado
+                        Text(globalDataModel.userImages.last?.mlDiagnostic.first?.sickness ?? "N/A") // TextoN del resultado
                             .font(.title3)
                             .bold()
 
-                        ProgressView(value: 50, total: 100) // Barra de progreso
+                        ProgressView(value: (globalDataModel.userImages.last?.mlDiagnostic.first?.precision ?? 0.0) * 100.0, total: 100) // Barra de progreso
                             .progressViewStyle(LinearProgressViewStyle(tint: Color("green")))
                         
-                        Text("resultText2") // Texto del resultado
+                        Text(globalDataModel.userImages.last?.mlDiagnostic[1].sickness ?? "N/A") // Texto del resultado
                             .font(.title3)
                             .bold()
 
-                        ProgressView(value: 50, total: 100) // Barra de progreso
+                        ProgressView(value: (globalDataModel.userImages.last?.mlDiagnostic[1].precision ?? 0.0) * 100.0, total: 100) // Barra de progreso
                             .progressViewStyle(LinearProgressViewStyle(tint: Color("green")))
                         
-                        Text("resultText3") // Texto del resultado
+                        Text(globalDataModel.userImages.last?.mlDiagnostic.last?.sickness ?? "N/A") // Texto del resultado
                             .font(.title3)
                             .bold()
 
-                        ProgressView(value: 50, total: 100) // Barra de progreso
+                        ProgressView(value: (globalDataModel.userImages.last?.mlDiagnostic.last?.precision ?? 0.0) * 100.0, total: 100) // Barra de progreso
                             .progressViewStyle(LinearProgressViewStyle(tint: Color("green")))
                     }
 
@@ -129,10 +131,8 @@ struct resultsView: View {
             }
         }
     }
+    
 }
 
 
 
-func findHighestPrecisionDiagnosis(in diagnostics: [Diagnostic]) -> Diagnostic? {
-    return diagnostics.max(by: { $0.precision < $1.precision })
-}
