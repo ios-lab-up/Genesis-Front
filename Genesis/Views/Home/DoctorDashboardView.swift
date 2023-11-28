@@ -86,8 +86,8 @@ struct DoctorDashboardView: View {
                                         RoundedRectangle(cornerRadius: 25.0)
                                             .fill(LinearGradient(
                                                 gradient: Gradient(stops: [
-                                                    .init(color: Color("blackish"), location: 0.75),
-                                                    .init(color: Color("yellowsito"), location: 0.25)
+                                                    .init(color: Color("yellowish"), location: 0.25),
+                                                    .init(color: Color("blackish"), location: 0.75)
                                                 ]),
                                                 startPoint: .top,
                                                 endPoint: .bottom))
