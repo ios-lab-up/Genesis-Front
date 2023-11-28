@@ -97,7 +97,7 @@ struct PatientCardView: View {
                     Text("     Melanoma")
                         .font(.system(size: 16))
                     Text(" ")
-                    NavigationLink(destination: ScheduleView()) {
+                    NavigationLink(destination: AgregarPacienteDetalles()) {
                         Text("Detalles")
                             .font(.system(size: 20))
                             .foregroundColor(Color("blackish")) // Use foregroundColor for text color
